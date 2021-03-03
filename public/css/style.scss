@@ -1,0 +1,295 @@
+@import '_swiper.scss';
+
+$grey: gray;
+$blue: rgb(0, 0, 255);
+$orange: orangered;
+
+p{
+    line-height: 2em;
+    text-align: justify;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+button, button:focus, input, input:focus{
+    outline: 0;
+}
+.navbar{
+    background-color: #fff;
+    .nav-link{
+        color: $orange;
+    }
+}
+.footer{
+    background: rgb(29, 29, 29);
+    padding: 30px 0;
+    color: white;
+    text-align: left;
+    .container{
+        max-width: 95%;
+        .footer-content{
+            .underline{
+                width: 80px;
+                height: 2px;
+                background: $blue;
+                margin-bottom: 20px;
+            }
+            h3{
+                text-align: left;
+            }
+            ul{
+                padding-left: 0;
+                li{
+                    padding: 5px 0;
+                    list-style-type: none;
+                    a{
+                        color: white;
+                        text-decoration: none;
+                        transition: 0.3s ease-in-out;
+                        &:hover{
+                            color: $blue;
+                        }
+                    }
+                }
+            }
+            .fa{
+                margin-right: 10px;
+                transition: 0.3s ease-in-out;
+                &:hover{
+                    color: $blue;
+                }
+            }
+        }
+    }
+}
+.footer-bottom{
+    background: rgb(49, 49, 49);
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+}
+.home-banner{
+    .banner{
+        position: relative;
+        .overlay{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+        }
+    }
+    .swiper-button-next, .swiper-button-prev{
+        display: none;
+    }
+}
+.who{
+    padding: 25px 0;
+    h2{
+        text-align: center;
+        font-weight: bold;
+    }
+    .row{
+        padding: 40px 0;
+        img{
+            max-width: 350px;
+        }
+        .col-sm-7{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+.our-vendors{
+    padding: 25px 0;
+    h2{
+        text-align: center;
+        font-weight: bold;
+    }
+    .testimony{
+        padding: 40px 0;
+        img{
+            max-width: 300px;
+        }
+        h5{
+            font-weight: bold;
+            color: $blue;
+        }
+        .quote-img{
+            padding: 25px 0;
+        }
+        h5,p{
+            padding-left: 10px;
+        }
+        .col-sm-5{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+.our-products{
+    text-align: center;
+    padding: 25px 0;
+    .row{
+        padding: 20px 0;
+        .card{
+            margin: 15px 0;
+            box-shadow: 0 0 5px #aaa;
+            transition: 0.2s ease-in-out;
+            border: none;
+            cursor: pointer;
+            &:hover{
+                box-shadow: 0 0 20px #aaa;
+            }
+            .card-body{
+                p{
+                    text-align: center;
+                }
+                .price{
+                    color: $orange;
+                    text-align: center;
+                }
+                .addtocart{
+                    color: $blue;
+                    width: 100%;
+                    border: none;
+                    background: transparent;
+                }
+            }
+        }
+    }
+}
+.auth{
+    padding: 30px 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 17, 255, 0.2)),  url('../images/auth-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    .col-sm-5{
+        background: white;
+        padding: 30px;
+        border-radius: 5px;
+       h2, p{
+        text-align: center;
+       }
+    }
+    .row{
+        padding: 25px 0;
+    }
+    a{
+        color: $blue;
+        text-decoration: none;
+    }
+    .gofb{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 25px 0;
+        & > button{
+            margin-right: 10px;
+        }
+        .kep-login-facebook.metro{
+            height: 68px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+    }
+    form{
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            background: #f1f1f1;
+        } 
+        .amitBtn{
+            background: $blue;
+            color: white;
+            padding: 10px 50px;
+            margin: 15px 0;
+            border: 1px solid $blue;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s ease-in-out;
+            &:hover{
+                background: white;
+                border: 1px solid $blue;
+                color: $blue;
+            }
+        }
+        button[type=button]{
+            max-width: 100px;
+        }
+    }
+}
+.products{
+    padding: 50px 0;
+    .product-title{
+        text-align: center;
+    }
+    .product-details{
+        .fa{
+            color: $blue;
+            &::before{
+                margin-right: 5px;
+            }
+        }
+        .product-price{
+            color: $orange;
+            font-weight: bold;
+        }
+        .quantity-input{
+            .input-group{
+                align-items: center;
+                input{
+                    max-width: 100px;
+                }
+            }
+            .cart-btn{
+                margin-left: 25px;
+                text-decoration: none;
+                padding: 6px 40px;
+                background: white;
+                border: 2px solid $blue;
+                border-radius: 3px;
+                color: $blue;
+                transition: 0.3s ease-in-out;
+                &:hover{
+                    background: $blue;
+                    color: white;
+                }
+            }
+        }
+        .description{
+            margin: 25px 0;
+            .nav-tabs{
+                border: none;
+                .nav-item{
+                    border: none;
+                    .nav-link{
+                        color: black;
+                        transition: 0.2s ease-in-out;
+                        border: 2px solid transparent; 
+                        padding: 8px 0;
+                        margin-right: 20px;                      
+                        &:focus{
+                            border-bottom: 2px solid $blue;
+                        }
+                    }
+                }
+            }
+            .tab-content{
+                margin: 10px 0;
+            }
+        }
+    }
+    .product-image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+.admin{
+    padding: 30px 0;
+}
