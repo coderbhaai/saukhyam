@@ -26,7 +26,7 @@ export class ForgotPassword extends Component {
             .then(res=> {
                 if(res.data.success){
                     localStorage.setItem('message', res.data.message)
-                    window.location.href = '/'
+                    window.location.href = func.base
                 }else{
                     func.callSwal(res.data.message)
                 }

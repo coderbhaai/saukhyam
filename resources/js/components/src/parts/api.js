@@ -1,12 +1,11 @@
-// const base = '/api/'
-const base = '/saukhyam/api/'
+const func = require('./functions')
 
 export default {
-    register: base+'register',
-    login: base+'login',
-    logout: base+'logout',
-    forgotPassword: base+'forgotPassword',
-    resetPassword: base+'resetPassword',
+    register: func.base+'api/register',
+    login: func.base+'api/login',
+    logout: func.base+'api/logout',
+    forgotPassword: func.base+'api/forgotPassword',
+    resetPassword: func.base+'api/resetPassword',
 
-    adminUsers : base+'adminUsers',
+    adminUsers : func.base+'api/adminUsers',
 }

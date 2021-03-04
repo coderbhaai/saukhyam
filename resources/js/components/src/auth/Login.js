@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-const func = require('../parts/functions')
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import api from '../parts/api'
+const func = require('../parts/functions')
 
 class Login extends Component {
     constructor(props){
@@ -27,7 +27,7 @@ class Login extends Component {
         if(url[1]){
             localStorage.removeItem('user')
             this.setState({ auth: false })
-            window.location.href = '/login'
+            window.location.href = func.base+'login'
         }
     }
 
@@ -43,7 +43,7 @@ class Login extends Component {
                 if(res.data.success){
                     localStorage.setItem('user', JSON.stringify(res.data.data))
                     localStorage.setItem('message', res.data.message)
-                    window.location.href = '/'
+                    window.location.href = func.base
                 }else{ func.callSwal(res.data.message) }
             })
             .catch(err=>func.printError(err))
@@ -61,19 +61,19 @@ class Login extends Component {
                 password: res.userID,
             };
         }
-        axios.post('/api/login', data)
+        axios.post(api.login, data)
             .then(res=> {
                 if(res.data.success){
                     localStorage.setItem('user', JSON.stringify(res.data.data))
                     localStorage.setItem('message', res.data.message)
-                    window.location.href = '/'
+                    window.location.href = func.base
                 }else{ func.callSwal(res.data.message) }
             })
             .catch(err=>{ func.printError(err) })
     }
 
     render() {
-        if(this.state.auth){ window.location.href = '/' }
+        if(this.state.auth){ window.location.href = func.base }
         const loginGoogle = (res) => { this.gofbLogin(res, 'Google'); }
         const loginFB = (res) => { this.gofbLogin(res, 'FB'); }
 
@@ -89,7 +89,7 @@ class Login extends Component {
                                 <label>Password</label>
                                 <input type="password" placeholder="Enter password" name="password" id="password" required onChange={this.onChange} value={this.state.password} />
                                 <button type="submit" className="amitBtn">Login</button>
-                                <div className="text-center"><a href="/forgotPassword">Forgot password</a></div>
+                                <div className="text-center"><a href={func.base+"forgotPassword"}>Forgot password</a></div>
                             </form>
                             <div className="gofb">
                                 <GoogleLogin clientId={this.state.clientId} buttonText="Login with Google" onSuccess={loginGoogle} onFailure={loginGoogle} ></GoogleLogin>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+const func = require('../parts/functions')
 
 export class AdminSidebar extends Component {
     constructor(props) {
@@ -15,15 +16,13 @@ export class AdminSidebar extends Component {
         if(typeof(Storage) !== "undefined" ){ 
             this.setState({ role: JSON.parse(localStorage.getItem('user')).role || '' })
         }
-        if(window.location.pathname === '/admin'){ this.setState({ active: '/adminUsers' }) }
-        // if(window.location.pathname.split("/")[1] === 'admin-updateEvent'){ this.setState({ active: '/admin-events' }) }
-
+        if(window.location.pathname === func.base+"admin"){ this.setState({ active: func.base+"adminUsers" }) }
         this.setState({ active: window.location.pathname })  
     }
    
     render() {
         const admin =[
-            {text: 'Users', url: '/adminUsers', active: '/adminUsers'},
+            {text: 'Users', url: func.base+"adminUsers", active: func.base+"adminUsers"},
         ]
         return (
             <div className="col-sm-2 sidebar">                                

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Swiper from 'react-id-swiper'
 const func = require('../parts/functions')
 
+
+
 export class Home extends Component {
     render() {
         return (
@@ -11,7 +13,7 @@ export class Home extends Component {
                     <Swiper {...func.params}>
                         {func.banner.map((i,index)=>(
                             <div className="banner" key={index}>
-                                <img src={"/images/"+i.img}/>
+                                <img src={func.base+"images/"+i.img}/>
                             </div>
                         ))}
                     </Swiper>
@@ -21,7 +23,7 @@ export class Home extends Component {
                         <h2>Who we are</h2>
                         <div className="row">
                             <div className="col-sm-4">
-                                <img src="/images/who.jpg" alt="" />
+                                <img src={func.base+"images/who.jpg"} alt="" />
                             </div>
                             <div className="col-sm-8">
                                 <p>If you're considering a new laptop, looking for a powerful new car stereo or shopping for a new HDTV, we make it easy to find exactly what you need at a price you can afford. We offer Every Day Low Prices on TVs, laptops, cell phones, tablets and iPads, video games, desktop computers, cameras and camcorders, audio, video and more.</p>
@@ -37,10 +39,9 @@ export class Home extends Component {
                                 <Swiper {...func.params2}>
                                     {func.testimony.map((i,index)=>(
                                         <div key={index}>
-                                            <img className="vendors-img" src={"/images/static/"+i.img}/>
+                                            <img className="vendors-img" src={func.base+"images/static/"+i.img}/>
                                             <div>
                                                 <i className="fa fa-quote-left" aria-hidden="true"></i>
-                                                {/* <img className="quote-img" src="/images/left-quote.png"/> */}
                                                 <p className="text">{i.text}</p>
                                                 <i className="fa fa-quote-right" aria-hidden="true"></i>
                                                 <h5 className="title">{i.title}</h5>
@@ -59,7 +60,7 @@ export class Home extends Component {
                             {func.products.map((i,index)=>(
                                 <div className="col-sm-4" key={index}>
                                     <div className="card imgScale">
-                                        <img src={"/images/"+i.img}/>
+                                        <img src={func.base+"images/"+i.img}/>
                                         <div className="card-body">
                                             <h4>{i.title}</h4>
                                             <ul>

@@ -26,7 +26,7 @@ class Register extends Component {
         if(typeof(Storage) !== "undefined" && JSON.parse(localStorage.getItem('user'))){ 
             if(JSON.parse(localStorage.getItem('user')).role){
                 this.setState({ auth: true })
-                window.location.href = '/'
+                window.location.href = func.base
             }
         }
     }
@@ -101,7 +101,7 @@ class Register extends Component {
                     <div className="row">
                         <div className="col-sm-5">
                             <h2>Register</h2>
-                            <p>Already have an account <a href="/login">Sign in</a></p>
+                            <p>Already have an account <a href={func.base+"login"}>Sign in</a></p>
                             <div className="gofb">
                                 <GoogleLogin clientId={this.state.clientId} buttonText="Register with Google" onSuccess={regGoogle} onFailure={regGoogle} ></GoogleLogin>
                                 <FacebookLogin textButton="Sign up with Facebook" appId="476215263560097" autoLoad={false} fields="name,email,picture" callback={regFB}/>

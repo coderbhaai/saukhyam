@@ -1,3 +1,6 @@
+// export const base = '/'
+export const base = '/saukhyam/'
+
 export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
 export function printError(mesg){ console.log('mesg', mesg) }
 

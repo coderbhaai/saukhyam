@@ -34,7 +34,7 @@ class ResetPassword extends Component {
             .then(res=> {
                 if(res.data.success){
                     localStorage.setItem('message', res.data.message)
-                    window.location.href = '/login'
+                    window.location.href = func.base+"login"
                 }else{
                     this.callSwal(res.data.message)
                 }
