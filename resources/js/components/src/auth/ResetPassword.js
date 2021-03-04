@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import swal from 'sweetalert'
 const func = require('../parts/functions')
+import api from '../parts/api'
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class ResetPassword extends Component {
             password:                   this.state.password,
             confirm_password:           this.state.confirm_password
         }
-        axios.post('/api/resetPassword', data)
+        axios.post(api.resetPassword, data)
             .then(res=> {
                 if(res.data.success){
                     localStorage.setItem('message', res.data.message)

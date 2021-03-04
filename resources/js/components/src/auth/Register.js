@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 const func = require('../parts/functions')
+import api from '../parts/api'
 
 class Register extends Component {
     constructor(props) {
@@ -43,7 +44,7 @@ class Register extends Component {
             password_confirmation:      this.state.password_confirmation,
             provider:                   this.state.provider,
         }
-        axios.post('/api/register', data)
+        axios.post(api.register, data)
         .then( res=>{
             if(res.data.success){
                 localStorage.setItem('user', JSON.stringify(res.data.data))

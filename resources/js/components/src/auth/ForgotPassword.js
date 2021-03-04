@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 const func = require('../parts/functions')
+import api from '../parts/api'
 
 export class ForgotPassword extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export class ForgotPassword extends Component {
         const data={
             email:                      this.state.email
         }
-        axios.post('/api/forgotPassword', data)
+        axios.post(api.forgotPassword, data)
             .then(res=> {
                 if(res.data.success){
                     localStorage.setItem('message', res.data.message)

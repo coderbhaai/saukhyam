@@ -16,7 +16,7 @@ import AdminUser from './src/admin/User'
 
 import RequireAdmin from './src/parts/RequireAdmin'
 
-const base = '/'
+const base = '/saukhyam'
 
 function Index() {
     return (

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AdminSidebar from '../parts/AdminSidebar'
 import moment from "moment"
+import api from '../parts/api'
 
 export class User extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export class User extends Component {
     }
 
     callApi = async () => {
-        const response = await fetch( '/api/adminUsers', { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
+        const response = await fetch( api.adminUsers, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
         console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
