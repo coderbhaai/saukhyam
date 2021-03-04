@@ -34,7 +34,8 @@
     <h2>Welcome, {{ $user->name }}</h2>
     <p>We are happy to have you onboard with us. </p>
     <p>Please click on the below button to reset your password.</p><br>
-    <a href="{{ url('http://saukhyam.xyz/resetPassword', $token)}}"><button>Reset Password</button></a><br>
+    <!-- <a href="{{ url('http://saukhyam.xyz/resetPassword', $token)}}"><button>Reset Password</button></a><br> -->
+    <a href="{{ url('/resetPassword', $token)}}"><button>Reset Password</button></a><br>
     <p>Thanks a lot</p>
     <h2>Team Saukhyam</h2>
 		

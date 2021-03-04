@@ -132,9 +132,8 @@ class AuthController extends Controller
                     ['email' => $request->email],
                     ['token' => $token, 'created_at' => $date]
                 );
-                dd($user);
             Mail::to( $request->email)->cc(['amit.khare588@gmail.com'])->send(new ForgotPassword($token, $user)); 
-            $response = ['success'=>true, 'response' => "Password Reset Email Sent. Please Check"];
+            $response = ['success'=>true, 'message' => "Password Reset Email Sent. Please Check"];
         }
         return response()->json($response, 201);
     }

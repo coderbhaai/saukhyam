@@ -2363,7 +2363,7 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                   className: "text-center",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
-                    href: "#",
+                    href: "/forgotPassword",
                     children: "Forgot password"
                   })
                 })]

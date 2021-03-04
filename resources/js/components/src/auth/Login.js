@@ -91,7 +91,7 @@ class Login extends Component {
                                 <label>Password</label>
                                 <input type="password" placeholder="Enter password" name="password" id="password" required onChange={this.onChange} value={this.state.password} />
                                 <button type="submit" className="amitBtn">Login</button>
-                                <div className="text-center"><a href="#">Forgot password</a></div>
+                                <div className="text-center"><a href="/forgotPassword">Forgot password</a></div>
                             </form>
                             <div className="gofb">
                                 <GoogleLogin clientId={this.state.clientId} buttonText="Login with Google" onSuccess={loginGoogle} onFailure={loginGoogle} ></GoogleLogin>
