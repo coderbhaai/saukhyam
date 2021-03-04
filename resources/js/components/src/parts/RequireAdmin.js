@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 export default function(ComposedComponent){
     class RequireAdmin extends Component {        
         componentDidMount(){
-            if(typeof(Storage) !== "undefined" && localStorage.getItem('user') ){ 
-                console.log("Welcome", JSON.parse(localStorage.getItem('user')).role )
+            if(typeof(Storage) !== "undefined" && localStorage.getItem('user') ){
                 if( JSON.parse(localStorage.getItem('user')).role === "Admin" ){
                 }else{
                     this.props.history.push('/login')

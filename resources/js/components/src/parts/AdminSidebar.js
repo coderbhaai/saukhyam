@@ -15,24 +15,22 @@ export class AdminSidebar extends Component {
         if(typeof(Storage) !== "undefined" ){ 
             this.setState({ role: JSON.parse(localStorage.getItem('user')).role || '' })
         }
+        if(window.location.pathname === '/admin'){ this.setState({ active: '/adminUsers' }) }
+        // if(window.location.pathname.split("/")[1] === 'admin-updateEvent'){ this.setState({ active: '/admin-events' }) }
+
         this.setState({ active: window.location.pathname })  
     }
    
     render() {
         const admin =[
-            {text: 'Users', url: '/admin-users', active: '/admin-users'},
-            {text: 'A & G', url: '/admin-attendance', active: '/admin-attendance'},
-            // {text: 'Basics', url: '/admin-basics', active: '/admin-basics'},
+            {text: 'Users', url: '/adminUsers', active: '/adminUsers'},
         ]
         return (
             <div className="col-sm-2 sidebar">                                
                 <ul>
-                    {this.state.role==='Admin' || this.state.role==='Supervisor'?
+                    {this.state.role==='Admin'?
                         admin.map((i, index)=>( <li key={index}><a href={i.url} className={i.url == this.state.active? 'active' : null}>{i.text}</a></li> ))
                     : null}
-                    {this.state.role==='Admin'? 
-                        <li><a href='/admin-basics' className={'/admin-basics' == this.state.active? 'active' : null}>Basics</a></li>
-                    : null }
                 </ul>
             </div>
         )

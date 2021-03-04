@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import swal from 'sweetalert'
+const func = require('../parts/functions')
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -27,8 +28,8 @@ class ResetPassword extends Component {
             email:                      this.state.email,
             password:                   this.state.password,
             confirm_password:           this.state.confirm_password
-        }               
-        axios.post('/auth/resetPassword', data)
+        }
+        axios.post('/api/resetPassword', data)
             .then(res=> {
                 if(res.data.success){
                     localStorage.setItem('message', res.data.message)
@@ -37,18 +38,17 @@ class ResetPassword extends Component {
                     this.callSwal(res.data.message)
                 }
             })
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
     }
 
     render() {
         return (
-            <>
-                <div className="container my-5">
-                    <h1 className="heading"><span>Reset </span>Password </h1>
+            <section className="auth">
+                <div className="container">
                     <div className="row">
-                        <div className="col-sm-3"></div>
-                        <div className="col-sm-6">
-                            <form onSubmit={this.submitHandler} className="auth">
+                        <div className="col-sm-5">
+                            <h2>Reset Password</h2>
+                            <form onSubmit={this.submitHandler}>
                                 <div>
                                     <label>E-Mail Address</label>
                                     <input id="emailRegister" type="email" className="form-control" name="email" required autoComplete="email" value={this.state.email} onChange={this.onChange} placeholder="Email Please"/>
@@ -68,7 +68,7 @@ class ResetPassword extends Component {
                         </div>
                     </div>
                 </div>
-            </>
+            </section>
         )
     }
 }

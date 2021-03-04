@@ -12,13 +12,9 @@ import Login from './src/auth/Login'
 import ForgotPassword from './src/auth/ForgotPassword'
 import ResetPassword from './src/auth/ResetPassword'
 
-// import AdminUser from './src/admin/User'
-// import Attendance from './src/admin/Attendance'
-// import Garbage from './src/admin/Garbage'
-// import Basic from './src/admin/Basic'
+import AdminUser from './src/admin/User'
 
-// import RequireAdmin from './src/parts/RequireAdmin'
-// import RequireAdminSup from './src/parts/RequireAdminSup'
+import RequireAdmin from './src/parts/RequireAdmin'
 
 const base = '/'
 
@@ -32,6 +28,10 @@ function Index() {
                 <Route exact path={base+"login"} component={Login}/>
                 <Route exact path="/forgotPassword" component={ForgotPassword} /> 
                 <Route exact path="/resetPassword/:token" component={ResetPassword} />
+                
+                <Route exact path="/admin" component={RequireAdmin(AdminUser)}/>
+                <Route exact path="/adminUsers" component={RequireAdmin(AdminUser)}/>
+
             </Switch>
             <Footer/>
         </Router>

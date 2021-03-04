@@ -138,4 +138,29 @@ class AuthController extends Controller
         return response()->json($response, 201);
     }
 
+    public function resetPassword(Request $request){
+        $user =     User::where('email', $request->email)->first();
+        $valid =    DB::table('password_resets')
+                        ->where('email', $request->email)
+                        ->where('token', $request->token)
+                        ->first();
+        if(is_null($user)){
+            $response = ['success'=>false, 'message'=>"No account by this name. Please register"];
+        }elseif($request->confirm_password !== $request->password){
+            $response = ['success'=>false, 'message'=>'Password Mismatch'];   
+            return response()->json($response, 201);
+        }elseif(is_null($valid)){
+            $response = ['success'=>false, 'message'=>'You did not ask for Password Reset'];
+        }else{
+                $token = substr(sha1(rand()), 0, 30);
+                $user->password =    \Hash::make($request->password);
+                $user->token = $token;
+                $user->save();
+                DB::delete('delete from password_resets where token = ?',[$request->token]);
+                $response = ['success'=>true, 'message' => "Password has been Reset. Please Login", 'valid'=>$valid];
+            }
+        
+        return response()->json($response, 201);
+    }
+
 }

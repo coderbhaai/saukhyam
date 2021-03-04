@@ -39,7 +39,6 @@ class Login extends Component {
         }               
         axios.post('/api/login', data)
             .then(res=> {
-                console.log('res', res)
                 if(res.data.success){
                     localStorage.setItem('user', JSON.stringify(res.data.data))
                     localStorage.setItem('message', res.data.message)
@@ -78,8 +77,6 @@ class Login extends Component {
         const loginFB = (res) => { this.gofbLogin(res, 'FB'); }
 
         return (
-            <>
-               
             <section className="auth">
                 <div className="container">
                     <div className="row">
@@ -101,9 +98,6 @@ class Login extends Component {
                     </div>
                 </div>
             </section>
-
-
-            </>
         )
     }
 }

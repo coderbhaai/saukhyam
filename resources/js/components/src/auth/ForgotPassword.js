@@ -23,7 +23,6 @@ export class ForgotPassword extends Component {
         }
         axios.post('/api/forgotPassword', data)
             .then(res=> {
-                console.log('res', res)
                 if(res.data.success){
                     localStorage.setItem('message', res.data.message)
                     window.location.href = '/'
@@ -36,26 +35,24 @@ export class ForgotPassword extends Component {
 
     render() {
         return (
-            <>
-                <section className="auth">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-sm-5">
-                                <h1 className="heading">Forgot Password?</h1>
-                                <form onSubmit={this.ResetPassword}>
-                                    <div className="row">
-                                        <div className="col-sm-12">
-                                            <label>E-Mail Address</label>
-                                            <input type="email" className="form-control" name="email" required placeholder="Email Please" value={this.state.email} onChange={this.onChange}/>
-                                        </div>
-                                        <button className="amitBtn" type="submit">Reset Password</button>
+            <section className="auth">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-5">
+                            <h1 className="heading">Forgot Password?</h1>
+                            <form onSubmit={this.ResetPassword}>
+                                <div className="row">
+                                    <div className="col-sm-12">
+                                        <label>E-Mail Address</label>
+                                        <input type="email" className="form-control" name="email" required placeholder="Email Please" value={this.state.email} onChange={this.onChange}/>
                                     </div>
-                                </form>
-                            </div>
+                                    <button className="amitBtn" type="submit">Reset Password</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </section>
-            </>
+                </div>
+            </section>
         )
     }
 }

@@ -25,11 +25,9 @@ export class Header extends Component {
             id: this.state.user.id
         }
         const token = JSON.parse(localStorage.getItem('user')).token
-        console.log('token', token)
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post('/api/logout', data)
             .then(res=> {
-                console.log('res', res)
                 if(res.data.success){
                     localStorage.clear();
                     this.setState({ user: [] })
@@ -42,7 +40,6 @@ export class Header extends Component {
 
 
     render() {
-        console.log('this.state.user', this.state.user)
         return (
             <nav className="navbar navbar-expand-lg sticky-top">
                 <a className="navbar-brand" href="/">SAUKHYAM</a>
@@ -52,19 +49,11 @@ export class Header extends Component {
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li className="nav-item"><a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a></li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown link</a>
-                            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a className="dropdown-item" href="#">Action</a>
-                                <a className="dropdown-item" href="#">Another action</a>
-                                <a className="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
                         {this.state.user.role?
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.state.user.name}</a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a className="dropdown-item" href="/register">Admin Panel</a>
+                                    <a className="dropdown-item" href="/admin">Admin Panel</a>
                                     <button className="dropdown-item" onClick={this.logout}>Log Out</button>
                                 </div>
                             </li>

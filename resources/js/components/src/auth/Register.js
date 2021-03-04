@@ -22,7 +22,6 @@ class Register extends Component {
         
     componentDidMount(){
         window.scrollTo(0, 0)
-        console.log('Mounted')
         if(typeof(Storage) !== "undefined" && JSON.parse(localStorage.getItem('user'))){ 
             if(JSON.parse(localStorage.getItem('user')).role){
                 this.setState({ auth: true })
@@ -46,7 +45,6 @@ class Register extends Component {
         }
         axios.post('/api/register', data)
         .then( res=>{
-            console.log('res', res)
             if(res.data.success){
                 localStorage.setItem('user', JSON.stringify(res.data.data))
                 localStorage.setItem( 'message', res.data.message )
@@ -59,8 +57,6 @@ class Register extends Component {
     }
 
     gofbRegisteration(res, type) {
-        console.log('res', res)
-        console.log('type', type)
         if(type=='Google'){
             var data = {
                 name:                   res.profileObj.name,
@@ -83,7 +79,6 @@ class Register extends Component {
         }
         axios.post('/api/register', data)
             .then( res=>{
-                console.log('res', res)
                 if(res.data.success){
                     localStorage.setItem('user', JSON.stringify(res.data.data))
                     localStorage.setItem( 'message', res.data.message )
@@ -96,7 +91,6 @@ class Register extends Component {
     };
     
     render() {
-        console.log('this.state', this.state)
         const regGoogle = (res) => { this.gofbRegisteration(res, 'Google'); }
         const regFB = (res) => { this.gofbRegisteration(res, 'FB'); }
 

@@ -1,22 +1,27 @@
+@import '_variables.scss';
 @import '_swiper.scss';
-
-$grey: gray;
-$blue: rgb(0, 0, 255);
-$orange: orangered;
-
+@import '_special.scss';
+@import '_admin.scss';
 p{
     line-height: 2em;
     text-align: justify;
     margin-bottom: 5px;
     font-size: 15px;
 }
+ul{
+    padding: 0;
+    margin: 0;
+}
+li{
+    list-style: none;
+}
 button, button:focus, input, input:focus{
     outline: 0;
 }
 .navbar{
     background-color: #fff;
-    .nav-link{
-        color: $orange;
+    .nav-link, .navbar-brand{
+        color: $text;
     }
 }
 .footer{
@@ -89,11 +94,7 @@ button, button:focus, input, input:focus{
         font-weight: bold;
     }
     .row{
-        padding: 40px 0;
-        img{
-            max-width: 350px;
-        }
-        .col-sm-7{
+        .col-sm-8{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -101,25 +102,27 @@ button, button:focus, input, input:focus{
     }
 }
 .our-vendors{
-    padding: 25px 0;
     h2{
         text-align: center;
         font-weight: bold;
     }
     .testimony{
-        padding: 40px 0;
-        img{
-            max-width: 300px;
+        .vendors-img{
+            max-width: 180px;
+            margin: 0 auto;
+        }
+        .fa-quote-right{
+            text-align: right;
+            display: block;
         }
         h5{
             font-weight: bold;
-            color: $blue;
+            color: $text;
+            text-align: right;
         }
-        .quote-img{
-            padding: 25px 0;
-        }
-        h5,p{
-            padding-left: 10px;
+        p{
+            padding: 0 1em;
+            margin: 0;
         }
         .col-sm-5{
             display: flex;
@@ -133,6 +136,9 @@ button, button:focus, input, input:focus{
     padding: 25px 0;
     .row{
         padding: 20px 0;
+        .col-sm-4{
+            margin-bottom: 1em;
+        }
         .card{
             margin: 15px 0;
             box-shadow: 0 0 5px #aaa;
@@ -146,15 +152,10 @@ button, button:focus, input, input:focus{
                 p{
                     text-align: center;
                 }
-                .price{
-                    color: $orange;
-                    text-align: center;
-                }
-                .addtocart{
-                    color: $blue;
-                    width: 100%;
-                    border: none;
-                    background: transparent;
+                ul{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
                 }
             }
         }
