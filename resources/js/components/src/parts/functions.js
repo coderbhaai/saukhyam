@@ -1,5 +1,7 @@
-// export const base = '/'
-export const base = '/saukhyam/'
+export const base = '/'
+export const imgPath = "/storage/product/"
+// export const base = '/saukhyam/'
+// export const imgPath = "/tomato/storage/app/public/product/"
 
 export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
 export function printError(mesg){ console.log('mesg', mesg) }
@@ -65,4 +67,21 @@ export const productimage = [
     {id: 4, img: 'home-1.jpg'},
     {id: 5, img: 'home-2.jpg'},
     {id: 6, img: 'home-3.jpg'},
+]
+
+export const adminLinks =[
+    {text: 'Users', url: base+"adminUsers", active: base+"adminUsers"},
+    {text: 'Basics', url: base+"adminBasics", active: base+"adminBasics"},
+    {text: 'Products', url: base+"adminProducts", active: base+"adminProducts"},
+    {text: 'Tutorials', url: base+"adminTutorials", active: base+"adminTutorials"},
+    {text: 'Language', url: base+"adminLanguage", active: base+"adminLanguage"},
+    {text: 'Orders', url: base+"adminOrders", active: base+"adminOrders"},
+]
+
+export const basic =[
+    {'single': true, text: 'Minimum Order Quantity', value: "MOQ"},
+    {'single': false, text: 'Fulfillment Centre', value: "FCentre"},
+    {'single': false, text: 'Product Type', value: "ProductType"},
+    {'single': false, text: 'Dimension Type', value: "DimensionType"},
+    {'single': false, text: 'Dimension Value', value: "DimensionValue"},
 ]

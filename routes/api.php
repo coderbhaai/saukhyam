@@ -14,7 +14,17 @@ Route::post('/resetPassword', 'App\Http\Controllers\AuthController@resetPassword
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     // Admin
-        Route::get('/adminUsers', [AdminController::class, 'adminUsers']);
+    Route::get('/adminUsers', [AdminController::class, 'adminUsers']);
+
+    Route::get('/adminBasics', [AdminController::class, 'adminBasics']);
+    Route::post('/createBasic', [AdminController::class, 'createBasic']);
+    Route::post('/updateBasic', [AdminController::class, 'updateBasic']);
+
+    Route::get('/adminProducts', [AdminController::class, 'adminProducts']);
+    Route::get('/addProductOptions', [AdminController::class, 'addProductOptions']);
+    Route::post('/createProduct', [AdminController::class, 'createProduct']);
+    Route::post('/changeProductStatus', [AdminController::class, 'changeProductStatus']);
+    Route::post('/updateProduct', [AdminController::class, 'updateProduct']);
 
     // Admin
 });

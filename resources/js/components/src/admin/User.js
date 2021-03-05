@@ -45,7 +45,6 @@ export class User extends Component {
                     <td>{i.email}</td> 
                     <td>{i.role}</td> 
                     <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
-                    {/* <td>{i.updated_at}</td> */}
                 </tr>
         )})
         const pageNumbers = []
@@ -71,18 +70,20 @@ export class User extends Component {
                                 </div>
                                 <ul className="page-numbers">{renderPagination}</ul>
                             </div>
-                            <table className="table table-hover table-responsive">
-                                <thead>
-                                    <tr>
-                                        <th>Sl No.</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>{renderItems}</tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table className="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl No.</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>{renderItems}</tbody>
+                                </table>
+                            </div>
                             <ul className="page-numbers">{renderPagination}</ul>
                         </div>
                     </div>

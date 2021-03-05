@@ -38,6 +38,7 @@
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
+    padding: .5em 2em;
   }
   .btn-pag>div {
     width: 100%;
@@ -103,17 +104,17 @@
     color: #fff;
     border-radius: 5px;
   }
-  .editIcon img{
-    max-width: 25px;
+  .editIcon{
+    img{
+     max-width: 25px;
+    }
+    &:hover{
+      cursor: pointer;
+    }
   }
   .tableImg{
     max-width: 100px;
     padding-left: 5px;
-  }
-  .closeModal {
-    font-weight: 900;
-    color: red;
-    font-size: 1.5em;
   }
   // Admin CSS
   /* Switch Button */
@@ -194,3 +195,70 @@
     margin-left: auto;
   }
   /* Switch Button */
+  
+.editIcon img{
+  max-width: 25px;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+  background: #00000082;
+}
+.modal-dialog{
+  background: #fff;
+  top: 10%;
+  position: absolute;
+  max-width: 75%;
+  width: 70%;
+  left: 0;
+  right: 0;
+  margin: 2em auto;
+  padding: 2em;
+  border-radius: 5px;
+  max-height: 80%;
+  overflow-y: scroll;
+}
+.closeModal{
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 900;
+  color: $blue;
+  font-size: 1.5em;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.modal textarea{
+  min-height: 80px;
+}
+.preview, .tableImg{
+  max-width: 120px;
+}
+input[readonly]{
+  background-color:#e6e6e6;
+}
+label{
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.admin{
+  form{
+    input, textarea{
+      margin-bottom: 0.5em;
+    }
+  }
+}
+.previewImg{
+  max-width: 120px;
+}

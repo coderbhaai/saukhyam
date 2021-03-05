@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-const func = require('../parts/functions')
+const func = require('./functions')
 
 export class AdminSidebar extends Component {
     constructor(props) {
@@ -16,19 +16,17 @@ export class AdminSidebar extends Component {
         if(typeof(Storage) !== "undefined" ){ 
             this.setState({ role: JSON.parse(localStorage.getItem('user')).role || '' })
         }
-        if(window.location.pathname === func.base+"admin"){ this.setState({ active: func.base+"adminUsers" }) }
-        this.setState({ active: window.location.pathname })  
+        this.setState({ active: window.location.pathname })
+        if(window.location.pathname === "/admin"){ this.setState({ active: "/adminUsers" }) }
+        if(window.location.pathname === "/addProduct"){ this.setState({ active: "/adminProducts" }) }
     }
    
     render() {
-        const admin =[
-            {text: 'Users', url: func.base+"adminUsers", active: func.base+"adminUsers"},
-        ]
         return (
             <div className="col-sm-2 sidebar">                                
                 <ul>
                     {this.state.role==='Admin'?
-                        admin.map((i, index)=>( <li key={index}><a href={i.url} className={i.url == this.state.active? 'active' : null}>{i.text}</a></li> ))
+                        func.adminLinks.map((i, index)=>( <li key={index}><a href={i.url} className={i.url == this.state.active? 'active' : null}>{i.text}</a></li> ))
                     : null}
                 </ul>
             </div>

@@ -38,3 +38,23 @@ a{
         text-decoration: none;
     }
 }
+.my-div{
+    text-align: center;
+    width: 100%;
+    margin: 1em 0;
+}
+.amitBtn{
+    background-color: $orange;
+    color: #fff;
+    border: 1px solid $orange;
+    border-radius: 5px;
+    min-width: 200px;
+    padding: 10px;
+    text-align: center;
+    &:hover{
+        background-color: #fff;
+        color: $orange;
+        transition: 0.5s all;
+        cursor: pointer;
+    }
+}
