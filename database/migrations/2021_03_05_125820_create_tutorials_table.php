@@ -16,8 +16,8 @@ class CreateTutorialsTable extends Migration
         Schema::create('tutorials', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->integer('name');
-            $table->mediumText('discription');
+            $table->string('name');
+            $table->mediumText('description');
             $table->mediumText('url');
             $table->timestamps();
         });

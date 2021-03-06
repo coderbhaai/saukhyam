@@ -24,6 +24,8 @@ class AuthController extends Controller
             'phone'=>$request->phone,
             'role'=>$request->role,
             'provider'=>$request->provider,
+            'refrence'=>$request->refrence,
+            'referral_code'=>time(),
             'image'=>$request->image,
             'password'=>\Hash::make($request->password),
         ];

@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('role');
             $table->string('provider');
             $table->mediumText('image')->nullable();
+            $table->string('referral_code')->nullable();
+            $table->string('refrence')->nullable();
+            $table->string('fCentre')->nullable();
             $table->string('password');
             $table->mediumText('token')->nullable();
             $table->timestamps();

@@ -210,6 +210,11 @@
   overflow: hidden;
   outline: 0;
   background: #00000082;
+  form{
+    .col-sm-3, .col-sm-4, .col-sm-12{
+      margin-bottom: 0.5em;
+    }
+  }
 }
 .modal-dialog{
   background: #fff;
@@ -261,4 +266,8 @@ label{
 }
 .previewImg{
   max-width: 120px;
+  margin-right: 5px;
+}
+.delIcon{
+  max-width: 20px;
 }

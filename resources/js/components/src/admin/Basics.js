@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import AdminSidebar from '../parts/AdminSidebar'
 import { Modal } from 'reactstrap'
-import moment from "moment"
 import api from '../parts/api'
 const func = require('../parts/functions')
 
@@ -32,7 +31,6 @@ export class User extends Component {
     callApi = async () => {
         const response = await fetch( api.adminBasics, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:          body.data
@@ -54,9 +52,8 @@ export class User extends Component {
         data.append('tab2', this.state.tab2)
         data.append('tab3', this.state.tab3)
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        axios.post('/api/createBasic', data)
+        axios.post(api.createBasic, data)
         .then( res=> {
-            console.log('res.data', res.data)
             if(res.data.success){ this.setState({ data: [...this.state.data, res.data.data ] }) }
             func.callSwal(res.data.message)
             // this.resetData()
@@ -86,9 +83,8 @@ export class User extends Component {
         data.append('tab2', this.state.tab2)
         data.append('tab3', this.state.tab3)        
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        axios.post('/api/updateBasic', data)
+        axios.post(api.updateBasic, data)
         .then( res=> {
-            console.log('res', res)
             if(res.data.success){ 
                 this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })
             }
@@ -112,11 +108,10 @@ export class User extends Component {
     }
 
     render() {
-        console.log('this.state', this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const renderItems =  this.state.data.slice(indexOfFirstItem, indexOfLastItem).filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }}).map((i, index) => {
+        const renderItems =  this.state.data.slice(indexOfFirstItem, indexOfLastItem).filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.type.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }}).map((i, index) => {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
@@ -127,6 +122,8 @@ export class User extends Component {
                             : i.type == 'ProductType'? 'Product Type'
                             : i.type == 'DimensionType'? 'Dimension Type'
                             : i.type == 'DimensionValue'? 'Dimension Value'
+                            : i.type == 'Screen'? 'App Screen'
+                            : i.type == 'Languages'? 'Languages'
                             : i.type
                         }
                     </td> 
@@ -193,10 +190,11 @@ export class User extends Component {
                                 <select className="form-control" required name="type" onChange={this.onChange} value={this.state.type}>
                                     <option value=''>Select Type</option>
                                     {func.basic.map((j,index2)=>(  !this.state.data.some(el => el.type == j.value && j.single)? <option value={j.value} key={index2}>{j.text}</option> : null ))}
-                                    {/* <option value="Carousel">Carousel</option> */}
                                 </select>
                             </div>
                             {this.state.type ==='MOQ'? <div className="col-sm-8"><label>Minimum Order Quantity</label><input className="form-control" placeholder="Set MOQ Here" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
+                            {this.state.type ==='Screen'? <div className="col-sm-8"><label>App Screen Name</label><input className="form-control" placeholder="Add App Screen Name Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
+                            {this.state.type ==='Language'? <div className="col-sm-8"><label>Language</label><input className="form-control" placeholder="Set Language Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
                             {this.state.type ==='FCentre'? 
                                 <>
                                     <div className="col-sm-4">
@@ -256,6 +254,8 @@ export class User extends Component {
                                 </select>
                             </div>
                             {this.state.type ==='MOQ'? <div className="col-sm-8"><label>Minimum Order Quantity</label><input className="form-control" placeholder="Set MOQ Here" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
+                            {this.state.type ==='Screen'? <div className="col-sm-8"><label>App Screen Name</label><input className="form-control" placeholder="Add App Screen Name Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
+                            {this.state.type ==='Language'? <div className="col-sm-8"><label>Language</label><input className="form-control" placeholder="Set Language Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
                             {this.state.type ==='FCentre'? 
                                 <>
                                     <div className="col-sm-4">

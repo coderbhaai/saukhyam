@@ -1039,6 +1039,10 @@ a:hover {
   background: #00000082;
 }
 
+.modal form .col-sm-3, .modal form .col-sm-4, .modal form .col-sm-12 {
+  margin-bottom: 0.5em;
+}
+
 .modal-dialog {
   background: #fff;
   top: 10%;
@@ -1093,6 +1097,11 @@ label {
 
 .previewImg {
   max-width: 120px;
+  margin-right: 5px;
+}
+
+.delIcon {
+  max-width: 20px;
 }
 
 p {

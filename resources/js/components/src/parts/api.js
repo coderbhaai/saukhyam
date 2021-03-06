@@ -8,6 +8,7 @@ export default {
     resetPassword: func.base+'api/resetPassword',
 
     adminUsers : func.base+'api/adminUsers',
+    updateUser : func.base+'api/updateUser',
     adminBasics : func.base+'api/adminBasics',
     createBasic : func.base+'api/createBasic',
     updateBasic : func.base+'api/updateBasic',
@@ -16,5 +17,15 @@ export default {
     addProductOptions : func.base+'api/addProductOptions',
     changeProductStatus : func.base+'api/changeProductStatus',
     createProduct : func.base+'api/createProduct',
+    getProduct : func.base+'api/getProduct/',
     updateProduct : func.base+'api/updateProduct',
+
+    adminTutorials : func.base+'api/adminTutorials',
+    createTutorial : func.base+'api/createTutorial',
+    updateTutorial : func.base+'api/updateTutorial',
+
+    adminLanguages : func.base+'api/adminLanguages',
+    createLanguage : func.base+'api/createLanguage',
+    updateLanguage : func.base+'api/updateLanguage',
+
 }

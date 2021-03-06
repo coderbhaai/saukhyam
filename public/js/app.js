@@ -2096,7 +2096,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_admin_Products__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./src/admin/Products */ "./resources/js/components/src/admin/Products.js");
 /* harmony import */ var _src_admin_AddProduct__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./src/admin/AddProduct */ "./resources/js/components/src/admin/AddProduct.js");
 /* harmony import */ var _src_admin_UpdateProduct__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./src/admin/UpdateProduct */ "./resources/js/components/src/admin/UpdateProduct.js");
-/* harmony import */ var _src_admin_UpdateProduct__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_src_admin_UpdateProduct__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _src_admin_Tutorials__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./src/admin/Tutorials */ "./resources/js/components/src/admin/Tutorials.js");
 /* harmony import */ var _src_admin_Language__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./src/admin/Language */ "./resources/js/components/src/admin/Language.js");
 /* harmony import */ var _src_admin_Orders__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./src/admin/Orders */ "./resources/js/components/src/admin/Orders.js");
@@ -2172,7 +2171,7 @@ function Index() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
         exact: true,
         path: func.base + "updateProduct/:id",
-        component: (0,_src_parts_RequireAdmin__WEBPACK_IMPORTED_MODULE_17__.default)((_src_admin_UpdateProduct__WEBPACK_IMPORTED_MODULE_13___default()))
+        component: (0,_src_parts_RequireAdmin__WEBPACK_IMPORTED_MODULE_17__.default)(_src_admin_UpdateProduct__WEBPACK_IMPORTED_MODULE_13__.default)
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
         exact: true,
         path: func.base + "adminTutorials",
@@ -2212,15 +2211,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../parts/AdminSidebar */ "./resources/js/components/src/parts/AdminSidebar.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
-/* harmony import */ var ckeditor4_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ckeditor4-react */ "./node_modules/ckeditor4-react/dist/ckeditor.js");
-/* harmony import */ var ckeditor4_react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ckeditor4_react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
+/* harmony import */ var ckeditor4_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ckeditor4-react */ "./node_modules/ckeditor4-react/dist/ckeditor.js");
+/* harmony import */ var ckeditor4_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(ckeditor4_react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
 
 
 
@@ -2237,14 +2232,13 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     super(props);
 
     _defineProperty(this, "callApi", async () => {
-      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_3__.default.addProductOptions, {
+      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.addProductOptions, {
         headers: {
           "content-type": "application/json",
           Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token
         }
       });
       const body = await response.json();
-      console.log('body', body);
       if (response.status !== 200) throw Error(body.message);
       this.setState({
         data: body.data
@@ -2331,7 +2325,7 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       data.append('dimension', JSON.stringify(this.state.dimension));
       const token = JSON.parse(localStorage.getItem('user')).token;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_3__.default.createProduct, data).then(res => {
+      axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.createProduct, data).then(res => {
         if (res.data.success) {
           localStorage.setItem('message', res.data.message);
           window.location.href = func.base + 'adminProducts';
@@ -2390,48 +2384,47 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
 
   render() {
-    console.log('this.state', this.state);
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "container-fluid",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "col-sm-10 admin",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h1", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
               className: "heading",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
                 children: "Admin Panel "
               }), "(Add Product)"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
               className: "modal-form container-fluid",
               encType: "multipart/form-data",
               onSubmit: this.addModal,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                 className: "row",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-4",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                     children: "Product Type"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
                     className: "form-control",
                     required: true,
                     name: "type",
                     onChange: this.onChange,
                     value: this.state.type,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                       value: "",
                       children: "Select Product Type"
-                    }), this.state.data.filter(i => i.type == 'ProductType').map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    }), this.state.data.filter(i => i.type == 'ProductType').map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                       value: i.id,
                       children: i.name
                     }, index))]
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-4",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                     children: "Product Name"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                     className: "form-control",
                     placeholder: "Product Name",
                     type: "text",
@@ -2439,11 +2432,11 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                     value: this.state.name,
                     onChange: this.onChange
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-4",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                     children: "Price"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                     className: "form-control",
                     placeholder: "Product Price",
                     type: "number",
@@ -2453,64 +2446,53 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                     value: this.state.price,
                     onChange: this.onChange
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-4",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                     children: "Status of Product"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
                     className: "form-control",
                     required: true,
                     name: "status",
                     onChange: this.onChange,
                     value: this.state.status,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                       value: "",
                       children: "Product Status"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                       value: "1",
                       children: "Show"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                       value: "0",
                       children: "Hide"
                     })]
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-4",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-                    children: "Images"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-                    type: "file",
-                    className: "form-control",
-                    required: true,
-                    multiple: true,
-                    onChange: this.multipleImage
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                  className: "col-sm-4",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                     children: "Discount Type"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
                     className: "form-control",
                     required: true,
                     name: "distype",
                     onChange: this.onChange,
                     value: this.state.distype,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                       value: "",
                       children: "Discount Type"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                       value: "1",
                       children: "Value Base"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                       value: "2",
                       children: "Percentage base"
                     })]
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-4",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                     children: "Discount"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                     className: "form-control",
                     placeholder: "Product Discount",
                     type: "number",
@@ -2520,44 +2502,55 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                     value: this.state.discount,
                     onChange: this.onChange
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-12 mb-3",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Images"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                    type: "file",
+                    className: "form-control",
+                    required: true,
+                    multiple: true,
+                    onChange: this.multipleImage
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-12",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
                     onClick: this.addDimensions,
                     className: "amitBtn",
                     children: "Add Dimensions"
-                  }), this.state.dimension.map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  }), this.state.dimension.map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                     className: "row mb-3",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                       className: "col-sm-6",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                         children: "Dimension Type"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
                         className: "form-control",
                         required: true,
                         onChange: e => this.changeDimensionType(index, e.target.value),
                         value: i.text,
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                           value: "",
                           children: "Select Dimension Type"
-                        }), this.state.data.filter(i => i.type == 'DimensionType').map((j, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                        }), this.state.data.filter(i => i.type == 'DimensionType').map((j, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                           value: j.id,
                           children: j.name
                         }, index))]
                       })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                       className: "col-sm-6",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                         children: "Status of Product"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
                         className: "form-control",
                         required: true,
                         onChange: e => this.changeDimensionValue(index, e.target.value),
                         value: i.value,
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                           value: "",
                           children: "Select Dimension Value"
-                        }), this.state.data.filter(i => i.type == 'DimensionValue' && i.tab1 == this.state.dimension[index].text).map((j, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                        }), this.state.data.filter(i => i.type == 'DimensionValue' && i.tab1 == this.state.dimension[index].text).map((j, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                           value: j.id,
                           children: j.name
                         }, index))]
@@ -2565,29 +2558,29 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                     })]
                   }, index))]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                 className: "row mt-3",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-6",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                     children: "Short Description"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)((ckeditor4_react__WEBPACK_IMPORTED_MODULE_4___default()), {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)((ckeditor4_react__WEBPACK_IMPORTED_MODULE_3___default()), {
                     onBeforeLoad: CKEDITOR => CKEDITOR.disableAutoInline = true,
                     content: this.state.short_description,
                     onChange: this.onEditorChange1
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col-sm-6",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                     children: "Long Description"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)((ckeditor4_react__WEBPACK_IMPORTED_MODULE_4___default()), {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)((ckeditor4_react__WEBPACK_IMPORTED_MODULE_3___default()), {
                     onBeforeLoad: CKEDITOR => CKEDITOR.disableAutoInline = true,
                     content: this.state.long_description,
                     onChange: this.onEditorChange2
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "my-div",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
                     className: "amitBtn",
                     type: "submit",
                     children: "Submit"
@@ -2620,13 +2613,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../parts/AdminSidebar */ "./resources/js/components/src/parts/AdminSidebar.js");
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Modal.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Modal.js");
+/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -2643,14 +2633,13 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     super(props);
 
     _defineProperty(this, "callApi", async () => {
-      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_3__.default.adminBasics, {
+      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.adminBasics, {
         headers: {
           "content-type": "application/json",
           Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token
         }
       });
       const body = await response.json();
-      console.log('body', body);
       if (response.status !== 200) throw Error(body.message);
       this.setState({
         data: body.data
@@ -2697,9 +2686,7 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       data.append('tab3', this.state.tab3);
       const token = JSON.parse(localStorage.getItem('user')).token;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      axios.post('/api/createBasic', data).then(res => {
-        console.log('res.data', res.data);
-
+      axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.createBasic, data).then(res => {
         if (res.data.success) {
           this.setState({
             data: [...this.state.data, res.data.data]
@@ -2748,9 +2735,7 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       data.append('tab3', this.state.tab3);
       const token = JSON.parse(localStorage.getItem('user')).token;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      axios.post('/api/updateBasic', data).then(res => {
-        console.log('res', res);
-
+      axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.updateBasic, data).then(res => {
         if (res.data.success) {
           this.setState({
             data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x = res.data.data : x)
@@ -2797,7 +2782,6 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
 
   render() {
-    console.log('this.state', this.state);
     const {
       currentPage,
       itemsPerPage
@@ -2805,27 +2789,27 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const renderItems = this.state.data.slice(indexOfFirstItem, indexOfLastItem).filter(i => {
-      if (this.state.search == null) return i;else if (i.name.toLowerCase().includes(this.state.search.toLowerCase())) {
+      if (this.state.search == null) return i;else if (i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.type.toLowerCase().includes(this.state.search.toLowerCase())) {
         return i;
       }
     }).map((i, index) => {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: index + 1
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: i.type == 'MOQ' ? 'Minimum Order Quantity' : i.type == 'FCentre' ? 'Fulfillment Centre' : i.type == 'ProductType' ? 'Product Type' : i.type == 'DimensionType' ? 'Dimension Type' : i.type == 'DimensionValue' ? 'Dimension Value' : i.type
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: i.type == 'MOQ' ? 'Minimum Order Quantity' : i.type == 'FCentre' ? 'Fulfillment Centre' : i.type == 'ProductType' ? 'Product Type' : i.type == 'DimensionType' ? 'Dimension Type' : i.type == 'DimensionValue' ? 'Dimension Value' : i.type == 'Screen' ? 'App Screen' : i.type == 'Languages' ? 'Languages' : i.type
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: i.name
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: i.type == 'DimensionValue' ? i.bName : i.tab1
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: i.tab2
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: i.tab3
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           className: "editIcon text-center",
           onClick: () => this.editModalOn(i),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
             src: "/images/icons/edit.svg"
           })
         })]
@@ -2839,41 +2823,41 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
     const renderPagination = pageNumbers.map(number => {
       if (currentPage == number) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
           id: number,
           onClick: this.handleClick,
           className: "active",
           children: [" ", number]
         }, number);
       } else {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
           id: number,
           onClick: this.handleClick,
           children: [" ", number]
         }, number);
       }
     });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "container-fluid",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "col-sm-10 admin",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h1", {
               className: "heading",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                 children: "Admin Panel "
               }), "(Basics)"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "btn-pag",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                 className: "amitBtn",
                 onClick: this.addModalOn,
                 children: "Add Basic"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "flex-h",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   type: "text",
                   placeholder: "Search here",
                   className: "form-control",
@@ -2881,104 +2865,104 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   style: {
                     width: '400px'
                   }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                   className: "form-control",
                   required: true,
                   value: itemsPerPage,
                   onChange: e => this.changeitemsPerPage(e),
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     children: itemsPerPage
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "10",
                     children: "10"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "25",
                     children: "25"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "50",
                     children: "50"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "100",
                     children: "100"
                   })]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
                 className: "page-numbers",
                 children: renderPagination
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
               className: "table-responsive",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
                 className: "table table-hover",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Sl No."
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Type"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Name"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Tab1 "
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Tab2 "
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Tab3 "
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Edit "
                     })]
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
                   children: renderItems
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
               className: "page-numbers",
               children: renderPagination
             })]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
         isOpen: this.state.addmodalIsOpen,
         className: "adminModal",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "modal-header",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
             children: "Add Basics Here"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "closeModal",
             onClick: this.resetData,
             children: "X"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
           className: "modal-form container-fluid",
           encType: "multipart/form-data",
           onSubmit: this.addModal,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "row",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: this.state.type ? "col-sm-4" : "col-sm-12",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                 children: "Type of Basic"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                 className: "form-control",
                 required: true,
                 name: "type",
                 onChange: this.onChange,
                 value: this.state.type,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                   value: "",
                   children: "Select Type"
-                }), func.basic.map((j, index2) => !this.state.data.some(el => el.type == j.value && j.single) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                }), func.basic.map((j, index2) => !this.state.data.some(el => el.type == j.value && j.single) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                   value: j.value,
                   children: j.text
                 }, index2) : null)]
               })]
-            }), this.state.type === 'MOQ' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), this.state.type === 'MOQ' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "col-sm-8",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                 children: "Minimum Order Quantity"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                 className: "form-control",
                 placeholder: "Set MOQ Here",
                 type: "number",
@@ -2988,12 +2972,36 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                 value: this.state.name,
                 onChange: this.onChange
               })]
-            }) : null, this.state.type === 'FCentre' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }) : null, this.state.type === 'Screen' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-8",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "App Screen Name"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add App Screen Name Here",
+                type: "text",
+                name: "name",
+                value: this.state.name,
+                onChange: this.onChange
+              })]
+            }) : null, this.state.type === 'Language' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-8",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Language"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Set Language Here",
+                type: "text",
+                name: "name",
+                value: this.state.name,
+                onChange: this.onChange
+              })]
+            }) : null, this.state.type === 'FCentre' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Fulfillment Centre"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   className: "form-control",
                   placeholder: "Add Fulfillment Centre Here",
                   type: "text",
@@ -3001,11 +3009,11 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   value: this.state.name,
                   onChange: this.onChange
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Location"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   className: "form-control",
                   placeholder: "Add Location Here",
                   type: "text",
@@ -3014,11 +3022,11 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   onChange: this.onChange
                 })]
               })]
-            }) : null, this.state.type === 'ProductType' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }) : null, this.state.type === 'ProductType' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "col-sm-8",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                 children: "Product Type"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                 className: "form-control",
                 placeholder: "Add Product Type Here",
                 type: "text",
@@ -3026,12 +3034,12 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                 value: this.state.name,
                 onChange: this.onChange
               })]
-            }) : null, this.state.type === 'DimensionType' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }) : null, this.state.type === 'DimensionType' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-8",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Dimension Type"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   className: "form-control",
                   placeholder: "Add Dimension Type Here",
                   type: "text",
@@ -3040,30 +3048,30 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   onChange: this.onChange
                 })]
               })
-            }) : null, this.state.type === 'DimensionValue' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }) : null, this.state.type === 'DimensionValue' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Dimension Type"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                   className: "form-control",
                   required: true,
                   name: "tab1",
                   onChange: this.onChange,
                   value: this.state.tab1,
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "",
                     children: "Select Dimension Type"
-                  }), this.state.data.filter(i => i.type == 'DimensionType').map((j, index2) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), this.state.data.filter(i => i.type == 'DimensionType').map((j, index2) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: j.id,
                     children: j.name
                   }, index2))]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Dimension Value"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   className: "form-control",
                   placeholder: "Add Dimension Value Here",
                   type: "text",
@@ -3072,9 +3080,9 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   onChange: this.onChange
                 })]
               })]
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
               className: "my-div",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                 className: "amitBtn",
                 type: "submit",
                 children: "Submit"
@@ -3082,44 +3090,44 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
             })]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
         isOpen: this.state.editmodalIsOpen,
         className: "adminModal",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "modal-header",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
             children: "Update Basics Here"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "closeModal",
             onClick: this.resetData,
             children: "X"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
           className: "modal-form container-fluid",
           encType: "multipart/form-data",
           onSubmit: this.updateModal,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "row",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "col-sm-4",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                 children: "Type of Basic"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("select", {
                 className: "form-control",
                 required: true,
                 name: "type",
                 onChange: this.onChange,
                 value: this.state.type,
                 readOnly: true,
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                   children: this.state.type
                 })
               })]
-            }), this.state.type === 'MOQ' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), this.state.type === 'MOQ' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "col-sm-8",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                 children: "Minimum Order Quantity"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                 className: "form-control",
                 placeholder: "Set MOQ Here",
                 type: "number",
@@ -3129,12 +3137,36 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                 value: this.state.name,
                 onChange: this.onChange
               })]
-            }) : null, this.state.type === 'FCentre' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }) : null, this.state.type === 'Screen' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-8",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "App Screen Name"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add App Screen Name Here",
+                type: "text",
+                name: "name",
+                value: this.state.name,
+                onChange: this.onChange
+              })]
+            }) : null, this.state.type === 'Language' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-8",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Language"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Set Language Here",
+                type: "text",
+                name: "name",
+                value: this.state.name,
+                onChange: this.onChange
+              })]
+            }) : null, this.state.type === 'FCentre' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Fulfillment Centre"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   className: "form-control",
                   placeholder: "Add Fulfillment Centre Here",
                   type: "text",
@@ -3142,11 +3174,11 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   value: this.state.name,
                   onChange: this.onChange
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Location"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   className: "form-control",
                   placeholder: "Add Location Here",
                   type: "text",
@@ -3155,11 +3187,11 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   onChange: this.onChange
                 })]
               })]
-            }) : null, this.state.type === 'ProductType' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }) : null, this.state.type === 'ProductType' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "col-sm-8",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                 children: "Product Type"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                 className: "form-control",
                 placeholder: "Add Product Type Here",
                 type: "text",
@@ -3167,12 +3199,12 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                 value: this.state.name,
                 onChange: this.onChange
               })]
-            }) : null, this.state.type === 'DimensionType' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }) : null, this.state.type === 'DimensionType' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-8",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Dimension Type"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   className: "form-control",
                   placeholder: "Add Dimension Type Here",
                   type: "text",
@@ -3181,30 +3213,30 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   onChange: this.onChange
                 })]
               })
-            }) : null, this.state.type === 'DimensionValue' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }) : null, this.state.type === 'DimensionValue' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Dimension Type"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                   className: "form-control",
                   required: true,
                   name: "tab1",
                   onChange: this.onChange,
                   value: this.state.tab1,
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "",
                     children: "Select Dimension Type"
-                  }), this.state.data.filter(i => i.type == 'DimensionType').map((j, index2) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), this.state.data.filter(i => i.type == 'DimensionType').map((j, index2) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: j.id,
                     children: j.name
                   }, index2))]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "col-sm-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   children: "Dimension Value"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   className: "form-control",
                   placeholder: "Add Dimension Value Here",
                   type: "text",
@@ -3213,9 +3245,9 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   onChange: this.onChange
                 })]
               })]
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
               className: "my-div",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                 className: "amitBtn",
                 type: "submit",
                 children: "Submit"
@@ -3241,15 +3273,14 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "User": () => (/* binding */ User),
+/* harmony export */   "Language": () => (/* binding */ Language),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../parts/AdminSidebar */ "./resources/js/components/src/parts/AdminSidebar.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Modal.js");
+/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -3259,22 +3290,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+
+const func = __webpack_require__(/*! ../parts/functions */ "./resources/js/components/src/parts/functions.js");
+
+class Language extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
 
     _defineProperty(this, "callApi", async () => {
-      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_3__.default.adminUsers, {
+      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.adminLanguages, {
         headers: {
           "content-type": "application/json",
           Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token
         }
       });
       const body = await response.json();
-      console.log('body', body);
       if (response.status !== 200) throw Error(body.message);
       this.setState({
-        data: body.data
+        data: body.data,
+        basic: body.basic
+      });
+    });
+
+    _defineProperty(this, "onChange", e => {
+      this.setState({
+        [e.target.name]: e.target.value
       });
     });
 
@@ -3296,11 +3336,111 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       });
     });
 
+    _defineProperty(this, "addModalOn", () => {
+      this.setState({
+        addmodalIsOpen: true
+      });
+    });
+
+    _defineProperty(this, "addOption", () => {
+      this.setState({
+        options: [...this.state.options, {
+          lang: '',
+          value: ''
+        }]
+      });
+    });
+
+    _defineProperty(this, "changeOptionLanguage", (index, val) => {
+      this.state.options[index].lang = val;
+      this.setState({
+        options: this.state.options
+      });
+    });
+
+    _defineProperty(this, "changeOptionValue", (index, val) => {
+      this.state.options[index].value = val;
+      this.setState({
+        options: this.state.options
+      });
+    });
+
+    _defineProperty(this, "addModal", e => {
+      e.preventDefault();
+      const data = {
+        screenId: this.state.screenId,
+        text: this.state.text,
+        options: JSON.stringify(this.state.options)
+      };
+      const token = JSON.parse(localStorage.getItem('user')).token;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.createLanguage, data).then(res => {
+        if (res.data.success) {
+          this.setState({
+            data: [...this.state.data, res.data.data]
+          });
+        }
+
+        func.callSwal(res.data.message);
+        this.resetData();
+      }).catch(err => func.printError(err));
+    });
+
+    _defineProperty(this, "editModalOn", i => {
+      this.setState({
+        editmodalIsOpen: true,
+        id: i.id,
+        screenId: i.screenId,
+        text: i.text,
+        options: JSON.parse(i.options)
+      });
+    });
+
+    _defineProperty(this, "updateModal", e => {
+      e.preventDefault();
+      const data = {
+        id: this.state.id,
+        screenId: this.state.screenId,
+        text: this.state.text,
+        options: JSON.stringify(this.state.options)
+      };
+      const token = JSON.parse(localStorage.getItem('user')).token;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.updateLanguage, data).then(res => {
+        if (res.data.success) {
+          this.setState({
+            data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x = res.data.data : x)
+          });
+        }
+
+        func.callSwal(res.data.message);
+      }).catch(err => func.printError(err));
+      this.resetData();
+    });
+
+    _defineProperty(this, "resetData", () => {
+      this.setState({
+        addmodalIsOpen: false,
+        editmodalIsOpen: false,
+        id: '',
+        screenId: '',
+        text: '',
+        options: []
+      });
+    });
+
     this.state = {
       currentPage: 1,
       itemsPerPage: 100,
       data: [],
-      search: ''
+      basic: [],
+      search: '',
+      addmodalIsOpen: false,
+      editmodalIsOpen: false,
+      id: '',
+      screenId: '',
+      text: '',
+      options: []
     };
   }
 
@@ -3310,6 +3450,7 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
 
   render() {
+    console.log('this.state', this.state);
     const {
       currentPage,
       itemsPerPage
@@ -3317,21 +3458,23 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const renderItems = this.state.data.slice(indexOfFirstItem, indexOfLastItem).filter(i => {
-      if (this.state.search == null) return i;else if (i.name.toLowerCase().includes(this.state.search.toLowerCase())) {
+      if (this.state.search == null) return i;else if (i.screenName.toLowerCase().includes(this.state.search.toLowerCase())) {
         return i;
       }
     }).map((i, index) => {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: index + 1
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: i.name
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: i.email
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: i.role
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: moment__WEBPACK_IMPORTED_MODULE_2___default()(i.updated_at).format("DD MMMM  YYYY")
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: i.screenName
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: i.text
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          className: "editIcon text-center",
+          onClick: () => this.editModalOn(i),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: "/images/icons/edit.svg"
+          })
         })]
       }, index);
     });
@@ -3343,37 +3486,41 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
     const renderPagination = pageNumbers.map(number => {
       if (currentPage == number) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
           id: number,
           onClick: this.handleClick,
           className: "active",
           children: [" ", number]
         }, number);
       } else {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
           id: number,
           onClick: this.handleClick,
           children: [" ", number]
         }, number);
       }
     });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "container-fluid",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "col-sm-10 admin",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h1", {
               className: "heading",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                 children: "Admin Panel "
-              }), "(Users)"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              }), "(Language)"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "btn-pag",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "amitBtn",
+                onClick: this.addModalOn,
+                children: "Add Language"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "flex-h",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   type: "text",
                   placeholder: "Search here",
                   className: "form-control",
@@ -3381,62 +3528,255 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   style: {
                     width: '400px'
                   }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                   className: "form-control",
                   required: true,
                   value: itemsPerPage,
                   onChange: e => this.changeitemsPerPage(e),
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     children: itemsPerPage
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "10",
                     children: "10"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "25",
                     children: "25"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "50",
                     children: "50"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "100",
                     children: "100"
                   })]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
                 className: "page-numbers",
                 children: renderPagination
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-              className: "table table-hover table-responsive",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Sl No."
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Name"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Email"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Role"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Time"
-                  })]
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
-                children: renderItems
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "table-responsive",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                className: "table table-hover",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Sl No."
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Screen"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Text"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Edit "
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+                  children: renderItems
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
               className: "page-numbers",
               children: renderPagination
             })]
           })]
         })
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+        isOpen: this.state.addmodalIsOpen,
+        className: "adminModal",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "modal-header",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            children: "Add Language Here"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "closeModal",
+            onClick: this.resetData,
+            children: "X"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+          className: "modal-form container-fluid",
+          encType: "multipart/form-data",
+          onSubmit: this.addModal,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Select Screen"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                className: "form-control",
+                required: true,
+                name: "screenId",
+                onChange: this.onChange,
+                value: this.state.screenId,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "",
+                  children: "Select Screen"
+                }), this.state.basic.filter(i => i.type == 'Screen').map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: i.id,
+                  children: i.name
+                }, index))]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-6",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Basic Text"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add Basic Text",
+                type: "text",
+                name: "text",
+                value: this.state.text,
+                onChange: this.onChange
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            onClick: this.addOption,
+            className: "amitBtn my-3",
+            children: "Add Language"
+          }), this.state.options.map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row mb-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-sm-3",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                className: "form-control",
+                required: true,
+                onChange: e => this.changeOptionLanguage(index, e.target.value),
+                value: i.lang,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "",
+                  children: "Select Language"
+                }), this.state.basic.filter(i => i.type == 'Language').map((j, index2) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: j.id,
+                  children: j.name
+                }, index2))]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-sm-8",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add Language Text",
+                type: "text",
+                value: i.value,
+                required: true,
+                onChange: e => this.changeOptionValue(index, e.target.value)
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-sm-1",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+                src: "/images/icons/wrong-red.svg",
+                className: "delIcon"
+              })
+            })]
+          }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "my-div",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "amitBtn",
+              type: "submit",
+              children: "Submit"
+            })
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+        isOpen: this.state.editmodalIsOpen,
+        className: "adminModal",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "modal-header",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            children: "Update Language Here"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "closeModal",
+            onClick: this.resetData,
+            children: "X"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+          className: "modal-form container-fluid",
+          encType: "multipart/form-data",
+          onSubmit: this.updateModal,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Select Screen"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                className: "form-control",
+                required: true,
+                name: "screenId",
+                onChange: this.onChange,
+                value: this.state.screenId,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "",
+                  children: "Select Screen"
+                }), this.state.basic.filter(i => i.type == 'Screen').map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: i.id,
+                  children: i.name
+                }, index))]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-6",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Basic Text"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add Basic Text",
+                type: "text",
+                name: "text",
+                value: this.state.text,
+                onChange: this.onChange
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            onClick: this.addOption,
+            className: "amitBtn my-3",
+            children: "Add Language"
+          }), this.state.options.map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row mb-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-sm-3",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                className: "form-control",
+                required: true,
+                onChange: e => this.changeOptionLanguage(index, e.target.value),
+                value: i.lang,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "",
+                  children: "Select Language"
+                }), this.state.basic.filter(i => i.type == 'Language').map((j, index2) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: j.id,
+                  children: j.name
+                }, index2))]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-sm-8",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add Language Text",
+                type: "text",
+                value: i.value,
+                required: true,
+                onChange: e => this.changeOptionValue(index, e.target.value)
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "col-sm-1",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+                src: "/images/icons/wrong-red.svg",
+                className: "delIcon"
+              })
+            })]
+          }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "my-div",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              className: "amitBtn",
+              type: "submit",
+              children: "Submit"
+            })
+          })]
+        })]
+      })]
     });
   }
 
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (User);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Language);
 
 /***/ }),
 
@@ -3479,7 +3819,6 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         }
       });
       const body = await response.json();
-      console.log('body', body);
       if (response.status !== 200) throw Error(body.message);
       this.setState({
         data: body.data
@@ -3687,7 +4026,6 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         }
       });
       const body = await response.json();
-      console.log('body', body);
       if (response.status !== 200) throw Error(body.message);
       this.setState({
         data: body.data,
@@ -3714,8 +4052,6 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     });
 
     _defineProperty(this, "changeStatus", (i, value) => {
-      console.log('11111111111');
-
       if (value == 1) {
         var status = 0;
       } else {
@@ -3726,12 +4062,9 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         id: i.id,
         status: status
       };
-      console.log('data', data);
       const token = JSON.parse(localStorage.getItem('user')).token;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.changeProductStatus, data).then(res => {
-        console.log('res.data', res.data);
-
         if (res.data.success) {
           this.setState({
             data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x = res.data.data : x)
@@ -3776,7 +4109,7 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
             className: "previewImg",
-            src: func.imgPath + JSON.parse(i.images)[0]
+            src: func.imgPath + 'product/' + JSON.parse(i.images)[0]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3801,9 +4134,11 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           className: "editIcon text-center",
-          onClick: () => this.editModalOn(i),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-            src: "/images/icons/edit.svg"
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+            href: "/updateProduct/" + i.id,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+              src: "/images/icons/edit.svg"
+            })
           })
         })]
       }, index);
@@ -3931,15 +4266,14 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "User": () => (/* binding */ User),
+/* harmony export */   "Tutorials": () => (/* binding */ Tutorials),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../parts/AdminSidebar */ "./resources/js/components/src/parts/AdminSidebar.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Modal.js");
+/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -3949,22 +4283,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+
+const func = __webpack_require__(/*! ../parts/functions */ "./resources/js/components/src/parts/functions.js");
+
+class Tutorials extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
 
     _defineProperty(this, "callApi", async () => {
-      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_3__.default.adminUsers, {
+      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.adminTutorials, {
         headers: {
           "content-type": "application/json",
           Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token
         }
       });
       const body = await response.json();
-      console.log('body', body);
       if (response.status !== 200) throw Error(body.message);
       this.setState({
         data: body.data
+      });
+    });
+
+    _defineProperty(this, "onChange", e => {
+      this.setState({
+        [e.target.name]: e.target.value
       });
     });
 
@@ -3986,11 +4328,108 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       });
     });
 
+    _defineProperty(this, "addModalOn", () => {
+      this.setState({
+        addmodalIsOpen: true
+      });
+    });
+
+    _defineProperty(this, "singleImage", e => {
+      this.setState({
+        image: e.target.files[0]
+      });
+    });
+
+    _defineProperty(this, "addModal", e => {
+      e.preventDefault();
+      const data = new FormData();
+      data.append('file', this.state.image);
+      data.append('type', this.state.type);
+      data.append('name', this.state.name);
+      data.append('url', this.state.url);
+      data.append('description', this.state.description);
+      const token = JSON.parse(localStorage.getItem('user')).token;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.post('/api/createTutorial', data).then(res => {
+        if (res.data.success) {
+          this.setState({
+            data: [...this.state.data, res.data.data]
+          });
+        }
+
+        func.callSwal(res.data.message);
+        this.resetData();
+      }).catch(err => func.printError(err));
+    });
+
+    _defineProperty(this, "editModalOn", i => {
+      this.setState({
+        editmodalIsOpen: true,
+        id: i.id,
+        type: i.type,
+        name: i.name,
+        description: i.description
+      });
+
+      if (i.type == 'Doc' || i.type == 'Video') {
+        this.setState({
+          oldImage: i.url
+        });
+      }
+    });
+
+    _defineProperty(this, "updateModal", e => {
+      e.preventDefault();
+      const data = new FormData();
+      data.append('id', this.state.id);
+      data.append('file', this.state.image);
+      data.append('type', this.state.type);
+      data.append('name', this.state.name);
+      data.append('url', this.state.url);
+      data.append('description', this.state.description);
+      data.append('oldImage', this.state.oldImage);
+      const token = JSON.parse(localStorage.getItem('user')).token;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.post('/api/updateTutorial', data).then(res => {
+        if (res.data.success) {
+          this.setState({
+            data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x = res.data.data : x)
+          });
+        }
+
+        func.callSwal(res.data.message);
+      }).catch(err => func.printError(err));
+      this.resetData();
+    });
+
+    _defineProperty(this, "resetData", () => {
+      this.setState({
+        addmodalIsOpen: false,
+        editmodalIsOpen: false,
+        id: '',
+        type: '',
+        name: '',
+        url: '',
+        description: '',
+        image: null,
+        oldImage: ''
+      });
+    });
+
     this.state = {
       currentPage: 1,
       itemsPerPage: 100,
       data: [],
-      search: ''
+      search: '',
+      addmodalIsOpen: false,
+      editmodalIsOpen: false,
+      id: '',
+      type: '',
+      name: '',
+      url: '',
+      description: '',
+      image: null,
+      oldImage: ''
     };
   }
 
@@ -4011,17 +4450,19 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         return i;
       }
     }).map((i, index) => {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: index + 1
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: i.type == 'Doc' ? 'Document' : i.type == 'Iframe' ? 'Youtube Link' : i.type
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: i.name
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: i.email
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: i.role
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: moment__WEBPACK_IMPORTED_MODULE_2___default()(i.updated_at).format("DD MMMM  YYYY")
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          className: "editIcon text-center",
+          onClick: () => this.editModalOn(i),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: "/images/icons/edit.svg"
+          })
         })]
       }, index);
     });
@@ -4033,20 +4474,546 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
     const renderPagination = pageNumbers.map(number => {
       if (currentPage == number) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
           id: number,
           onClick: this.handleClick,
           className: "active",
           children: [" ", number]
         }, number);
       } else {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
           id: number,
           onClick: this.handleClick,
           children: [" ", number]
         }, number);
       }
     });
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "container-fluid",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "row",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "col-sm-10 admin",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h1", {
+              className: "heading",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "Admin Panel "
+              }), "(Tutorials)"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "btn-pag",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "amitBtn",
+                onClick: this.addModalOn,
+                children: "Add Tutorial"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "flex-h",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "text",
+                  placeholder: "Search here",
+                  className: "form-control",
+                  onChange: e => this.searchSpace(e),
+                  style: {
+                    width: '400px'
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                  className: "form-control",
+                  required: true,
+                  value: itemsPerPage,
+                  onChange: e => this.changeitemsPerPage(e),
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    children: itemsPerPage
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "10",
+                    children: "10"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "25",
+                    children: "25"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "50",
+                    children: "50"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                    value: "100",
+                    children: "100"
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+                className: "page-numbers",
+                children: renderPagination
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "table-responsive",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                className: "table table-hover",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Sl No."
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Type"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Name"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Edit "
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+                  children: renderItems
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+              className: "page-numbers",
+              children: renderPagination
+            })]
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+        isOpen: this.state.addmodalIsOpen,
+        className: "adminModal",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "modal-header",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            children: "Add Tutorial Here"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "closeModal",
+            onClick: this.resetData,
+            children: "X"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+          className: "modal-form container-fluid",
+          encType: "multipart/form-data",
+          onSubmit: this.addModal,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: this.state.type ? "col-sm-4" : "col-sm-12",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Type of Tutorial"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                className: "form-control",
+                required: true,
+                name: "type",
+                onChange: this.onChange,
+                value: this.state.type,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "",
+                  children: "Select Type"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "Doc",
+                  children: "Document"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "Iframe",
+                  children: "Youtube Link"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "Video",
+                  children: "Video"
+                })]
+              })]
+            }), this.state.type ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Name of Document"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Name of Document",
+                type: "text",
+                name: "name",
+                value: this.state.name,
+                onChange: this.onChange
+              })]
+            }) : null, this.state.type === 'Doc' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Upload Document"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add Location Here",
+                type: "file",
+                onChange: this.singleImage
+              })]
+            }) : null, this.state.type === 'Iframe' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Video Link"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Video URL",
+                type: "text",
+                name: "url",
+                value: this.state.url,
+                onChange: this.onChange
+              })]
+            }) : null, this.state.type === 'Video' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Upload Video"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add Location Here",
+                type: "file",
+                onChange: this.singleImage
+              })]
+            }) : null, this.state.type ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-sm-12",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                  children: "Description"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
+                  className: "form-control",
+                  placeholder: "Add Description Here",
+                  name: "description",
+                  onChange: this.onChange,
+                  value: this.state.description
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "my-div",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                  className: "amitBtn",
+                  type: "submit",
+                  children: "Submit"
+                })
+              })]
+            }) : null]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+        isOpen: this.state.editmodalIsOpen,
+        className: "adminModal",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "modal-header",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            children: "Update Tutorial Here"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "closeModal",
+            onClick: this.resetData,
+            children: "X"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+          className: "modal-form container-fluid",
+          encType: "multipart/form-data",
+          onSubmit: this.updateModal,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Type of Basic"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("select", {
+                className: "form-control",
+                required: true,
+                name: "type",
+                onChange: this.onChange,
+                value: this.state.type,
+                readOnly: true,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  children: this.state.type
+                })
+              })]
+            }), this.state.type ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Name of Document"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Name of Document",
+                type: "text",
+                name: "name",
+                value: this.state.name,
+                onChange: this.onChange
+              })]
+            }) : null, this.state.type === 'Doc' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Upload Document"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add Location Here",
+                type: "file",
+                onChange: this.singleImage
+              }), this.state.oldImage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+                href: func.imgPath + 'tutorial/' + this.state.oldImage,
+                target: "_blank",
+                children: "Old File"
+              }) : null]
+            }) : null, this.state.type === 'Iframe' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Video Link"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Video URL",
+                type: "text",
+                name: "url",
+                value: this.state.url,
+                onChange: this.onChange
+              })]
+            }) : null, this.state.type === 'Video' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Upload Video"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                placeholder: "Add Location Here",
+                type: "file",
+                onChange: this.singleImage
+              })]
+            }) : null, this.state.type ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-sm-12",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                  children: "Description"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
+                  className: "form-control",
+                  placeholder: "Add Description Here",
+                  name: "description",
+                  onChange: this.onChange,
+                  value: this.state.description
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "my-div",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                  className: "amitBtn",
+                  type: "submit",
+                  children: "Submit"
+                })
+              })]
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "my-div",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "amitBtn",
+                type: "submit",
+                children: "Submit"
+              })
+            })]
+          })
+        })]
+      })]
+    });
+  }
+
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tutorials);
+
+/***/ }),
+
+/***/ "./resources/js/components/src/admin/UpdateProduct.js":
+/*!************************************************************!*\
+  !*** ./resources/js/components/src/admin/UpdateProduct.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UpdateProduct": () => (/* binding */ UpdateProduct),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../parts/AdminSidebar */ "./resources/js/components/src/parts/AdminSidebar.js");
+/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
+/* harmony import */ var ckeditor4_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ckeditor4-react */ "./node_modules/ckeditor4-react/dist/ckeditor.js");
+/* harmony import */ var ckeditor4_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(ckeditor4_react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+const func = __webpack_require__(/*! ../parts/functions */ "./resources/js/components/src/parts/functions.js");
+
+
+
+
+
+class UpdateProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+  constructor(props) {
+    super(props);
+
+    _defineProperty(this, "ckEditorReady", () => {
+      this.callApi();
+    });
+
+    _defineProperty(this, "timeout", delay => {
+      return new Promise(res => setTimeout(res, delay));
+    });
+
+    _defineProperty(this, "callApi", async () => {
+      await this.timeout(2000);
+
+      if (this.state.loading && this.state.id) {
+        this.setState({
+          loading: false
+        });
+        const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.getProduct + this.state.id, {
+          headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token
+          }
+        });
+        const body = await response.json();
+        this.setState({
+          data: body.data,
+          type: body.product.type,
+          name: body.product.name,
+          price: body.product.price,
+          status: body.product.status,
+          distype: body.product.distype,
+          discount: body.product.discount,
+          dimension: JSON.parse(body.product.dimension),
+          oldImages: JSON.parse(body.product.images),
+          short_description: body.product.short_description,
+          long_description: body.product.long_description
+        });
+      }
+    });
+
+    _defineProperty(this, "onChange", e => {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+    });
+
+    _defineProperty(this, "handleClick", e => {
+      this.setState({
+        currentPage: Number(e.target.id)
+      });
+    });
+
+    _defineProperty(this, "changeitemsPerPage", e => {
+      this.setState({
+        itemsPerPage: e.target.value
+      });
+    });
+
+    _defineProperty(this, "searchSpace", e => {
+      this.setState({
+        search: e.target.value
+      });
+    });
+
+    _defineProperty(this, "addModalOn", () => {
+      this.setState({
+        addmodalIsOpen: true
+      });
+    });
+
+    _defineProperty(this, "multipleImage", e => {
+      this.setState({
+        images: e.target.files
+      });
+    });
+
+    _defineProperty(this, "addDimensions", () => {
+      this.setState({
+        dimension: [...this.state.dimension, {
+          text: '',
+          value: ''
+        }]
+      });
+    });
+
+    _defineProperty(this, "changeDimensionType", (index, value) => {
+      this.state.dimension[index].text = value;
+      this.setState({
+        dimension: this.state.dimension
+      });
+    });
+
+    _defineProperty(this, "changeDimensionValue", (index, value) => {
+      this.state.dimension[index].value = value;
+      this.setState({
+        dimension: this.state.dimension
+      });
+    });
+
+    _defineProperty(this, "addModal", e => {
+      e.preventDefault();
+      const data = new FormData();
+
+      if (this.state.images) {
+        for (const f of this.state.images) {
+          data.append('images[]', f);
+        }
+      }
+
+      data.append('id', this.state.id);
+      data.append('type', this.state.type);
+      data.append('name', this.state.name);
+      data.append('price', this.state.price);
+      data.append('status', this.state.status);
+      data.append('distype', this.state.distype);
+      data.append('discount', this.state.discount);
+      data.append('short_description', this.state.short_description);
+      data.append('long_description', this.state.long_description);
+      data.append('dimension', JSON.stringify(this.state.dimension));
+      const token = JSON.parse(localStorage.getItem('user')).token;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.updateProduct, data).then(res => {
+        if (res.data.success) {
+          localStorage.setItem('message', res.data.message);
+          window.location.href = func.base + 'adminProducts';
+        }
+
+        func.callSwal(res.data.message);
+      }).catch(err => func.printError(err));
+    });
+
+    this.state = {
+      data: [],
+      id: '',
+      type: '',
+      name: '',
+      price: '',
+      status: '',
+      distype: '',
+      discount: '',
+      dimension: [],
+      images: null,
+      oldImages: [],
+      short_description: '',
+      long_description: '',
+      loading: true
+    };
+    this.handleChange1 = this.handleChange1.bind(this);
+    this.handleChange2 = this.handleChange2.bind(this);
+    this.onEditorChange1 = this.onEditorChange1.bind(this);
+    this.onEditorChange2 = this.onEditorChange2.bind(this);
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+    const id = window.location.href.split("/").pop();
+    this.setState({
+      id: id
+    });
+  }
+
+  onEditorChange1(evt1) {
+    this.setState({
+      short_description: evt1.editor.getData()
+    });
+  }
+
+  handleChange1(changeEvent1) {
+    this.setState({
+      short_description: changeEvent1.target.value
+    });
+  }
+
+  onEditorChange2(evt2) {
+    this.setState({
+      long_description: evt2.editor.getData()
+    });
+  }
+
+  handleChange2(changeEvent2) {
+    this.setState({
+      long_description: changeEvent2.target.value
+    });
+  }
+
+  render() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "container-fluid",
@@ -4058,66 +5025,204 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
               className: "heading",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
                 children: "Admin Panel "
-              }), "(Users)"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "btn-pag",
+              }), "(Add Product)"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+              className: "modal-form container-fluid",
+              encType: "multipart/form-data",
+              onSubmit: this.addModal,
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "flex-h",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                  type: "text",
-                  placeholder: "Search here",
-                  className: "form-control",
-                  onChange: e => this.searchSpace(e),
-                  style: {
-                    width: '400px'
-                  }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                  className: "form-control",
-                  required: true,
-                  value: itemsPerPage,
-                  onChange: e => this.changeitemsPerPage(e),
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: itemsPerPage
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    value: "10",
-                    children: "10"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    value: "25",
-                    children: "25"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    value: "50",
-                    children: "50"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    value: "100",
-                    children: "100"
+                className: "row",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-4",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Product Type"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                    className: "form-control",
+                    required: true,
+                    name: "type",
+                    onChange: this.onChange,
+                    value: this.state.type,
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                      value: "",
+                      children: "Select Product Type"
+                    }), this.state.data.filter(i => i.type == 'ProductType').map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                      value: i.id,
+                      children: i.name
+                    }, index))]
                   })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-4",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Product Name"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                    className: "form-control",
+                    placeholder: "Product Name",
+                    type: "text",
+                    name: "name",
+                    value: this.state.name,
+                    onChange: this.onChange
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-4",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Price"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                    className: "form-control",
+                    placeholder: "Product Price",
+                    type: "number",
+                    onKeyDown: e => e.key === 'e' && e.preventDefault(),
+                    min: "0",
+                    name: "price",
+                    value: this.state.price,
+                    onChange: this.onChange
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-4",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Status of Product"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                    className: "form-control",
+                    required: true,
+                    name: "status",
+                    onChange: this.onChange,
+                    value: this.state.status,
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                      value: "",
+                      children: "Product Status"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                      value: "1",
+                      children: "Show"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                      value: "0",
+                      children: "Hide"
+                    })]
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-4",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Discount Type"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                    className: "form-control",
+                    required: true,
+                    name: "distype",
+                    onChange: this.onChange,
+                    value: this.state.distype,
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                      value: "",
+                      children: "Discount Type"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                      value: "1",
+                      children: "Value Base"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                      value: "2",
+                      children: "Percentage base"
+                    })]
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-4",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Discount"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                    className: "form-control",
+                    placeholder: "Product Discount",
+                    type: "number",
+                    onKeyDown: e => e.key === 'e' && e.preventDefault(),
+                    min: "0",
+                    name: "discount",
+                    value: this.state.discount,
+                    onChange: this.onChange
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-12 mb-3",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Images"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                    type: "file",
+                    className: "form-control",
+                    multiple: true,
+                    onChange: this.multipleImage
+                  }), this.state.oldImages.map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                    className: "previewImg",
+                    src: func.imgPath + i
+                  }, index))]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-12",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                    onClick: this.addDimensions,
+                    className: "amitBtn",
+                    children: "Add Dimensions"
+                  }), this.state.dimension.map((i, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                    className: "row mb-3",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      className: "col-sm-6",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                        children: "Dimension Type"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                        className: "form-control",
+                        required: true,
+                        onChange: e => this.changeDimensionType(index, e.target.value),
+                        value: i.text,
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                          value: "",
+                          children: "Select Dimension Type"
+                        }), this.state.data.filter(i => i.type == 'DimensionType').map((j, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                          value: j.id,
+                          children: j.name
+                        }, index))]
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      className: "col-sm-6",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                        children: "Status of Product"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                        className: "form-control",
+                        required: true,
+                        onChange: e => this.changeDimensionValue(index, e.target.value),
+                        value: i.value,
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                          value: "",
+                          children: "Select Dimension Value"
+                        }), this.state.data.filter(i => i.type == 'DimensionValue' && i.tab1 == this.state.dimension[index].text).map((j, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                          value: j.id,
+                          children: j.name
+                        }, index))]
+                      })]
+                    })]
+                  }, index))]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
-                className: "page-numbers",
-                children: renderPagination
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-              className: "table table-hover table-responsive",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Sl No."
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Name"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Email"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Role"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                    children: "Time"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "row mt-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-6",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Short Description"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)((ckeditor4_react__WEBPACK_IMPORTED_MODULE_3___default()), {
+                    onInstanceReady: this.ckEditorReady(),
+                    onBeforeLoad: CKEDITOR => CKEDITOR.disableAutoInline = true,
+                    data: this.state.short_description,
+                    content: this.state.short_description,
+                    onChange: this.onEditorChange1
                   })]
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
-                children: renderItems
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "col-sm-6",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                    children: "Long Description"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)((ckeditor4_react__WEBPACK_IMPORTED_MODULE_3___default()), {
+                    onInstanceReady: this.ckEditorReady(),
+                    onBeforeLoad: CKEDITOR => CKEDITOR.disableAutoInline = true,
+                    data: this.state.long_description,
+                    content: this.state.long_description,
+                    onChange: this.onEditorChange2
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "my-div",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                    className: "amitBtn",
+                    type: "submit",
+                    children: "Submit"
+                  })
+                })]
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
-              className: "page-numbers",
-              children: renderPagination
             })]
           })]
         })
@@ -4126,17 +5231,7 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
 
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (User);
-
-/***/ }),
-
-/***/ "./resources/js/components/src/admin/UpdateProduct.js":
-/*!************************************************************!*\
-  !*** ./resources/js/components/src/admin/UpdateProduct.js ***!
-  \************************************************************/
-/***/ (() => {
-
-
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateProduct);
 
 /***/ }),
 
@@ -4154,10 +5249,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../parts/AdminSidebar */ "./resources/js/components/src/parts/AdminSidebar.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Modal.js");
+/* harmony import */ var _parts_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../parts/api */ "./resources/js/components/src/parts/api.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -4167,22 +5261,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+const func = __webpack_require__(/*! ../parts/functions */ "./resources/js/components/src/parts/functions.js");
+
 class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
 
     _defineProperty(this, "callApi", async () => {
-      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_3__.default.adminUsers, {
+      const response = await fetch(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.adminUsers, {
         headers: {
           "content-type": "application/json",
           Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token
         }
       });
       const body = await response.json();
-      console.log('body', body);
       if (response.status !== 200) throw Error(body.message);
       this.setState({
-        data: body.data
+        data: body.data,
+        basic: body.basic
+      });
+    });
+
+    _defineProperty(this, "onChange", e => {
+      this.setState({
+        [e.target.name]: e.target.value
       });
     });
 
@@ -4204,11 +5307,65 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       });
     });
 
+    _defineProperty(this, "updateUser", i => {
+      console.log('i', i); // if(data.role=='Amrtiya' || data.role=='Vijaya'){
+
+      this.setState({
+        editmodalIsOpen: true,
+        user: i,
+        id: i.id,
+        role: i.role,
+        fCentre: i.fCentre
+      }); // }
+    });
+
+    _defineProperty(this, "resetData", () => {
+      this.setState({
+        editmodalIsOpen: false,
+        user: [],
+        id: '',
+        role: ''
+      });
+    });
+
+    _defineProperty(this, "changeRole", e => {
+      this.setState({
+        role: e.target.value
+      });
+    });
+
+    _defineProperty(this, "submitHandler", e => {
+      e.preventDefault();
+      const data = {
+        id: this.state.id,
+        role: this.state.role,
+        fCentre: this.state.fCentre
+      };
+      const token = JSON.parse(localStorage.getItem('user')).token;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.post(_parts_api__WEBPACK_IMPORTED_MODULE_2__.default.updateUser, data).then(res => {
+        if (res.data.success) {
+          this.setState({
+            data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x = res.data.data : x)
+          });
+        }
+
+        func.callSwal(res.data.message);
+        this.resetData();
+      }).catch(err => func.printError(err));
+    });
+
     this.state = {
       currentPage: 1,
       itemsPerPage: 100,
+      basic: [],
       data: [],
-      search: ''
+      user: [],
+      id: '',
+      role: '',
+      search: '',
+      editmodalIsOpen: false,
+      fCentre: ''
     };
   }
 
@@ -4218,6 +5375,7 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
 
   render() {
+    console.log('this.state', this.state);
     const {
       currentPage,
       itemsPerPage
@@ -4229,17 +5387,25 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         return i;
       }
     }).map((i, index) => {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: index + 1
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: i.name
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: i.email
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
           children: i.role
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-          children: moment__WEBPACK_IMPORTED_MODULE_2___default()(i.updated_at).format("DD MMMM  YYYY")
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: i.fCentreName ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            children: [i.fCentreName, " (", i.fCentreLocation, ")"]
+          }) : null
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          className: "editIcon text-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: "/images/icons/edit.svg",
+            onClick: () => this.updateUser(i)
+          })
         })]
       }, index);
     });
@@ -4251,37 +5417,37 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
     const renderPagination = pageNumbers.map(number => {
       if (currentPage == number) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
           id: number,
           onClick: this.handleClick,
           className: "active",
           children: [" ", number]
         }, number);
       } else {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
           id: number,
           onClick: this.handleClick,
           children: [" ", number]
         }, number);
       }
     });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "container-fluid",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_AdminSidebar__WEBPACK_IMPORTED_MODULE_1__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "col-sm-10 admin",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h1", {
               className: "heading",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                 children: "Admin Panel "
               }), "(Users)"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "btn-pag",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "flex-h",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                   type: "text",
                   placeholder: "Search here",
                   className: "form-control",
@@ -4289,60 +5455,136 @@ class User extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
                   style: {
                     width: '400px'
                   }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                   className: "form-control",
                   required: true,
                   value: itemsPerPage,
                   onChange: e => this.changeitemsPerPage(e),
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     children: itemsPerPage
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "10",
                     children: "10"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "25",
                     children: "25"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "50",
                     children: "50"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                     value: "100",
                     children: "100"
                   })]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
                 className: "page-numbers",
                 children: renderPagination
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              class: "table-responsive",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "table-responsive",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
                 className: "table table-hover",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Sl No."
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Name"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Email"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                       children: "Role"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                      children: "Time"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Centre"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                      children: "Action"
                     })]
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
                   children: renderItems
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
               className: "page-numbers",
               children: renderPagination
             })]
           })]
         })
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+        isOpen: this.state.editmodalIsOpen,
+        className: "adminModal",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "modal-header",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            children: "Update User Here"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "closeModal",
+            onClick: this.resetData,
+            children: "X"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+          className: "modal-form container-fluid",
+          encType: "multipart/form-data",
+          onSubmit: this.submitHandler,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "User"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                className: "form-control",
+                type: "text",
+                value: this.state.user.name,
+                readOnly: true
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: this.state.role == 'Amrita' || this.state.role == 'Vijaya' ? "col-sm-4" : "col-sm-8",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Change Role"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                className: "form-control",
+                required: true,
+                name: "role",
+                onChange: this.changeRole,
+                value: this.state.role,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "",
+                  children: "Select Role"
+                }), func.roles.map((j, index2) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: j.value,
+                  children: j.text
+                }, index2))]
+              })]
+            }), this.state.role == 'Amrita' || this.state.role == 'Vijaya' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "col-sm-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                children: "Allot Fulfillment Centre"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                className: "form-control",
+                required: true,
+                name: "fCentre",
+                onChange: this.onChange,
+                value: this.state.fCentre,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: "",
+                  children: "Select Fulfillment Centre"
+                }), this.state.basic.filter(i => i.type = 'FCentre').map((j, index2) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                  value: j.id,
+                  children: j.name
+                }, index2))]
+              })]
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "my-div",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                className: "amitBtn",
+                type: "submit",
+                children: "Submit"
+              })
+            })]
+          })
+        })]
+      })]
     });
   }
 
@@ -4703,6 +5945,7 @@ class Register extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         email: this.state.email,
         role: this.state.role,
         phone: this.state.phone,
+        refrence: this.state.refrence,
         password: this.state.password,
         password_confirmation: this.state.password_confirmation,
         provider: this.state.provider
@@ -4726,6 +5969,7 @@ class Register extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       role: 'User',
       password: '',
       provider: 'Email',
+      refrence: null,
       image: '',
       clientId: '915022609455-q7nh558mli08jvgk691gksddalp6gk2k.apps.googleusercontent.com',
       clientSecret: 'fitq9oKd_98f20gOY9cWwoCe'
@@ -4743,6 +5987,21 @@ class Register extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         window.location.href = func.base;
       }
     }
+
+    const url = window.location.href.split("/").pop();
+
+    if (url && url !== 'register') {
+      localStorage.setItem('refrence', url);
+      this.setState({
+        refrence: url
+      });
+    }
+
+    if (typeof Storage !== "undefined" && localStorage.getItem('refrence')) {
+      this.setState({
+        refrence: localStorage.getItem('refrence') || null
+      });
+    }
   }
 
   gofbRegisteration(res, type) {
@@ -4753,7 +6012,8 @@ class Register extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         password: res.googleId,
         image: res.profileObj.imageUrl,
         provider: 'Google',
-        role: this.state.role
+        role: this.state.role,
+        refrence: this.state.refrence
       };
     } else if (type == 'FB') {
       var data = {
@@ -4762,7 +6022,8 @@ class Register extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         password: res.userID,
         image: res.picture.data.url,
         provider: 'FB',
-        role: this.state.role
+        role: this.state.role,
+        refrence: this.state.refrence
       };
     }
 
@@ -5223,6 +6484,12 @@ class AdminSidebar extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         active: "/adminProducts"
       });
     }
+
+    if (window.location.pathname.split("/")[1] === 'updateProduct') {
+      this.setState({
+        active: '/adminProducts'
+      });
+    }
   }
 
   render() {
@@ -5652,6 +6919,7 @@ const func = __webpack_require__(/*! ./functions */ "./resources/js/components/s
   forgotPassword: func.base + 'api/forgotPassword',
   resetPassword: func.base + 'api/resetPassword',
   adminUsers: func.base + 'api/adminUsers',
+  updateUser: func.base + 'api/updateUser',
   adminBasics: func.base + 'api/adminBasics',
   createBasic: func.base + 'api/createBasic',
   updateBasic: func.base + 'api/updateBasic',
@@ -5659,7 +6927,14 @@ const func = __webpack_require__(/*! ./functions */ "./resources/js/components/s
   addProductOptions: func.base + 'api/addProductOptions',
   changeProductStatus: func.base + 'api/changeProductStatus',
   createProduct: func.base + 'api/createProduct',
-  updateProduct: func.base + 'api/updateProduct'
+  getProduct: func.base + 'api/getProduct/',
+  updateProduct: func.base + 'api/updateProduct',
+  adminTutorials: func.base + 'api/adminTutorials',
+  createTutorial: func.base + 'api/createTutorial',
+  updateTutorial: func.base + 'api/updateTutorial',
+  adminLanguages: func.base + 'api/adminLanguages',
+  createLanguage: func.base + 'api/createLanguage',
+  updateLanguage: func.base + 'api/updateLanguage'
 });
 
 /***/ }),
@@ -5685,11 +6960,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "details": () => (/* binding */ details),
 /* harmony export */   "productimage": () => (/* binding */ productimage),
 /* harmony export */   "adminLinks": () => (/* binding */ adminLinks),
-/* harmony export */   "basic": () => (/* binding */ basic)
+/* harmony export */   "basic": () => (/* binding */ basic),
+/* harmony export */   "roles": () => (/* binding */ roles)
 /* harmony export */ });
 const base = '/';
-const imgPath = "/storage/product/"; // export const base = '/saukhyam/'
-// export const imgPath = "/tomato/storage/app/public/product/"
+const imgPath = "/storage/"; // export const base = '/saukhyam/'
+// export const imgPath = "/tomato/storage/app/public/"
 
 function callSwal(mesg) {
   swal({
@@ -5898,6 +7174,33 @@ const basic = [{
   'single': false,
   text: 'Dimension Value',
   value: "DimensionValue"
+}, {
+  'single': false,
+  text: 'App Screen Name',
+  value: "Screen"
+}, {
+  'single': false,
+  text: 'Language',
+  value: "Language"
+}];
+const roles = [{
+  text: 'Super Admin',
+  value: "SuperAdmin"
+}, {
+  text: 'Admin',
+  value: "Admin"
+}, {
+  text: 'Manager',
+  value: "Manager"
+}, {
+  text: 'Amrita',
+  value: "Amrita"
+}, {
+  text: 'Vijaya',
+  value: "Vijaya"
+}, {
+  text: 'User',
+  value: "User"
 }];
 
 /***/ }),

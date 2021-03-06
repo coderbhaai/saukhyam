@@ -19,6 +19,7 @@ export class AdminSidebar extends Component {
         this.setState({ active: window.location.pathname })
         if(window.location.pathname === "/admin"){ this.setState({ active: "/adminUsers" }) }
         if(window.location.pathname === "/addProduct"){ this.setState({ active: "/adminProducts" }) }
+        if(window.location.pathname.split("/")[1] === 'updateProduct'){ this.setState({ active: '/adminProducts' }) }
     }
    
     render() {

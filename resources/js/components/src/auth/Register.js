@@ -15,6 +15,7 @@ class Register extends Component {
             role :                      'User',
             password :                  '', 
             provider:                   'Email',
+            refrence:                   null,
             image:                      '',
             clientId:                   '915022609455-q7nh558mli08jvgk691gksddalp6gk2k.apps.googleusercontent.com',
             clientSecret:               'fitq9oKd_98f20gOY9cWwoCe'            
@@ -29,6 +30,14 @@ class Register extends Component {
                 window.location.href = func.base
             }
         }
+        const url = window.location.href.split("/").pop();
+        if(url && url!== 'register'){ 
+            localStorage.setItem('refrence', url)
+            this.setState({ refrence: url })
+        }
+        if(typeof(Storage) !== "undefined" && localStorage.getItem('refrence')){ 
+            this.setState({ refrence: localStorage.getItem('refrence') || null })
+        }
     }
 
     onChange = (e) => { this.setState({ [e.target.name]: e.target.value }) }
@@ -40,6 +49,7 @@ class Register extends Component {
             email:                      this.state.email,
             role:                       this.state.role,
             phone:                      this.state.phone,
+            refrence:                   this.state.refrence,
             password:                   this.state.password,
             password_confirmation:      this.state.password_confirmation,
             provider:                   this.state.provider,
@@ -65,8 +75,8 @@ class Register extends Component {
                 password:               res.googleId,
                 image:                  res.profileObj.imageUrl,
                 provider:               'Google',
-                role:                   this.state.role
-                
+                role:                   this.state.role,
+                refrence:               this.state.refrence,
             };
         }else if(type=='FB'){
             var data = {
@@ -75,7 +85,8 @@ class Register extends Component {
                 password:               res.userID,
                 image:                  res.picture.data.url,
                 provider:               'FB',
-                role:                   this.state.role
+                role:                   this.state.role,
+                refrence:               this.state.refrence,
             };
         }
         axios.post('/api/register', data)

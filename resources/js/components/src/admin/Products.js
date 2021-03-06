@@ -21,7 +21,6 @@ export class User extends Component {
     callApi = async () => {
         const response = await fetch( api.adminProducts, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:          body.data,
@@ -34,17 +33,14 @@ export class User extends Component {
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
 
     changeStatus=(i, value)=>{
-        console.log('11111111111')
         if(value == 1){ var status = 0 }else{ var status = 1}
         const data={
             id:                         i.id,
             status:                     status
         }
-        console.log('data', data)
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.changeProductStatus, data)
         .then( res=>{
-            console.log('res.data', res.data)
             if(res.data.success){ this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) }
             func.callSwal(res.data.message)
         })
@@ -61,14 +57,14 @@ export class User extends Component {
                     <td>{index+1}</td>
                     <td>{i.name}</td>
                     <td>{i.price}</td> 
-                    <td><img className="previewImg" src={func.imgPath+JSON.parse(i.images)[0]}/></td> 
+                    <td><img className="previewImg" src={func.imgPath+'product/'+JSON.parse(i.images)[0]}/></td> 
                     <td>
                         <div className="onoffswitch">
                             <input type="checkbox" name="statusSwitch" className="onoffswitch-checkbox" id={'Switch-'+i.id} onChange={(e)=>this.changeStatus(i, e.target.value)} value={i.status} checked={i.status==1? true : false}/>
                             <label className="onoffswitch-label" htmlFor={'Switch-'+i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
                         </div>
                     </td>
-                    <td className="editIcon text-center" onClick={()=>this.editModalOn(i)}><img src="/images/icons/edit.svg"/></td>
+                    <td className="editIcon text-center"><a href={"/updateProduct/"+i.id}><img src="/images/icons/edit.svg"/></a></td>
                 </tr>
         )})
         const pageNumbers = []

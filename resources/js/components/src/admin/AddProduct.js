@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import AdminSidebar from '../parts/AdminSidebar'
-import { Modal } from 'reactstrap'
-import moment from "moment"
 import api from '../parts/api'
 const func = require('../parts/functions')
 import CKEditor from 'ckeditor4-react'
@@ -36,7 +34,6 @@ export class User extends Component {
     callApi = async () => {
         const response = await fetch( api.addProductOptions, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:          body.data,
@@ -83,7 +80,6 @@ export class User extends Component {
     }
 
     render() {
-        console.log('this.state', this.state)
         return (
             <>
                 <div className="container-fluid">
@@ -117,10 +113,6 @@ export class User extends Component {
                                         </select>
                                     </div>
                                     <div className="col-sm-4">
-                                        <label>Images</label>
-                                        <input type="file" className="form-control" required multiple onChange={this.multipleImage}/>
-                                    </div>
-                                    <div className="col-sm-4">
                                         <label>Discount Type</label>
                                         <select className="form-control" required name="distype" onChange={this.onChange} value={this.state.distype}>
                                             <option value=''>Discount Type</option>
@@ -131,6 +123,10 @@ export class User extends Component {
                                     <div className="col-sm-4">
                                         <label>Discount</label>
                                         <input className="form-control" placeholder="Product Discount" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="discount" value={this.state.discount} onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-12 mb-3">
+                                        <label>Images</label>
+                                        <input type="file" className="form-control" required multiple onChange={this.multipleImage}/>
                                     </div>
                                     <div className="col-sm-12">
                                         <button onClick={this.addDimensions} className="amitBtn">Add Dimensions</button>

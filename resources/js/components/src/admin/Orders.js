@@ -22,7 +22,6 @@ export class User extends Component {
     callApi = async () => {
         const response = await fetch( api.adminUsers, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:          body.data

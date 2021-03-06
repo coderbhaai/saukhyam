@@ -16,8 +16,8 @@ class CreateLanguagesTable extends Migration
         Schema::create('languages', function (Blueprint $table) {
             $table->id();
             $table->integer('screenId');
-            $table->string('value');
             $table->mediumText('text');
+            $table->mediumText('options')->nullable();
             $table->timestamps();
         });
     }

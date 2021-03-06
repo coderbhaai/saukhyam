@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import AdminSidebar from '../parts/AdminSidebar'
-import moment from "moment"
+import { Modal } from 'reactstrap'
 import api from '../parts/api'
+const func = require('../parts/functions')
 
 export class User extends Component {
     constructor(props) {
@@ -9,8 +10,14 @@ export class User extends Component {
         this.state = {
             currentPage:                1,
             itemsPerPage:               100,
-            data:                      [],
+            basic:                      [],
+            data:                       [],
+            user:                       [],
+            id:                         '',
+            role:                       '',
             search:                     '',
+            editmodalIsOpen:            false,
+            fCentre:                     '',
         }
     }
 
@@ -22,18 +29,65 @@ export class User extends Component {
     callApi = async () => {
         const response = await fetch( api.adminUsers, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
-            data:          body.data
+            data:           body.data,
+            basic:          body.basic,
         })
     }
 
+    onChange = (e) => { this.setState({ [e.target.name]: e.target.value }) }
     handleClick= (e)=> { this.setState({ currentPage: Number(e.target.id) }) }
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
+    updateUser=(i)=>{
+        console.log('i', i)
+        // if(data.role=='Amrtiya' || data.role=='Vijaya'){
+            this.setState({
+                editmodalIsOpen:            true,
+                user:                       i,
+                id:                         i.id,
+                role:                       i.role,
+                fCentre:                    i.fCentre
+            })
+        // }
+    }
+
+    resetData = ()=>{
+        this.setState({
+            editmodalIsOpen:            false,
+            user:                       [],
+            id:                         '',
+            role:                       '',
+        })
+    }
+    changeRole=(e)=>{
+        this.setState({ 
+            role:                       e.target.value
+        })
+    }
+
+    submitHandler= (e) => {
+        e.preventDefault()
+        const data ={
+            id:                         this.state.id,
+            role:                       this.state.role,
+            fCentre:                    this.state.fCentre,
+        }
+        const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+        axios.post(api.updateUser, data)
+        .then( res=> {
+            if(res.data.success){
+                this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })
+            }
+            func.callSwal(res.data.message)
+            this.resetData()
+        })
+        .catch(err=>func.printError(err))
+    }
 
     render() {
+        console.log('this.state', this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -44,7 +98,8 @@ export class User extends Component {
                     <td>{i.name}</td>
                     <td>{i.email}</td> 
                     <td>{i.role}</td> 
-                    <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
+                    <td>{i.fCentreName? <span>{i.fCentreName} ({i.fCentreLocation})</span>: null}</td>
+                    <td className="editIcon text-center"><img src="/images/icons/edit.svg" onClick={()=>this.updateUser(i)}/></td>
                 </tr>
         )})
         const pageNumbers = []
@@ -70,7 +125,7 @@ export class User extends Component {
                                 </div>
                                 <ul className="page-numbers">{renderPagination}</ul>
                             </div>
-                            <div class="table-responsive">
+                            <div className="table-responsive">
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
@@ -78,7 +133,8 @@ export class User extends Component {
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Role</th>
-                                            <th>Time</th>
+                                            <th>Centre</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>{renderItems}</tbody>
@@ -88,6 +144,34 @@ export class User extends Component {
                         </div>
                     </div>
                 </div>
+                <Modal isOpen={this.state.editmodalIsOpen} className="adminModal"> 
+                    <div className="modal-header"><h2>Update User Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
+                    <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.submitHandler}>
+                        <div className="row">
+                            <div className="col-sm-4">
+                                <label>User</label>
+                                <input className="form-control" type="text" value={this.state.user.name} readOnly/>
+                            </div>
+                            <div className={this.state.role=='Amrita' || this.state.role=='Vijaya'? "col-sm-4" :"col-sm-8"} >
+                                <label>Change Role</label>
+                                <select className="form-control" required name="role" onChange={this.changeRole} value={this.state.role}>
+                                    <option value=''>Select Role</option>
+                                    {func.roles.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
+                                </select>
+                            </div>
+                            {this.state.role=='Amrita' || this.state.role=='Vijaya'?
+                                <div className="col-sm-4">
+                                    <label>Allot Fulfillment Centre</label>
+                                    <select className="form-control" required name="fCentre" onChange={this.onChange} value={this.state.fCentre}>
+                                        <option value=''>Select Fulfillment Centre</option>
+                                        {this.state.basic.filter(i=>i.type='FCentre').map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
+                                    </select>
+                                </div>
+                            : null}
+                            <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
+                        </div>
+                    </form>
+                </Modal>
             </>
         )
     }

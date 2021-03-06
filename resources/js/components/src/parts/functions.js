@@ -1,7 +1,7 @@
 export const base = '/'
-export const imgPath = "/storage/product/"
+export const imgPath = "/storage/"
 // export const base = '/saukhyam/'
-// export const imgPath = "/tomato/storage/app/public/product/"
+// export const imgPath = "/tomato/storage/app/public/"
 
 export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
 export function printError(mesg){ console.log('mesg', mesg) }
@@ -84,4 +84,15 @@ export const basic =[
     {'single': false, text: 'Product Type', value: "ProductType"},
     {'single': false, text: 'Dimension Type', value: "DimensionType"},
     {'single': false, text: 'Dimension Value', value: "DimensionValue"},
+    {'single': false, text: 'App Screen Name', value: "Screen"},
+    {'single': false, text: 'Language', value: "Language"},
+]
+
+export const roles =[
+    {text: 'Super Admin', value: "SuperAdmin"},
+    {text: 'Admin', value: "Admin"},
+    {text: 'Manager', value: "Manager"},
+    {text: 'Amrita', value: "Amrita"},
+    {text: 'Vijaya', value: "Vijaya"},
+    {text: 'User', value: "User"},
 ]
