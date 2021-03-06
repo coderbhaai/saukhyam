@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import AdminSidebar from '../parts/AdminSidebar'
 import moment from "moment"
 import api from '../parts/api'
+const func = require('../parts/functions')
+import { ExportReactCSV } from '../parts/ExportReactCSV'
 
 export class User extends Component {
     constructor(props) {
@@ -36,7 +38,10 @@ export class User extends Component {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const renderItems =  this.state.data.slice(indexOfFirstItem, indexOfLastItem).filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }}).map((i, index) => {
+        const data =  this.state.data.filter((i)=>{ 
+            if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
+        })
+        const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
@@ -81,6 +86,7 @@ export class User extends Component {
                                 </thead>
                                 <tbody>{renderItems}</tbody>
                             </table>
+                            <ExportReactCSV csvData={data} fileName={'Orders -'+func.time+'.xls'}/>
                             <ul className="page-numbers">{renderPagination}</ul>
                         </div>
                     </div>

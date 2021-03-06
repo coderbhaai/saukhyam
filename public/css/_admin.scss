@@ -6,52 +6,55 @@
   }
 }
 .sidebar{
-    background: $blue;
-  }
-  .sidebar ul{
+  background: $primary;
+  ul{
     padding: 2em 0;
+    li{
+      a{
+        color: #fff;
+        padding: 1em;
+        display: block;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+      }
+      a.active{
+        background-color: #fff;
+        color: $primary;
+        border-radius: 100px;
+        text-align: center;
+        display: block;
+      }
+      img{
+        max-height: 20px;
+        width: auto;
+        margin-right: 1em;
+      }
+    }
   }
-  .sidebar ul li a{
-    color: #fff;
-    padding: 1em;
-    display: block;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-  }
-  .sidebar ul li a.active{
-    background-color: $orange;
-    color: #fff;
-    border-radius: 100px;
-    text-align: center;
-    display: block;
-  }
-  .sidebar li img{
-    max-height: 20px;
-    width: auto;
-    margin-right: 1em;
-  }
-  .btn-pag {
-    display: flex;
-    padding-bottom: 1em;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    overflow: hidden;
-    padding: .5em 2em;
-  }
-  .btn-pag>div {
+}
+  
+.btn-pag {
+  display: flex;
+  padding-bottom: 1em;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: .5em 2em;
+  >div {
     width: 100%;
     float: right;
     display: flex;
     align-items: center;
     justify-content: flex-end;
   }
-  .btn-pag select {
+  select {
     margin-left: 1em;
     max-width: 120px;
     min-width: 80px;
   }
+}
   .addBtn{
     background-color: #0c3aa9;
     color: #fff;
@@ -65,7 +68,7 @@
     color:#fff;
   }
   .admin table th, .admin table thead tr td{
-    background-color: $blue;
+    background-color: $primary;
     color: #fff;
   }
   .admin table thead tr td:first-child{
@@ -85,24 +88,24 @@
     overflow: hidden;
     float: right;
     margin-left: 1em;
-  }
-  .page-numbers>li.active {
-    background: $orange;
-    color: #fff;
+    >li {
+      margin-right: 3px;
+      user-select: none;
+      cursor: pointer;
+      padding: 5px 14px;
+      font-size: 16px;
+      background: $primary;
+      color: #fff;
+      border-radius: 5px;
+    }
+    >li.active {
+      background: $primary;
+      color: #fff;
+    }
   }
   .admin ul li {
     text-align: center;
     font-weight: 600;
-  }
-  .page-numbers>li {
-    margin-right: 3px;
-    user-select: none;
-    cursor: pointer;
-    padding: 5px 14px;
-    font-size: 16px;
-    background: $blue;
-    color: #fff;
-    border-radius: 5px;
   }
   .editIcon{
     img{
@@ -158,7 +161,7 @@
   .onoffswitch-inner:before {
       content: "ON";
       padding-left: 6px;
-      background-color: $blue; color: #FFFFFF;
+      background-color: $primary; color: #FFFFFF;
       font-size: 10px;
       text-align: left;
   }
@@ -238,7 +241,7 @@
   border-radius: 5px;
   color: #fff;
   font-weight: 900;
-  color: $blue;
+  color: $primary;
   font-size: 1.5em;
   &:hover{
     cursor: pointer;
@@ -270,4 +273,7 @@ label{
 }
 .delIcon{
   max-width: 20px;
+}
+.table-responsive {
+  padding: 0 1em;
 }

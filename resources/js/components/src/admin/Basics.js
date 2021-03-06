@@ -3,6 +3,7 @@ import AdminSidebar from '../parts/AdminSidebar'
 import { Modal } from 'reactstrap'
 import api from '../parts/api'
 const func = require('../parts/functions')
+import { ExportReactCSV } from '../parts/ExportReactCSV'
 
 export class User extends Component {
     constructor(props) {
@@ -111,7 +112,10 @@ export class User extends Component {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const renderItems =  this.state.data.slice(indexOfFirstItem, indexOfLastItem).filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.type.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }}).map((i, index) => {
+        const data =  this.state.data.filter((i)=>{ 
+            if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.type.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
+        })
+        const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
@@ -173,6 +177,7 @@ export class User extends Component {
                                     </thead>
                                     <tbody>{renderItems}</tbody>
                                 </table>
+                                <ExportReactCSV csvData={data} fileName={'Basics -'+func.time+'.xls'}/>
                             </div>
                             <ul className="page-numbers">{renderPagination}</ul>
                         </div>
@@ -193,6 +198,7 @@ export class User extends Component {
                                 </select>
                             </div>
                             {this.state.type ==='MOQ'? <div className="col-sm-8"><label>Minimum Order Quantity</label><input className="form-control" placeholder="Set MOQ Here" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
+                            {this.state.type ==='CashDiscount'? <div className="col-sm-8"><label>Cash Discount</label><input className="form-control" placeholder="Set Cash Discount Here" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
                             {this.state.type ==='Screen'? <div className="col-sm-8"><label>App Screen Name</label><input className="form-control" placeholder="Add App Screen Name Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
                             {this.state.type ==='Language'? <div className="col-sm-8"><label>Language</label><input className="form-control" placeholder="Set Language Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
                             {this.state.type ==='FCentre'? 
@@ -254,6 +260,7 @@ export class User extends Component {
                                 </select>
                             </div>
                             {this.state.type ==='MOQ'? <div className="col-sm-8"><label>Minimum Order Quantity</label><input className="form-control" placeholder="Set MOQ Here" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
+                            {this.state.type ==='CashDiscount'? <div className="col-sm-8"><label>Cash Discount</label><input className="form-control" placeholder="Set Cash Discount Here" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
                             {this.state.type ==='Screen'? <div className="col-sm-8"><label>App Screen Name</label><input className="form-control" placeholder="Add App Screen Name Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
                             {this.state.type ==='Language'? <div className="col-sm-8"><label>Language</label><input className="form-control" placeholder="Set Language Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/></div> : null}
                             {this.state.type ==='FCentre'? 

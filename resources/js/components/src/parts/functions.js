@@ -5,6 +5,7 @@ export const imgPath = "/storage/"
 
 export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
 export function printError(mesg){ console.log('mesg', mesg) }
+export const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
 
 export const params = {
     slidesPerView: 1,
@@ -80,6 +81,7 @@ export const adminLinks =[
 
 export const basic =[
     {'single': true, text: 'Minimum Order Quantity', value: "MOQ"},
+    {'single': true, text: 'Cash Discount', value: "CashDiscount"},
     {'single': false, text: 'Fulfillment Centre', value: "FCentre"},
     {'single': false, text: 'Product Type', value: "ProductType"},
     {'single': false, text: 'Dimension Type', value: "DimensionType"},

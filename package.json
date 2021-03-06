@@ -27,6 +27,7 @@
     "dependencies": {
         "ckeditor4-react": "^1.4.0",
         "moment": "^2.29.1",
+        "react-csv": "^2.0.3",
         "react-facebook-login": "^4.1.1",
         "react-google-login": "^5.2.2",
         "react-id-swiper": "^3.0.0",

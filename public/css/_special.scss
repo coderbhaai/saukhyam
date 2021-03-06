@@ -13,7 +13,7 @@ img{
         margin-top: 1em;
         &:after{
             font-size: 15px;
-            background: $orange;
+            background: $primary;
             padding: 5px;
             color: #fff;
             border-radius: 3px;
@@ -44,17 +44,32 @@ a{
     margin: 1em 0;
 }
 .amitBtn{
-    background-color: $orange;
+    a{
+        color: #fff;
+        &:hover{
+            color: $primary;
+        }
+    }
+    background-color: $primary;
     color: #fff;
-    border: 1px solid $orange;
+    border: 1px solid $primary;
     border-radius: 5px;
     min-width: 200px;
     padding: 10px;
     text-align: center;
     &:hover{
         background-color: #fff;
-        color: $orange;
+        color: $primary;
         transition: 0.5s all;
         cursor: pointer;
+        a{
+            color: $primary;
+        }
+    }
+    
+}
+.logo{
+    img{
+        max-width: 150px;
     }
 }

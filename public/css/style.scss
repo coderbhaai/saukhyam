@@ -24,8 +24,19 @@ button, button:focus, input, input:focus{
         color: $text;
     }
 }
+.whiteLogo{ display: none; }
+.ban-fix{
+    background-color: $primary !important;
+    color: #fff;
+    transition: 0.5s all;
+    .whiteLogo{ display: block; }
+    .greenLogo{ display: none; }
+    .nav-link{
+        color: #fff;
+    }
+}
 .footer{
-    background: rgb(29, 29, 29);
+    background: $primary;
     padding: 30px 0;
     color: white;
     text-align: left;
@@ -35,7 +46,7 @@ button, button:focus, input, input:focus{
             .underline{
                 width: 80px;
                 height: 2px;
-                background: $blue;
+                background: $primary;
                 margin-bottom: 20px;
             }
             h3{
@@ -51,7 +62,7 @@ button, button:focus, input, input:focus{
                         text-decoration: none;
                         transition: 0.3s ease-in-out;
                         &:hover{
-                            color: $blue;
+                            color: $primary;
                         }
                     }
                 }
@@ -60,14 +71,14 @@ button, button:focus, input, input:focus{
                 margin-right: 10px;
                 transition: 0.3s ease-in-out;
                 &:hover{
-                    color: $blue;
+                    color: $primary;
                 }
             }
         }
     }
 }
 .footer-bottom{
-    background: rgb(49, 49, 49);
+    background: $action;
     color: white;
     display: flex;
     justify-content: center;
@@ -178,7 +189,7 @@ button, button:focus, input, input:focus{
         padding: 25px 0;
     }
     a{
-        color: $blue;
+        color: $primary;
         text-decoration: none;
     }
     .gofb{
@@ -204,18 +215,18 @@ button, button:focus, input, input:focus{
             background: #f1f1f1;
         } 
         .amitBtn{
-            background: $blue;
+            background: $primary;
             color: white;
             padding: 10px 50px;
             margin: 15px 0;
-            border: 1px solid $blue;
+            border: 1px solid $primary;
             cursor: pointer;
             width: 100%;
             transition: 0.3s ease-in-out;
             &:hover{
                 background: white;
-                border: 1px solid $blue;
-                color: $blue;
+                border: 1px solid $primary;
+                color: $primary;
             }
         }
         button[type=button]{
@@ -230,13 +241,13 @@ button, button:focus, input, input:focus{
     }
     .product-details{
         .fa{
-            color: $blue;
+            color: $primary;
             &::before{
                 margin-right: 5px;
             }
         }
         .product-price{
-            color: $orange;
+            color: $action;
             font-weight: bold;
         }
         .quantity-input{
@@ -251,12 +262,12 @@ button, button:focus, input, input:focus{
                 text-decoration: none;
                 padding: 6px 40px;
                 background: white;
-                border: 2px solid $blue;
+                border: 2px solid $primary;
                 border-radius: 3px;
-                color: $blue;
+                color: $primary;
                 transition: 0.3s ease-in-out;
                 &:hover{
-                    background: $blue;
+                    background: $primary;
                     color: white;
                 }
             }
@@ -274,7 +285,7 @@ button, button:focus, input, input:focus{
                         padding: 8px 0;
                         margin-right: 20px;                      
                         &:focus{
-                            border-bottom: 2px solid $blue;
+                            border-bottom: 2px solid $primary;
                         }
                     }
                 }
