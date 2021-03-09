@@ -57,7 +57,7 @@ export class Tutorials extends Component {
         data.append('url', this.state.url)
         data.append('description', this.state.description)
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        axios.post('/api/createTutorial', data)
+        axios.post(api.createTutorial, data)
         .then( res=> {
             if(res.data.success){ this.setState({ data: [...this.state.data, res.data.data ] }) }
             func.callSwal(res.data.message)
@@ -88,7 +88,7 @@ export class Tutorials extends Component {
         data.append('description', this.state.description)
         data.append('oldImage', this.state.oldImage)
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        axios.post('/api/updateTutorial', data)
+        axios.post(api.updateTutorial, data)
         .then( res=> {
             if(res.data.success){ 
                 this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })
@@ -145,7 +145,7 @@ export class Tutorials extends Component {
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Tutorials)</h1>
-                            {this.state.loading? <div className="loading"><img src="/images/logo.png"/></div> :<>
+                            {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
                                 <div className="btn-pag">
                                     <button className="amitBtn" onClick={this.addModalOn}>Add Tutorial</button>
                                     <div className="flex-h">
@@ -263,14 +263,11 @@ export class Tutorials extends Component {
                                     <input className="form-control" placeholder="Add Location Here" type="file" onChange={this.singleImage}/>
                                 </div> 
                             : null}   
-                            {this.state.type? 
-                            <>                        
+                            {this.state.type?      
                                 <div className="col-sm-12">
                                     <label>Description</label>
                                     <textarea className="form-control" placeholder="Add Description Here" name="description" onChange={this.onChange} value={this.state.description}/>
-                                </div> 
-                                <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
-                            </>
+                                </div>
                             : null}
                             <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                         </div>

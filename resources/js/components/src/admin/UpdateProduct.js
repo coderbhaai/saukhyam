@@ -148,7 +148,7 @@ export class UpdateProduct extends Component {
                                     <div className="col-sm-12 mb-3">
                                         <label>Images</label>
                                         <input type="file" className="form-control" multiple onChange={this.multipleImage}/>
-                                        {this.state.oldImages.map((i,index)=>(<img key={index} className="previewImg" src={func.imgPath+i}/>))}
+                                        {this.state.oldImages.map((i,index)=>(<img key={index} className="previewImg" src={func.imgPath+'product/'+i}/>))}
                                     </div>
                                     <div className="col-sm-12">
                                         <button onClick={this.addDimensions} className="amitBtn">Add Dimensions</button>

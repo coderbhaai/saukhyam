@@ -1,7 +1,7 @@
-export const base = '/'
-export const imgPath = "/storage/"
-// export const base = '/saukhyam/'
-// export const imgPath = "/tomato/storage/app/public/"
+// export const base = '/'
+// export const imgPath = "/storage/"
+export const base = '/saukhyam/'
+export const imgPath = "/saukhyam/amit/storage/app/public/"
 
 export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
 export function printError(mesg){ console.log('mesg', mesg) }

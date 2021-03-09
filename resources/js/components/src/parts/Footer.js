@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+const func = require('./functions')
 
 export class Footer extends Component {
     render() {
@@ -10,20 +11,20 @@ export class Footer extends Component {
                             <h2>Saukhyam Pads is proud to be featured in</h2>
                             <div className="row">
                                 <div className="col-sm-3">
-                                    <img src="/images/icons/featured_logo_06.png"/>
-                                    <img src="/images/icons/featured_logo_05.png"/>
+                                    <img src={func.base+"/images/icons/featured_logo_06.png"}/>
+                                    <img src={func.base+"/images/icons/featured_logo_05.png"}/>
                                 </div>
                                 <div className="col-sm-3">
-                                    <img src="/images/icons/featured_logo_02.png"/>
-                                    <img src="/images/icons/featured_logo_01.png"/>
+                                    <img src={func.base+"/images/icons/featured_logo_02.png"}/>
+                                    <img src={func.base+"/images/icons/featured_logo_01.png"}/>
                                 </div>
                                 <div className="col-sm-3">
-                                    <img src="/images/icons/featured_logo_07.png"/>
-                                    <img src="/images/icons/featured_logo_03.png"/>
+                                    <img src={func.base+"/images/icons/featured_logo_07.png"}/>
+                                    <img src={func.base+"/images/icons/featured_logo_03.png"}/>
                                 </div>
                                 <div className="col-sm-3">
-                                    <img src="/images/icons/featured_logo_04.png"/>
-                                    <img src="/images/icons/featured_logo_08.png"/>
+                                    <img src={func.base+"/images/icons/featured_logo_04.png"}/>
+                                    <img src={func.base+"/images/icons/featured_logo_08.png"}/>
                                 </div>
                             </div>
                         </div>
@@ -31,17 +32,18 @@ export class Footer extends Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-3 mathLogo">
-                                <img src="/images/footer_logo.png"/>
+                                <img src={func.base+"/images/footer_logo.png"}/>
                             </div>
                             <div className="col-sm-3">
                                 <p>Saukhyam began as a research project at Amrita University. Ranked as the 4th best university in India (NIRF 2020), Amrita emphasizes research that benefits society.</p>
                                 <h3 className="mt-3">Follow Us</h3>
                                 <div className="middle">
-                                    <a target="_blank" href="https://www.facebook.com/Amitkk-110578507216727"><i className="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a target="_blank" href="https://www.linkedin.com/in/amitkhare588/"><i className="fa fa-linkedin" aria-hidden="true"></i></a>
-                                    <a target="_blank" href="https://twitter.com/AmitdoubleK"><i className="fa fa-twitter" aria-hidden="true"></i></a>
-                                    <a target="_blank" href="https://www.instagram.com/amitdoublek/"><i className="fa fa-instagram" aria-hidden="true"></i></a>
-                                    <a target="_blank" href="//api.whatsapp.com/send?phone=918424003840&amp;text= Hi, I got your number from AmitKK Website"><i className="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                    <a target="_blank" href="https://www.facebook.com/SaukhyamReusablePads/"><i className="fa fa-facebook" aria-hidden="true"></i></a>
+                                    {/* <a target="_blank" href="https://www.linkedin.com/in/amitkhare588/"><i className="fa fa-linkedin" aria-hidden="true"></i></a>
+                                    <a target="_blank" href="https://twitter.com/AmitdoubleK"><i className="fa fa-twitter" aria-hidden="true"></i></a> */}
+                                    <a target="_blank" href="https://www.youtube.com/channel/UCP_eM9o-i-HWixf-OB5lHpg"><i className="fa fa-youtube" aria-hidden="true"></i></a>
+                                    <a target="_blank" href="https://www.instagram.com/saukhyam_pads/"><i className="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a target="_blank" href="https://api.whatsapp.com/send/?phone=919497343225&amp;text&amp;app_absent=0"><i className="fa fa-whatsapp" aria-hidden="true"></i></a>
                                 </div>  
                             </div>
                             <div className="col-sm-6">

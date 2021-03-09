@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import api from './api'
-const func = require('../parts/functions')
+const func = require('./functions')
 
 export class Header extends Component {
     constructor(props) {
@@ -45,8 +45,8 @@ export class Header extends Component {
         return (
             <nav className={"navbar navbar-expand-lg sticky-top"}>
                 <a className="logo" href={func.base}>
-                    <img className="greenLogo" src="/images/logo.png"/>
-                    <img className="whiteLogo" src="/images/logo-1.png"/>
+                    <img className="greenLogo" src={func.base+"/images/logo.png"}/>
+                    <img className="whiteLogo" src={func.base+"/images/logo-1.png"}/>
                 </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

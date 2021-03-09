@@ -117,7 +117,7 @@ export class User extends Component {
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Users)</h1>
-                            {this.state.loading? <div className="loading"><img src="/images/logo.png"/></div> :<>
+                            {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
                                 <div className="btn-pag">
                                     <div className="flex-h">
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>

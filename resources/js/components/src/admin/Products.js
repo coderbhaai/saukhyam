@@ -70,7 +70,7 @@ export class User extends Component {
                             <label className="onoffswitch-label" htmlFor={'Switch-'+i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
                         </div>
                     </td>
-                    <td className="editIcon text-center"><a href={"/updateProduct/"+i.id}><img src="/images/icons/edit.svg"/></a></td>
+                    <td className="editIcon text-center"><a href={func.base+"updateProduct/"+i.id}><img src="/images/icons/edit.svg"/></a></td>
                 </tr>
         )})
         const pageNumbers = []
@@ -83,9 +83,9 @@ export class User extends Component {
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Products)</h1>
-                            {this.state.loading? <div className="loading"><img src="/images/logo.png"/></div> :<>
+                            {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
                                 <div className="btn-pag">
-                                    <a className="amitBtn" href="/addProduct">Add Product</a>
+                                    <a className="amitBtn" href={func.base+"addProduct"}>Add Product</a>
                                     <div className="flex-h">
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
