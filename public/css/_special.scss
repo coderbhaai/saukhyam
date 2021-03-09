@@ -7,17 +7,20 @@ img{
     width: 80%;
     max-width: 80%;
 }
+.swiper-button-prev, .swiper-button-next{
+    &:after{
+        font-size: 15px;
+        background: $primary;
+        padding: 5px;
+        color: #fff;
+        border-radius: 3px;
+    }
+}
+
 .navOnTop{
     .swiper-button-prev, .swiper-button-next{
         top: 0;
         margin-top: 1em;
-        &:after{
-            font-size: 15px;
-            background: $primary;
-            padding: 5px;
-            color: #fff;
-            border-radius: 3px;
-        }
     }
     .swiper-container{
         padding-top: 3em;
@@ -71,5 +74,34 @@ a{
 .logo{
     img{
         max-width: 150px;
+    }
+}
+.middle{
+    display: flex;
+    >a{
+        background: $action;
+        display: block;
+        padding: 5px 10px;
+        margin-right: 10px;
+        border-radius: 2px;
+        .fa{
+            color: #fff;
+            font-size: 18px;
+        }
+        &:hover{
+            background: $primary;
+            transition: .5s all;
+        }
+    }
+}
+.loading{
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+        max-width: 150px;
+        height: auto;
     }
 }

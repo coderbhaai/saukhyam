@@ -20,6 +20,7 @@ import UpdateProduct from './src/admin/UpdateProduct'
 import AdminTutorials from './src/admin/Tutorials'
 import AdminLanguage from './src/admin/Language'
 import AdminOrders from './src/admin/Orders'
+import AdminFAQ from './src/admin/FAQ'
 
 import RequireAdmin from './src/parts/RequireAdmin'
 
@@ -45,6 +46,7 @@ function Index() {
                 <Route exact path={func.base+"adminTutorials"} component={RequireAdmin(AdminTutorials)}/>
                 <Route exact path={func.base+"adminLanguage"} component={RequireAdmin(AdminLanguage)}/>
                 <Route exact path={func.base+"adminOrders"} component={RequireAdmin(AdminOrders)}/>
+                <Route exact path={func.base+"adminFaq"} component={RequireAdmin(AdminFAQ)}/>
             </Switch>
             <Footer/>
         </Router>

@@ -17,10 +17,12 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('userId');
             $table->mediumText('order');
-            $table->integer('status');
-            $table->integer('shipping')->nullable();
+            $table->string('status');
+            $table->mediumText('shipping')->nullable();
+            $table->mediumText('discount')->nullable();
+            $table->mediumText('payment')->nullable();
             $table->integer('centre');
-            $table->mediumText('discription')->nullable();
+            $table->mediumText('remarks')->nullable();
             $table->timestamps();
         });
     }

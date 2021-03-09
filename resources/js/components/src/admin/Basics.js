@@ -21,6 +21,7 @@ export class User extends Component {
             tab1:                       '',
             tab2:                       '',
             tab3:                       '',
+            loading:                    true
         }
     }
 
@@ -34,7 +35,8 @@ export class User extends Component {
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
         this.setState({
-            data:          body.data
+            data:                       body.data,
+            loading:                    false
         })
     }
 
@@ -148,38 +150,40 @@ export class User extends Component {
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Basics)</h1>
-                            <div className="btn-pag">
-                                <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
-                                <div className="flex-h">
-                                    <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
-                                    <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
-                                        <option>{itemsPerPage}</option>
-                                        <option value="10">10</option> 
-                                        <option value="25">25</option> 
-                                        <option value="50">50</option> 
-                                        <option value="100">100</option> 
-                                    </select>
+                            {this.state.loading? <div className="loading"><img src="/images/logo.png"/></div> :<>
+                                <div className="btn-pag">
+                                    <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
+                                    <div className="flex-h">
+                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
+                                        <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
+                                            <option>{itemsPerPage}</option>
+                                            <option value="10">10</option> 
+                                            <option value="25">25</option> 
+                                            <option value="50">50</option> 
+                                            <option value="100">100</option> 
+                                        </select>
+                                    </div>
+                                    <ul className="page-numbers">{renderPagination}</ul>
+                                </div>
+                                <div className="table-responsive">
+                                    <table className="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl No.</th>
+                                                <th>Type</th>
+                                                <th>Name</th>
+                                                <th>Tab1 </th>
+                                                <th>Tab2 </th>
+                                                <th>Tab3 </th>
+                                                <th>Edit </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>{renderItems}</tbody>
+                                    </table>
+                                    <ExportReactCSV csvData={data} fileName={'Basics -'+func.time+'.xls'}/>
                                 </div>
                                 <ul className="page-numbers">{renderPagination}</ul>
-                            </div>
-                            <div className="table-responsive">
-                                <table className="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Sl No.</th>
-                                            <th>Type</th>
-                                            <th>Name</th>
-                                            <th>Tab1 </th>
-                                            <th>Tab2 </th>
-                                            <th>Tab3 </th>
-                                            <th>Edit </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>{renderItems}</tbody>
-                                </table>
-                                <ExportReactCSV csvData={data} fileName={'Basics -'+func.time+'.xls'}/>
-                            </div>
-                            <ul className="page-numbers">{renderPagination}</ul>
+                            </>}
                         </div>
                     </div>
                 </div>

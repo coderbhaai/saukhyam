@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use File;
+use Auth;
 use App\Models\User;
 use App\Models\Basic;
 use App\Models\Language;
@@ -11,6 +12,7 @@ use App\Models\Orders;
 use App\Models\Products;
 use App\Models\Profiles;
 use App\Models\Tutorials;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -274,6 +276,108 @@ class AdminController extends Controller
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Language updated succesfully"];
         return response()->json($response, 201);
     }
-    
+
+    public function adminFaqs(){
+        $data = Faq::select('id','question','status', 'answer')->get();
+        return response()->json([ 'data' => $data]); 
+    }
+
+    public function faqQuestion(Request $request){        
+        $id = Auth::user()->id;
+        $dB                     =   new Faq;
+        $dB->userId             =   Auth::user()->id;
+        $dB->question           =   $request->question;
+        $dB-> save();
+        $response = ['success'=>true, 'id'=>$id, 'message' => "Ticket raised succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function faqAnswer(Request $request){
+        $dB                         =   Faq::find($request->id);
+        $dB->question               =   $request->question;
+        $dB->status                 =   $request->status;
+        $dB->answer                 =   $request->answer;
+        $dB-> save();
+        $data = Faq::where('id', $request->id)->select('id','question','status', 'answer')->get();
+        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Answer submitted succesfully"];
+        return response()->json($response, 201);
+    }    
+
+    public function changeFaqStatus(Request $request){
+        $dB                   =   Faq::find($request->id);
+        $dB->status           =   $request->status;
+        $dB-> save();
+        $data = Faq::where('id', $request->id)->select('id','question','status', 'answer')->first();
+        $response = ['success'=>true, 'data'=>$data, 'message'=>'Status Updated Succesfully'];
+        return response()->json($response, 201);
+    }
+
+    public function adminOrders(){
+        $basic = Basic::select('id','name','type', 'tab1')->whereIn('type', ['FCentre'])->get();
+        $data       =   DB::table('orders')->leftJoin('users', 'users.id', '=', 'orders.userId')->leftJoin('basics', 'basics.id', '=', 'orders.centre')
+                        ->select([ 'orders.*', 'users.name', 'users.email', 'users.phone', 'basics.name as centreName', 'basics.tab1 as centreLocation'])
+                        ->get()->map(function($i) {
+                            $final = [];
+                            for ($j=0; $j < count(json_decode($i->order)) ; $j++) {
+                                $xx   =   Products::select('name as pName', 'images', 'dimension')->where( 'id', json_decode($i->order)[$j][0] )->first();
+                                $cc = json_decode($i->order)[$j];
+                                $image = json_decode($xx->images)[0];
+                                array_push($cc, $xx->pName);
+                                array_push($cc, $image);
+                                array_push($cc, $xx->dimension);
+                                array_push($final, $cc);
+                            }
+                            $i->order = json_encode($final);
+                            return $i;
+                        });
+
+        return response()->json([ 'data' => $data, 'basic'=> $basic ]); 
+    }
+
+    public function createOrder(Request $request){
+        $fc = Auth::user()->fCentre;
+        $dB                     =   new Orders;
+        $dB->userId             =   Auth::user()->id;
+        $dB->order              =   $request->order;
+        $dB->status             =   'Ordered';
+        $dB->remarks            =   $request->remarks;
+        if($fc){
+            $dB->centre         =   $fc;
+        }else{
+            $dB->centre         =   1;
+        }
+        $dB-> save();        
+        $response = ['success'=>true,  'message' => "Order created succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function updateOrder(Request $request){
+        $dB                         =   Orders::find($request->id);
+        $dB->status                 =   $request->status;
+        $dB->centre                 =   $request->centre;
+        $dB->remarks                =   $request->remarks;
+        $dB->shipping               =   $request->shipping;
+        $dB-> save();
+
+        $data       =   DB::table('orders')->leftJoin('users', 'users.id', '=', 'orders.userId')->leftJoin('basics', 'basics.id', '=', 'orders.centre')
+                        ->where('orders.id', $request->id)
+                        ->select([ 'orders.*', 'users.name', 'users.email', 'users.phone', 'basics.name as centreName', 'basics.tab1 as centreLocation'])
+                        ->get()->map(function($i) {
+                            $final = [];
+                            for ($j=0; $j < count(json_decode($i->order)) ; $j++) {
+                                $xx   =   Products::select('name as pName', 'images', 'dimension')->where( 'id', json_decode($i->order)[$j][0] )->first();
+                                $cc = json_decode($i->order)[$j];
+                                $image = json_decode($xx->images)[0];
+                                array_push($cc, $xx->pName);
+                                array_push($cc, $image);
+                                array_push($cc, $xx->dimension);
+                                array_push($final, $cc);
+                            }
+                            $i->order = json_encode($final);
+                            return $i;
+                        });
+        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Order updated succesfully"];
+        return response()->json($response, 201);
+    }
 
 }

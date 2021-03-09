@@ -6,50 +6,68 @@ export class Footer extends Component {
             <>
                 <section className="footer">
                     <div className="container">
+                        <div className="featured">
+                            <h2>Saukhyam Pads is proud to be featured in</h2>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <img src="/images/icons/featured_logo_06.png"/>
+                                    <img src="/images/icons/featured_logo_05.png"/>
+                                </div>
+                                <div className="col-sm-3">
+                                    <img src="/images/icons/featured_logo_02.png"/>
+                                    <img src="/images/icons/featured_logo_01.png"/>
+                                </div>
+                                <div className="col-sm-3">
+                                    <img src="/images/icons/featured_logo_07.png"/>
+                                    <img src="/images/icons/featured_logo_03.png"/>
+                                </div>
+                                <div className="col-sm-3">
+                                    <img src="/images/icons/featured_logo_04.png"/>
+                                    <img src="/images/icons/featured_logo_08.png"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="container-fluid">
                         <div className="row">
-                            <div className="col-sm-3">
-                                <div className="footer-content">
-                                    <h3>About</h3>
-                                    <div className="underline"></div>
-                                    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                </div>
-                            </div>
-                            <div className="col-sm-2">
-                                <div className="footer-content">
-                                    <h3>Products</h3>
-                                    <div className="underline"></div>
-                                    <ul>
-                                        <li><a href="#">Mobiles</a></li>
-                                        <li><a href="#">Shirts</a></li>
-                                        <li><a href="#">Jeans</a></li>
-                                        <li><a href="#">Accessories</a></li>
-                                        <li><a href="#">Computer</a></li>
-                                        <li><a href="#">Home appliances</a></li>
-                                    </ul>
-                                </div>
+                            <div className="col-sm-3 mathLogo">
+                                <img src="/images/footer_logo.png"/>
                             </div>
                             <div className="col-sm-3">
-                                <div className="footer-content">
-                                    <h3>Useful links</h3>
-                                    <div className="underline"></div>
-                                    <ul>
-                                        <li><a href="#">Your account</a></li>
-                                        <li><a href="#">Shipping rates</a></li>
-                                        <li><a href="#">Terms and conditions</a></li>
-                                        <li><a href="#">Privacy policy</a></li>
-                                        <li><a href="#">Products and services</a></li>
-                                    </ul>
-                                </div>
+                                <p>Saukhyam began as a research project at Amrita University. Ranked as the 4th best university in India (NIRF 2020), Amrita emphasizes research that benefits society.</p>
+                                <h3 className="mt-3">Follow Us</h3>
+                                <div className="middle">
+                                    <a target="_blank" href="https://www.facebook.com/Amitkk-110578507216727"><i className="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a target="_blank" href="https://www.linkedin.com/in/amitkhare588/"><i className="fa fa-linkedin" aria-hidden="true"></i></a>
+                                    <a target="_blank" href="https://twitter.com/AmitdoubleK"><i className="fa fa-twitter" aria-hidden="true"></i></a>
+                                    <a target="_blank" href="https://www.instagram.com/amitdoublek/"><i className="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a target="_blank" href="//api.whatsapp.com/send?phone=918424003840&amp;text= Hi, I got your number from AmitKK Website"><i className="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                </div>  
                             </div>
-                            <div className="col-sm-4">
-                                <div className="footer-content">
-                                    <h3>Contact us</h3>
-                                    <div className="underline"></div>
+                            <div className="col-sm-6">
+                                <h3 className="mt-3">Contact Us</h3>                              
+                                <ul className="emailPhone">
+                                    <li><a href="mailto:info@saukhyampads.org"><i className="fa fa-envelope" aria-hidden="true"></i> info@saukhyampads.org</a></li>
+                                    <li><a href="tel:+91 6282 103 073"><i className="fa fa-phone" aria-hidden="true"></i> +91 6282 103 073</a></li>
+                                </ul>
+                                <div className="links">
                                     <ul>
-                                        <li><i className="fa fa-home"></i>New York, Avenue Street 10</li>
-                                        <li><i className="fa fa-phone"></i>042 876 836 908</li>
-                                        <li><i className="fa fa-envelope-o"></i>company@example.com</li>
-                                        <li><i className="fa fa-clock"></i>Monday - Friday: 10a.m-08p.m</li>
+                                        <li><a target="_blank" href="http://amma.org">amma.org</a></li>
+                                        <li><a target="_blank" href="http://amritapuri.org">amritapuri.org</a></li>
+                                        <li><a target="_blank" href="http://amritaworld.org">amritaworld.org</a></li>
+                                        <li><a target="_blank" href="http://matruvani.org">matruvani.org</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a target="_blank" href="http://amrita.edu">amrita.edu</a></li>
+                                        <li><a target="_blank" href="http://amritavidyalayam.org">amritavidyalayam.org</a></li>
+                                        <li><a target="_blank" href="http://amritayoga.com">amritayoga.com</a></li>
+                                        <li><a target="_blank" href="http://iam-meditation.org">iam-meditation.org</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a target="_blank" href="http://amritaserve.org">amritaserve.org</a></li>
+                                        <li><a target="_blank" href="http://theammashop.org">theammashop.org</a></li>
+                                        <li><a target="_blank" href="http://amritastore.com">amritastore.com</a></li>
+                                        <li><a target="_blank" href="http://embracingtheworld.org">embracingtheworld.org</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -58,7 +76,8 @@ export class Footer extends Component {
                 </section>
                 <section className="footer-bottom">
                     <div className="bottom-content">
-                        <p>© 2020 Copyright: www.website.com</p>
+                        <p>© 2020</p>
+                        <p>Powered by : <a href="https://www.amitkk.com" target="_blank">AmitKK</a></p>
                     </div>
                 </section>
             </>

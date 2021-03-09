@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import AdminSidebar from '../parts/AdminSidebar'
-import moment from "moment"
+import { Modal } from 'reactstrap'
 import api from '../parts/api'
 const func = require('../parts/functions')
 import { ExportReactCSV } from '../parts/ExportReactCSV'
-import { Modal } from 'reactstrap'
+import CKEditor from 'ckeditor4-react'
 
 export class User extends Component {
     constructor(props) {
@@ -12,16 +12,17 @@ export class User extends Component {
         this.state = {
             currentPage:                1,
             itemsPerPage:               100,
-            basic:                      [],
-            data:                       [],
+            data:                      [],
             search:                     '',
             editmodalIsOpen:            false,
             id:                         '',
+            answer:                     '',
+            question:                   '',
             status:                     '',
-            remarks:                    '',
-            shipping:                   '',
             loading:                    true
         }
+        this.handleChange1 = this.handleChange1.bind( this )
+		this.onEditorChange1 = this.onEditorChange1.bind( this )
     }
 
     componentDidMount(){
@@ -30,13 +31,11 @@ export class User extends Component {
     }
 
     callApi = async () => {
-        const response = await fetch( api.adminOrders, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
+        const response = await fetch( api.adminFaqs, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:                       body.data,
-            basic:                      body.basic,
             loading:                    false
         })
     }
@@ -45,29 +44,30 @@ export class User extends Component {
     handleClick= (e)=> { this.setState({ currentPage: Number(e.target.id) }) }
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
+    onEditorChange1( evt1 ) { this.setState( { answer: evt1.editor.getData() } ) }
+    handleChange1( changeEvent1 ) { this.setState( { answer: changeEvent1.target.value } ) }
 
     editModalOn = (i)=>{
+        console.log('i', i)
         this.setState({
             editmodalIsOpen:                true,
             id:                             i.id,
+            question:                       i.question,
+            answer:                         i.answer,
             status:                         i.status,
-            shipping:                       i.shipping,
-            remarks:                        i.remarks,
-            centre:                         i.centre,
         })
     }
 
     updateModal = (e) => {
         e.preventDefault()
-        const data={
-            id:                     this.state.id,
-            status:                 this.state.status,
-            shipping:               this.state.shipping,
-            remarks:                this.state.remarks,
-            centre:                 this.state.centre,
+        const data ={
+            id :                this.state.id,
+            question :          this.state.question,
+            status :            this.state.status,
+            answer :            this.state.answer
         }
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        axios.post(api.updateOrder, data)
+        axios.post(api.faqAnswer, data)
         .then( res=> {
             if(res.data.success){ 
                 this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })
@@ -80,39 +80,51 @@ export class User extends Component {
 
     resetData = ()=>{
         this.setState({
-            editmodalIsOpen:                false,
-            id:                             '',
-            status:                         '',
-            shipping:                       '',
-            remarks:                        '',
-            centre:                         '',
+            addmodalIsOpen:             false,
+            editmodalIsOpen:            false,
+            id:                         '',
+            question:                   '',
+            status:                     '',
+            answer:                     ''
         })
     }
 
+    changeStatus=(i, value)=>{
+        if(value == 1){ var status = 0 }else{ var status = 1}
+        const data={
+            id:                         i.id,
+            status:                     status
+        }
+        const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+        axios.post(api.changeFaqStatus, data)
+        .then( res=>{
+            if(res.data.success){ this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) }
+            func.callSwal(res.data.message)
+        })
+        .catch(err=>func.printError(err))
+    }
+
     render() {
+        // [pId, Qty,]
+        console.log('JSON.stringify([1,])', JSON.stringify([[1, 5], [2,3], [3.4] ]))
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
         const data =  this.state.data.filter((i)=>{ 
-            if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
+            if(this.state.search == null) return i; else if(i.question.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
         })
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
-                    <td>{i.name}<br/>{i.email}<br/>{i.phone}</td>
+                    <td>{i.question}</td>
+                    <td>{i.answer? 'Answered': 'Not Answered'}</td>
                     <td>
-                        {JSON.parse(i.order).map((j,index2)=>(
-                            <div key={index2}>
-                                {/* <img src={func.imgPath+'product/'+j[3]} className="previewImg"/> */}
-                                {j[2]} X {j[1]}
-                            </div>
-                        ))}
-                    </td> 
-                    <td>{i.status}</td> 
-                    <td>{i.discount}</td> 
-                    <td>{i.payment}</td> 
-                    <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
+                        <div className="onoffswitch">
+                            <input type="checkbox" name="statusSwitch" className="onoffswitch-checkbox" id={'Switch-'+i.id} onChange={(e)=>this.changeStatus(i, e.target.value)} value={i.status} checked={i.status==1? true : false}/>
+                            <label className="onoffswitch-label" htmlFor={'Switch-'+i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
+                        </div>
+                    </td>
                     <td className="editIcon text-center" onClick={()=>this.editModalOn(i)}><img src="/images/icons/edit.svg"/></td>
                 </tr>
         )})
@@ -125,9 +137,10 @@ export class User extends Component {
                     <div className="row">
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
-                            <h1 className="heading"><span>Admin Panel </span>(Orders)</h1>
+                            <h1 className="heading"><span>Admin Panel </span>(FAQ)</h1>
                             {this.state.loading? <div className="loading"><img src="/images/logo.png"/></div> :<>
                                 <div className="btn-pag">
+                                    <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
                                     <div className="flex-h">
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
@@ -145,18 +158,15 @@ export class User extends Component {
                                         <thead>
                                             <tr>
                                                 <th>Sl No.</th>
-                                                <th>Order By</th>
-                                                <th>Order</th>
+                                                <th>Question</th>
+                                                <th>Answer</th>
                                                 <th>Status</th>
-                                                <th>Discount</th>
-                                                <th>Payment</th>
-                                                <th>Date</th>
-                                                <th>Action</th>
+                                                <th>Edit </th>
                                             </tr>
                                         </thead>
                                         <tbody>{renderItems}</tbody>
                                     </table>
-                                    <ExportReactCSV csvData={data} fileName={'Orders -'+func.time+'.xls'}/>
+                                    <ExportReactCSV csvData={data} fileName={'Basics -'+func.time+'.xls'}/>
                                 </div>
                                 <ul className="page-numbers">{renderPagination}</ul>
                             </>}
@@ -164,33 +174,24 @@ export class User extends Component {
                     </div>
                 </div>
                 <Modal isOpen={this.state.editmodalIsOpen} className="adminModal"> 
-                    <div className="modal-header"><h2>Update Order Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
+                    <div className="modal-header"><h2>Update FAQ Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.updateModal}>
                         <div className="row">
-                            <div className="col-sm-3">
-                                <label>Order Status</label>
+                            <div className="col-sm-4">
+                                <label>Status</label>
                                 <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
                                     <option value="">Select Status</option>
-                                    <option value="Ordered">Ordered</option>
-                                    <option value="Delivered">Delivered</option>
-                                    <option value="Under shiping">Under shiping</option>
-                                    <option value="Processing">Processing</option>
+                                    <option value="0">Hide</option>
+                                    <option value="1">Show</option>
                                 </select>
                             </div>
-                            <div className="col-sm-3">
-                                <label>Fulfillment Centre</label>
-                                <select className="form-control" required name="centre" onChange={this.onChange} value={this.state.centre}>
-                                    <option value=''>Select Fulfillment Centre</option>
-                                    {this.state.basic.filter(i=>i.type=='FCentre').map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
-                                </select>
-                            </div> 
-                            <div className="col-sm-6">
-                                <label>Shipping</label>
-                                <input className="form-control" placeholder="Add Shipping Details Here" type="text" name="shipping" value={this.state.shipping} onChange={this.onChange}/>
-                            </div> 
+                            <div className="col-sm-8">
+                                <label>Question</label>
+                                <input className="form-control" placeholder="Question" type="text" name="question" value={this.state.question} onChange={this.onChange}/>
+                            </div>
                             <div className="col-sm-12">
-                                <label>Remarks</label>
-                                <textarea className="form-control" placeholder="Remarks" type="text" name="remarks" value={this.state.remarks} onChange={this.onChange}/>
+                                <label>Answer</label>
+                                <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } content= {this.state.answer} data={this.state.answer} onChange={this.onEditorChange1}/>
                             </div>
                             <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                         </div>

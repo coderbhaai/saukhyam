@@ -20,6 +20,7 @@ button, button:focus, input, input:focus{
 }
 .navbar{
     background-color: #fff;
+    border-bottom: 2px solid $primary;
     .nav-link, .navbar-brand{
         color: $text;
     }
@@ -76,6 +77,9 @@ button, button:focus, input, input:focus{
             }
         }
     }
+    .container-fluid{
+        padding: 0 2em;
+    }
 }
 .footer-bottom{
     background: $action;
@@ -83,6 +87,15 @@ button, button:focus, input, input:focus{
     display: flex;
     justify-content: center;
     padding: 5px 0;
+    .bottom-content{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 98%;
+        a{
+            color: #fff;
+        }
+    }
 }
 .home-banner{
     .banner{
@@ -93,9 +106,6 @@ button, button:focus, input, input:focus{
             width: 100%;
             background: rgba(0,0,0,0.3);
         }
-    }
-    .swiper-button-next, .swiper-button-prev{
-        display: none;
     }
 }
 .who{
@@ -155,6 +165,10 @@ button, button:focus, input, input:focus{
             box-shadow: 0 0 5px #aaa;
             transition: 0.2s ease-in-out;
             border: none;
+            img{
+                max-width: 150px;
+                margin: 1rem auto 0;
+            }
             cursor: pointer;
             &:hover{
                 box-shadow: 0 0 20px #aaa;
@@ -304,4 +318,59 @@ button, button:focus, input, input:focus{
 }
 .admin{
     padding: 30px 0;
+}
+.mathLogo{
+    img{
+        max-width: 200px;
+    }
+}
+.emailPhone{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+    li{
+        margin-bottom: 10px;
+        a{
+            color: #fff;
+            i{
+                color: #fff;
+                font-size: 15px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+.links{
+    display: flex;
+    justify-content: space-between;
+    ul{
+        li{
+            a{
+                color: #fff;
+                display: block;
+                padding: 5px 0;
+            }
+        }
+    }
+}
+.featured{
+    background: $action;
+    padding: 1em 0.5em;
+    border-radius: 5px;
+    margin-bottom: 2em;
+    h2{
+        text-align: center;
+        font-size: 1.5em;
+        margin-bottom: 2em;
+    }
+    .col-sm-3{
+        text-align: center;
+        img{
+            max-height: 50px;
+            width: auto;
+            margin-bottom: 10px;
+        }
+    }
 }

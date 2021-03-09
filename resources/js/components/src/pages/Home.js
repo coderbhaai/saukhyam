@@ -2,13 +2,10 @@ import React, { Component } from 'react'
 import Swiper from 'react-id-swiper'
 const func = require('../parts/functions')
 
-
-
 export class Home extends Component {
     render() {
         return (
             <>
-
                 <section className="home-banner">
                     <Swiper {...func.params}>
                         {func.banner.map((i,index)=>(
@@ -60,7 +57,7 @@ export class Home extends Component {
                             {func.products.map((i,index)=>(
                                 <div className="col-sm-4" key={index}>
                                     <div className="card imgScale">
-                                        <img src={func.base+"images/"+i.img}/>
+                                        <img src={func.base+"images/crap/"+i.img}/>
                                         <div className="card-body">
                                             <h4>{i.title}</h4>
                                             <ul>
@@ -75,7 +72,6 @@ export class Home extends Component {
                         </div>
                     </div>
                 </section>
-
             </>
         )
     }

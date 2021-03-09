@@ -11,6 +11,7 @@ export class User extends Component {
             currentPage:                1,
             itemsPerPage:               100,
             data:                      [],
+            loading:                    true
         }
     }
 
@@ -24,8 +25,9 @@ export class User extends Component {
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
         this.setState({
-            data:          body.data,
-            basic:          body.basic
+            data:                       body.data,
+            basic:                      body.basic,
+            loading:                    false
         })
     }
 
@@ -81,37 +83,39 @@ export class User extends Component {
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Products)</h1>
-                            <div className="btn-pag">
-                                <a className="amitBtn" href="/addProduct">Add Product</a>
-                                <div className="flex-h">
-                                    <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
-                                    <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
-                                        <option>{itemsPerPage}</option>
-                                        <option value="10">10</option> 
-                                        <option value="25">25</option> 
-                                        <option value="50">50</option> 
-                                        <option value="100">100</option> 
-                                    </select>
+                            {this.state.loading? <div className="loading"><img src="/images/logo.png"/></div> :<>
+                                <div className="btn-pag">
+                                    <a className="amitBtn" href="/addProduct">Add Product</a>
+                                    <div className="flex-h">
+                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
+                                        <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
+                                            <option>{itemsPerPage}</option>
+                                            <option value="10">10</option> 
+                                            <option value="25">25</option> 
+                                            <option value="50">50</option> 
+                                            <option value="100">100</option> 
+                                        </select>
+                                    </div>
+                                    <ul className="page-numbers">{renderPagination}</ul>
+                                </div>
+                                <div className="table-responsive">
+                                    <table className="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl No.</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Image</th>
+                                                <th>Status</th>
+                                                <th>Update</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>{renderItems}</tbody>
+                                    </table>
+                                    <ExportReactCSV csvData={data} fileName={'Products -'+func.time+'.xls'}/>
                                 </div>
                                 <ul className="page-numbers">{renderPagination}</ul>
-                            </div>
-                            <div className="table-responsive">
-                                <table className="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Sl No.</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Image</th>
-                                            <th>Status</th>
-                                            <th>Update</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>{renderItems}</tbody>
-                                </table>
-                                <ExportReactCSV csvData={data} fileName={'Products -'+func.time+'.xls'}/>
-                            </div>
-                            <ul className="page-numbers">{renderPagination}</ul>
+                            </>}
                         </div>
                     </div>
                 </div>

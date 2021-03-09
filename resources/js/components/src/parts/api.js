@@ -28,4 +28,13 @@ export default {
     createLanguage : func.base+'api/createLanguage',
     updateLanguage : func.base+'api/updateLanguage',
 
+    adminFaqs : func.base+'api/adminFaqs',
+    faqAnswer : func.base+'api/faqAnswer',
+    changeFaqStatus : func.base+'api/changeFaqStatus',
+    updateFaq : func.base+'api/updateFaq',
+
+    adminOrders : func.base+'api/adminOrders',
+    updateOrder : func.base+'api/updateOrder',
+
+
 }

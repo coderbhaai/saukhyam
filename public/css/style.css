@@ -676,17 +676,17 @@ img {
   max-width: 80%;
 }
 
-.navOnTop .swiper-button-prev, .navOnTop .swiper-button-next {
-  top: 0;
-  margin-top: 1em;
-}
-
-.navOnTop .swiper-button-prev:after, .navOnTop .swiper-button-next:after {
+.swiper-button-prev:after, .swiper-button-next:after {
   font-size: 15px;
   background: #2f8344;
   padding: 5px;
   color: #fff;
   border-radius: 3px;
+}
+
+.navOnTop .swiper-button-prev, .navOnTop .swiper-button-next {
+  top: 0;
+  margin-top: 1em;
 }
 
 .navOnTop .swiper-container {
@@ -752,6 +752,50 @@ a:hover {
 
 .logo img {
   max-width: 150px;
+}
+
+.middle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.middle > a {
+  background: #f56e07;
+  display: block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+
+.middle > a .fa {
+  color: #fff;
+  font-size: 18px;
+}
+
+.middle > a:hover {
+  background: #2f8344;
+  -webkit-transition: .5s all;
+  transition: .5s all;
+}
+
+.loading {
+  text-align: center;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.loading img {
+  max-width: 150px;
+  height: auto;
 }
 
 .admin .heading {
@@ -1146,6 +1190,7 @@ button, button:focus, input, input:focus {
 
 .navbar {
   background-color: #fff;
+  border-bottom: 2px solid #2f8344;
 }
 
 .navbar .nav-link, .navbar .navbar-brand {
@@ -1227,6 +1272,10 @@ button, button:focus, input, input:focus {
   color: #2f8344;
 }
 
+.footer .container-fluid {
+  padding: 0 2em;
+}
+
 .footer-bottom {
   background: #f56e07;
   color: white;
@@ -1239,6 +1288,23 @@ button, button:focus, input, input:focus {
   padding: 5px 0;
 }
 
+.footer-bottom .bottom-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 98%;
+}
+
+.footer-bottom .bottom-content a {
+  color: #fff;
+}
+
 .home-banner .banner {
   position: relative;
 }
@@ -1248,10 +1314,6 @@ button, button:focus, input, input:focus {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
-}
-
-.home-banner .swiper-button-next, .home-banner .swiper-button-prev {
-  display: none;
 }
 
 .who {
@@ -1334,6 +1396,11 @@ button, button:focus, input, input:focus {
   transition: 0.2s ease-in-out;
   border: none;
   cursor: pointer;
+}
+
+.our-products .row .card img {
+  max-width: 150px;
+  margin: 1rem auto 0;
 }
 
 .our-products .row .card:hover {
@@ -1528,5 +1595,75 @@ button, button:focus, input, input:focus {
 
 .admin {
   padding: 30px 0;
+}
+
+.mathLogo img {
+  max-width: 200px;
+}
+
+.emailPhone {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 10px;
+}
+
+.emailPhone li {
+  margin-bottom: 10px;
+}
+
+.emailPhone li a {
+  color: #fff;
+}
+
+.emailPhone li a i {
+  color: #fff;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.links ul li a {
+  color: #fff;
+  display: block;
+  padding: 5px 0;
+}
+
+.featured {
+  background: #f56e07;
+  padding: 1em 0.5em;
+  border-radius: 5px;
+  margin-bottom: 2em;
+}
+
+.featured h2 {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 2em;
+}
+
+.featured .col-sm-3 {
+  text-align: center;
+}
+
+.featured .col-sm-3 img {
+  max-height: 50px;
+  width: auto;
+  margin-bottom: 10px;
 }
 /*# sourceMappingURL=style.css.map */

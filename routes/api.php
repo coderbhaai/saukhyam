@@ -37,5 +37,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/createLanguage', [AdminController::class, 'createLanguage']);
     Route::post('/updateLanguage', [AdminController::class, 'updateLanguage']);
 
+    Route::get('/adminFaqs', [AdminController::class, 'adminFaqs']);
+    Route::post('/faqAnswer', [AdminController::class, 'faqAnswer']);
+    Route::post('/changeFaqStatus', [AdminController::class, 'changeFaqStatus']);
+    
+    
+    Route::get('/adminOrders', [AdminController::class, 'adminOrders']);
+    Route::post('/updateOrder', [AdminController::class, 'updateOrder']);
+    
+    
     // Admin
+    
+    // for APP
+    Route::post('/faqQuestion', [AdminController::class, 'faqQuestion']);
+    Route::post('/createOrder', [AdminController::class, 'createOrder']);
 });

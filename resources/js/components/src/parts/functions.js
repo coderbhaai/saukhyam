@@ -48,12 +48,12 @@ export const banner = [
 ]
 
 export const products = [
-    {id: 1, img: 'home-1.jpg', title: 'Samsung S8', price: '35, 000', text: 'Some text about the Mobile.'},
-    {id: 2, img: 'home-2.jpg', title: 'Iphone 12', price: '1,10, 000', text: 'Some text about the Mobile.'},
-    {id: 3, img: 'home-3.jpg', title: 'Vivo v17 pro', price: '25, 000', text: 'Some text about the Mobile.'},
-    {id: 4, img: 'home-1.jpg', title: 'Redmi 12', price: '15, 000', text: 'Some text about the Mobile.'},
-    {id: 5, img: 'home-2.jpg', title: 'Real me 9', price: '12, 000', text: 'Some text about the Mobile.'},
-    {id: 6, img: 'home-3.jpg', title: 'Oppo 12 pro', price: '17, 000', text: 'Some text about the Mobile.'},
+    {id: 1, img: '1.jpg', title: 'Samsung S8', price: '35, 000', text: 'Some text about the Mobile.'},
+    {id: 2, img: '2.jpg', title: 'Iphone 12', price: '1,10, 000', text: 'Some text about the Mobile.'},
+    {id: 3, img: '3.jpg', title: 'Vivo v17 pro', price: '25, 000', text: 'Some text about the Mobile.'},
+    {id: 4, img: '4.jpg', title: 'Redmi 12', price: '15, 000', text: 'Some text about the Mobile.'},
+    {id: 5, img: '5.jpg', title: 'Real me 9', price: '12, 000', text: 'Some text about the Mobile.'},
+    {id: 6, img: '6.jpg', title: 'Oppo 12 pro', price: '17, 000', text: 'Some text about the Mobile.'},
 ]
 
 export const details = [
@@ -77,6 +77,7 @@ export const adminLinks =[
     {text: 'Tutorials', url: base+"adminTutorials", active: base+"adminTutorials"},
     {text: 'Language', url: base+"adminLanguage", active: base+"adminLanguage"},
     {text: 'Orders', url: base+"adminOrders", active: base+"adminOrders"},
+    {text: 'FAQ', url: base+"adminFaq", active: base+"adminFaq"},
 ]
 
 export const basic =[
