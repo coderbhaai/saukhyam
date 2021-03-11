@@ -277,3 +277,20 @@ label{
 .table-responsive {
   padding: 0 1em;
 }
+.sortBy{
+  max-width: 300px;
+    float: right;
+    margin-right: 1em;
+}
+.arrayRemove{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    max-width: 20px;
+    margin-left: 10px;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}

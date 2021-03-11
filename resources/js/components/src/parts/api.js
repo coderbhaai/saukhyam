@@ -12,6 +12,7 @@ export default {
     adminBasics : func.base+'api/adminBasics',
     createBasic : func.base+'api/createBasic',
     updateBasic : func.base+'api/updateBasic',
+    changeBasicStatus : func.base+'api/changeBasicStatus',
 
     adminProducts : func.base+'api/adminProducts',
     addProductOptions : func.base+'api/addProductOptions',
@@ -29,6 +30,7 @@ export default {
     updateLanguage : func.base+'api/updateLanguage',
 
     adminFaqs : func.base+'api/adminFaqs',
+    faqAdd : func.base+'api/faqAdd',
     faqAnswer : func.base+'api/faqAnswer',
     changeFaqStatus : func.base+'api/changeFaqStatus',
     updateFaq : func.base+'api/updateFaq',
@@ -36,5 +38,7 @@ export default {
     adminOrders : func.base+'api/adminOrders',
     updateOrder : func.base+'api/updateOrder',
 
-
+    adminCentres : func.base+'api/adminCentres',
+    createCentre : func.base+'api/createCentre',
+    updateCentre : func.base+'api/updateCentre',
 }

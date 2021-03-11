@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/adminBasics', [AdminController::class, 'adminBasics']);
     Route::post('/createBasic', [AdminController::class, 'createBasic']);
     Route::post('/updateBasic', [AdminController::class, 'updateBasic']);
+    Route::post('/changeBasicStatus', [AdminController::class, 'changeBasicStatus']);
 
     Route::get('/adminProducts', [AdminController::class, 'adminProducts']);
     Route::get('/addProductOptions', [AdminController::class, 'addProductOptions']); 
@@ -38,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/updateLanguage', [AdminController::class, 'updateLanguage']);
 
     Route::get('/adminFaqs', [AdminController::class, 'adminFaqs']);
+    Route::post('/faqAdd', [AdminController::class, 'faqAdd']);
     Route::post('/faqAnswer', [AdminController::class, 'faqAnswer']);
     Route::post('/changeFaqStatus', [AdminController::class, 'changeFaqStatus']);
     
@@ -45,6 +47,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/adminOrders', [AdminController::class, 'adminOrders']);
     Route::post('/updateOrder', [AdminController::class, 'updateOrder']);
     
+    Route::get('/adminCentres', [AdminController::class, 'adminCentres']);
+    Route::post('/createCentre', [AdminController::class, 'createCentre']);
+    Route::post('/updateCentre', [AdminController::class, 'updateCentre']);
     
     // Admin
     

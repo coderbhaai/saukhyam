@@ -32,7 +32,6 @@ export class User extends Component {
     callApi = async () => {
         const response = await fetch( api.adminOrders, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:                       body.data,
@@ -100,7 +99,15 @@ export class User extends Component {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
-                    <td>{i.name}<br/>{i.email}<br/>{i.phone}</td>
+                    <td>
+                        {i.name}<br/>{i.email}<br/>{i.phone}<br/>
+                        {
+                            i.role=='Admin'? 'Area Manager'
+                            : i.role=='Manager'? 'Production Center In Charge'
+                            : i.role=='Manager'? 'Production Center In Charge'
+                            : i.role
+                        }
+                    </td>
                     <td>
                         {JSON.parse(i.order).map((j,index2)=>(
                             <div key={index2}>
@@ -178,9 +185,9 @@ export class User extends Component {
                                 </select>
                             </div>
                             <div className="col-sm-3">
-                                <label>Fulfillment Centre</label>
+                                <label>Production Centre</label>
                                 <select className="form-control" required name="centre" onChange={this.onChange} value={this.state.centre}>
-                                    <option value=''>Select Fulfillment Centre</option>
+                                    <option value=''>Select Production Centre</option>
                                     {this.state.basic.filter(i=>i.type=='FCentre').map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
                                 </select>
                             </div> 

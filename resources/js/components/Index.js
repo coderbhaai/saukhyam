@@ -21,6 +21,8 @@ import AdminTutorials from './src/admin/Tutorials'
 import AdminLanguage from './src/admin/Language'
 import AdminOrders from './src/admin/Orders'
 import AdminFAQ from './src/admin/FAQ'
+import ProductionCentre from './src/admin/ProductionCentre'
+import Network from './src/admin/Network'
 
 import RequireAdmin from './src/parts/RequireAdmin'
 
@@ -47,6 +49,8 @@ function Index() {
                 <Route exact path={func.base+"adminLanguage"} component={RequireAdmin(AdminLanguage)}/>
                 <Route exact path={func.base+"adminOrders"} component={RequireAdmin(AdminOrders)}/>
                 <Route exact path={func.base+"adminFaq"} component={RequireAdmin(AdminFAQ)}/>
+                <Route exact path={func.base+"productionCentre"} component={RequireAdmin(ProductionCentre)}/>
+                <Route exact path={func.base+"network"} component={RequireAdmin(Network)}/>
             </Switch>
             <Footer/>
         </Router>

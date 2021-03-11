@@ -44,7 +44,6 @@ export class User extends Component {
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
     updateUser=(i)=>{
-        console.log('i', i)
         // if(data.role=='Amrtiya' || data.role=='Vijaya'){
             this.setState({
                 editmodalIsOpen:            true,
@@ -102,7 +101,14 @@ export class User extends Component {
                     <td>{index+1}</td>
                     <td>{i.name}</td>
                     <td>{i.email}</td> 
-                    <td>{i.role}</td> 
+                    <td>
+                        {
+                            i.role=='Admin'? 'Area Manager'
+                            : i.role=='Manager'? 'Production Center In Charge'
+                            : i.role=='Manager'? 'Production Center In Charge'
+                            : i.role
+                        }
+                    </td> 
                     <td>{i.fCentreName? <span>{i.fCentreName} ({i.fCentreLocation})</span>: null}</td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" onClick={()=>this.updateUser(i)}/></td>
                 </tr>
@@ -160,19 +166,19 @@ export class User extends Component {
                                 <label>User</label>
                                 <input className="form-control" type="text" value={this.state.user.name} readOnly/>
                             </div>
-                            <div className={this.state.role=='Amrita' || this.state.role=='Vijaya'? "col-sm-4" :"col-sm-8"} >
+                            <div className={this.state.role=='Amrita' || this.state.role=='Vijaya' || this.state.role=='Manager'? "col-sm-4" :"col-sm-8"} >
                                 <label>Change Role</label>
                                 <select className="form-control" required name="role" onChange={this.changeRole} value={this.state.role}>
                                     <option value=''>Select Role</option>
                                     {func.roles.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
                                 </select>
                             </div>
-                            {this.state.role=='Amrita' || this.state.role=='Vijaya'?
+                            {this.state.role=='Amrita' || this.state.role=='Vijaya' || this.state.role=='Manager'?
                                 <div className="col-sm-4">
-                                    <label>Allot Fulfillment Centre</label>
+                                    <label>Allot Production Centre</label>
                                     <select className="form-control" required name="fCentre" onChange={this.onChange} value={this.state.fCentre}>
-                                        <option value=''>Select Fulfillment Centre</option>
-                                        {this.state.basic.filter(i=>i.type='FCentre').map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
+                                        <option value=''>Select Production Centre</option>
+                                        {this.state.basic.map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
                                     </select>
                                 </div>
                             : null}

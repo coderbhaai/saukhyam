@@ -1,7 +1,7 @@
-// export const base = '/'
-// export const imgPath = "/storage/"
-export const base = '/saukhyam/'
-export const imgPath = "/saukhyam/amit/storage/app/public/"
+export const base = '/'
+export const imgPath = "/storage/"
+// export const base = '/saukhyam/'
+// export const imgPath = "/saukhyam/amit/storage/app/public/"
 
 export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
 export function printError(mesg){ console.log('mesg', mesg) }
@@ -72,18 +72,20 @@ export const productimage = [
 
 export const adminLinks =[
     {text: 'Users', url: base+"adminUsers", active: base+"adminUsers"},
-    {text: 'Basics', url: base+"adminBasics", active: base+"adminBasics"},
+    {text: 'Masters', url: base+"adminBasics", active: base+"adminBasics"},
     {text: 'Products', url: base+"adminProducts", active: base+"adminProducts"},
     {text: 'Tutorials', url: base+"adminTutorials", active: base+"adminTutorials"},
     {text: 'Language', url: base+"adminLanguage", active: base+"adminLanguage"},
     {text: 'Orders', url: base+"adminOrders", active: base+"adminOrders"},
     {text: 'FAQ', url: base+"adminFaq", active: base+"adminFaq"},
+    {text: 'Production Centre', url: base+"productionCentre", active: base+"productionCentre"},
+    {text: 'Network', url: base+"network", active: base+"network"},
 ]
 
 export const basic =[
     {'single': true, text: 'Minimum Order Quantity', value: "MOQ"},
     {'single': true, text: 'Cash Discount', value: "CashDiscount"},
-    {'single': false, text: 'Fulfillment Centre', value: "FCentre"},
+    // {'single': false, text: 'Production Centre', value: "FCentre"},
     {'single': false, text: 'Product Type', value: "ProductType"},
     {'single': false, text: 'Dimension Type', value: "DimensionType"},
     {'single': false, text: 'Dimension Value', value: "DimensionValue"},
@@ -93,8 +95,8 @@ export const basic =[
 
 export const roles =[
     {text: 'Super Admin', value: "SuperAdmin"},
-    {text: 'Admin', value: "Admin"},
-    {text: 'Manager', value: "Manager"},
+    {text: 'Area Manager', value: "Admin"},
+    {text: 'Production Center In Charge', value: "Manager"},
     {text: 'Amrita', value: "Amrita"},
     {text: 'Vijaya', value: "Vijaya"},
     {text: 'User', value: "User"},

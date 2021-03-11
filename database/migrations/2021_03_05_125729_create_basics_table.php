@@ -20,6 +20,7 @@ class CreateBasicsTable extends Migration
             $table->string('tab1');
             $table->string('tab2')->nullable();
             $table->string('tab3')->nullable();
+            $table->integer('status');
             $table->timestamps();
         });
     }

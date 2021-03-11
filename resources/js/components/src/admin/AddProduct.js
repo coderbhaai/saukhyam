@@ -3,15 +3,17 @@ import AdminSidebar from '../parts/AdminSidebar'
 import api from '../parts/api'
 const func = require('../parts/functions')
 import CKEditor from 'ckeditor4-react'
+import { Dropdown } from 'semantic-ui-react'
 
 export class User extends Component {
     constructor(props) {
         super(props)
         this.state = {
             data:                       [],
+            langOptions:                [],
+            selectedLang:               [],
             type:                       '',
             name:                       '',
-            price:                      '',
             status:                     '',
             distype:                    '',
             discount:                   '',
@@ -19,6 +21,8 @@ export class User extends Component {
             images:                     null,
             short_description:          '',
             long_description:           '',
+            wprice:                     '',
+            dprice:                     '',
         }
         this.handleChange1 = this.handleChange1.bind( this )
         this.handleChange2 = this.handleChange2.bind( this )
@@ -36,7 +40,8 @@ export class User extends Component {
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
         this.setState({
-            data:          body.data,
+            data:               body.data,
+            langOptions:        body.langOptions
         })
     }
 
@@ -53,6 +58,7 @@ export class User extends Component {
     addDimensions=()=>{ this.setState({ dimension: [ ...this.state.dimension, {text: '', value: ''} ] }) }
     changeDimensionType=(index, value)=>{ this.state.dimension[index].text = value; this.setState({ dimension: this.state.dimension }) }
     changeDimensionValue=(index, value)=>{ this.state.dimension[index].value = value; this.setState({ dimension: this.state.dimension }) }
+    langSelected = (e, {value}) => { this.setState({ selectedLang: value }) }
 
     addModal = (e) => {
         e.preventDefault()
@@ -60,13 +66,15 @@ export class User extends Component {
         if(this.state.images){ for(const f of this.state.images){ data.append('images[]', f) } }
         data.append('type', this.state.type)
         data.append('name', this.state.name)
-        data.append('price', this.state.price)
+        data.append('wprice', this.state.wprice)
+        data.append('dprice', this.state.dprice)
         data.append('status', this.state.status)
         data.append('distype', this.state.distype)
         data.append('discount', this.state.discount)
         data.append('short_description', this.state.short_description)
         data.append('long_description', this.state.long_description)
         data.append('dimension', JSON.stringify(this.state.dimension))
+        data.append('language', JSON.stringify(this.state.selectedLang))
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.createProduct, data)
         .then( res=> {
@@ -101,16 +109,20 @@ export class User extends Component {
                                         <input className="form-control" placeholder="Product Name" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
                                     </div> 
                                     <div className="col-sm-4">
-                                        <label>Price</label>
-                                        <input className="form-control" placeholder="Product Price" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="price" value={this.state.price} onChange={this.onChange}/>
-                                    </div>
-                                    <div className="col-sm-4">
                                         <label>Status of Product</label>
                                         <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
                                             <option value=''>Product Status</option>
                                             <option value="1">Show</option>
                                             <option value="0">Hide</option>
                                         </select>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Wholesale Price</label>
+                                        <input className="form-control" placeholder="Wholesale Price" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="wprice" value={this.state.wprice} onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Distributor Price</label>
+                                        <input className="form-control" placeholder="Distributor Price" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="dprice" value={this.state.dprice} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Discount Type</label>
@@ -124,11 +136,11 @@ export class User extends Component {
                                         <label>Discount</label>
                                         <input className="form-control" placeholder="Product Discount" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="discount" value={this.state.discount} onChange={this.onChange}/>
                                     </div>
-                                    <div className="col-sm-12 mb-3">
+                                    <div className="col-sm-8">
                                         <label>Images</label>
                                         <input type="file" className="form-control" required multiple onChange={this.multipleImage}/>
                                     </div>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-12 mt-3">
                                         <button onClick={this.addDimensions} className="amitBtn">Add Dimensions</button>
                                         {this.state.dimension.map((i,index)=>(
                                             <div className="row mb-3" key={index}>
@@ -158,6 +170,10 @@ export class User extends Component {
                                     <div className="col-sm-6">
                                         <label>Long Description</label>
                                         <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } content= {this.state.long_description} onChange={this.onEditorChange2}/>
+                                    </div>
+                                    <div className="col-sm-12 compare label-down mb-5">
+                                        <label>Select Languages</label>
+                                        <Dropdown placeholder='Select Languages' multiple fluid search selection onChange={this.langSelected} options={this.state.langOptions}/>
                                     </div>
                                     <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                                 </div>

@@ -5,7 +5,7 @@ import api from '../parts/api'
 const func = require('../parts/functions')
 import { ExportReactCSV } from '../parts/ExportReactCSV'
 
-export class User extends Component {
+export class Basic extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -21,6 +21,7 @@ export class User extends Component {
             tab1:                       '',
             tab2:                       '',
             tab3:                       '',
+            status:                     '',
             loading:                    true
         }
     }
@@ -48,20 +49,36 @@ export class User extends Component {
 
     addModal = (e) => {
         e.preventDefault()
-        const data = new FormData()
-        data.append('type', this.state.type)
-        data.append('name', this.state.name)
-        data.append('tab1', this.state.tab1)
-        data.append('tab2', this.state.tab2)
-        data.append('tab3', this.state.tab3)
-        const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        axios.post(api.createBasic, data)
-        .then( res=> {
-            if(res.data.success){ this.setState({ data: [...this.state.data, res.data.data ] }) }
-            func.callSwal(res.data.message)
-            // this.resetData()
-        })
-        .catch(err=>func.printError(err))
+        var allOk= false
+        if(this.state.type=='ProductType' || this.state.type=='DimensionType' || this.state.type=='Screen' || this.state.type=='Language'){
+            if(this.state.data.some(i=>i.name==this.state.name)){
+                func.callSwal('Duplicate Entry')
+            }else{
+                var allOk= true
+            }
+        }else
+        if(this.state.type=='DimensionValue'){
+            func.callSwal('Duplicate Entry')
+        }else{
+            var allOk= false
+        }
+        if(allOk){
+            const data = new FormData()
+            data.append('type', this.state.type)
+            data.append('name', this.state.name)
+            data.append('tab1', this.state.tab1)
+            data.append('tab2', this.state.tab2)
+            data.append('tab3', this.state.tab3)
+            data.append('status', this.state.status)
+            const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+            axios.post(api.createBasic, data)
+            .then( res=> {
+                if(res.data.success){ this.setState({ data: [...this.state.data, res.data.data ] }) }
+                func.callSwal(res.data.message)
+                this.resetData()
+            })
+            .catch(err=>func.printError(err))
+        }
     }
 
     editModalOn = (i)=>{
@@ -69,7 +86,8 @@ export class User extends Component {
             editmodalIsOpen:                true,
             id:                             i.id,
             name:                           i.name,
-            type:                           i.type
+            type:                           i.type,
+            status:                         i.status
         })
         if(i.tab1){ this.setState({ tab1: i.tab1 }) }
         if(i.tab2){ this.setState({ tab2: i.tab2 }) }
@@ -84,7 +102,8 @@ export class User extends Component {
         data.append('name', this.state.name)
         data.append('tab1', this.state.tab1)
         data.append('tab2', this.state.tab2)
-        data.append('tab3', this.state.tab3)        
+        data.append('tab3', this.state.tab3) 
+        data.append('status', this.state.status)       
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.updateBasic, data)
         .then( res=> {
@@ -107,16 +126,37 @@ export class User extends Component {
             tab1:                       '',
             tab2:                       '',
             tab3:                       '',
+            status:                     '',
         })
     }
 
+    changeStatus=(i, value)=>{
+        if(value == 1){ var status = 0 }else{ var status = 1}
+        const data={
+            id:                         i.id,
+            status:                     status
+        }
+        const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+        axios.post(api.changeBasicStatus, data)
+        .then( res=>{
+            if(res.data.success){ this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) }
+            func.callSwal(res.data.message)
+        })
+        .catch(err=>func.printError(err))
+    }
+    
+    changeSort=(e)=>{ this.setState({ sort: e.target.value }) }
     render() {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const data =  this.state.data.filter((i)=>{ 
-            if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.type.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
-        })
+        const data =  this.state.data
+            .filter((i)=>{ 
+                if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.type.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
+            })
+            .filter((i)=>{ 
+                if(this.state.sort == null || this.state.sort == 'Clear') return i; else if(i.type == this.state.sort ){ return i }
+            })
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
@@ -124,7 +164,7 @@ export class User extends Component {
                     <td>
                         {
                             i.type == 'MOQ'? 'Minimum Order Quantity'
-                            : i.type == 'FCentre'? 'Fulfillment Centre'
+                            : i.type == 'FCentre'? 'Production Centre'
                             : i.type == 'ProductType'? 'Product Type'
                             : i.type == 'DimensionType'? 'Dimension Type'
                             : i.type == 'DimensionValue'? 'Dimension Value'
@@ -136,7 +176,13 @@ export class User extends Component {
                     <td>{i.name}</td>
                     <td>{ i.type=='DimensionValue' ? i.bName : i.tab1 }</td> 
                     <td>{i.tab2}</td> 
-                    <td>{i.tab3}</td> 
+                    <td>{i.tab3}</td>
+                    <td>
+                        <div className="onoffswitch">
+                            <input type="checkbox" name="statusSwitch" className="onoffswitch-checkbox" id={'Switch-'+i.id} onChange={(e)=>this.changeStatus(i, e.target.value)} value={i.status} checked={i.status==1? true : false}/>
+                            <label className="onoffswitch-label" htmlFor={'Switch-'+i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
+                        </div>
+                    </td>
                     <td className="editIcon text-center" onClick={()=>this.editModalOn(i)}><img src="/images/icons/edit.svg"/></td>
                 </tr>
         )})
@@ -149,10 +195,17 @@ export class User extends Component {
                     <div className="row">
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
-                            <h1 className="heading"><span>Admin Panel </span>(Basics)</h1>
+                            <h1 className="heading"><span>Admin Panel </span>(Masters)</h1>
                             {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sort" value={this.state.sort} onChange={this.changeSort}>
+                                        <option value="Clear">Sort By</option> 
+                                        {func.basic.map((i,index)=>(<option value={i.value} key={index}>{i.text}</option> ))}
+                                        <option value="Clear">Clear Sorting</option> 
+                                    </select>
+                                </div>
                                 <div className="btn-pag">
-                                    <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
+                                    <button className="amitBtn" onClick={this.addModalOn}>Add Masters</button>
                                     <div className="flex-h">
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
@@ -175,12 +228,13 @@ export class User extends Component {
                                                 <th>Tab1 </th>
                                                 <th>Tab2 </th>
                                                 <th>Tab3 </th>
+                                                <th>Status </th>
                                                 <th>Edit </th>
                                             </tr>
                                         </thead>
                                         <tbody>{renderItems}</tbody>
                                     </table>
-                                    <ExportReactCSV csvData={data} fileName={'Basics -'+func.time+'.xls'}/>
+                                    <ExportReactCSV csvData={data} fileName={'Masters -'+func.time+'.xls'}/>
                                 </div>
                                 <ul className="page-numbers">{renderPagination}</ul>
                             </>}
@@ -189,13 +243,13 @@ export class User extends Component {
                 </div>
                 <Modal isOpen={this.state.addmodalIsOpen} className="adminModal">
                     <div className="modal-header">
-                        <h2>Add Basics Here</h2>
+                        <h2>Add Masters Here</h2>
                         <div className="closeModal" onClick={this.resetData}>X</div>
                     </div>
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.addModal}>
                         <div className="row">
                             <div className={this.state.type? "col-sm-4" : "col-sm-12"}>
-                                <label>Type of Basic</label>
+                                <label>Type of Master</label>
                                 <select className="form-control" required name="type" onChange={this.onChange} value={this.state.type}>
                                     <option value=''>Select Type</option>
                                     {func.basic.map((j,index2)=>(  !this.state.data.some(el => el.type == j.value && j.single)? <option value={j.value} key={index2}>{j.text}</option> : null ))}
@@ -208,8 +262,8 @@ export class User extends Component {
                             {this.state.type ==='FCentre'? 
                                 <>
                                     <div className="col-sm-4">
-                                        <label>Fulfillment Centre</label>
-                                        <input className="form-control" placeholder="Add Fulfillment Centre Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                        <label>Production Centre</label>
+                                        <input className="form-control" placeholder="Add Production Centre Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
                                     </div> 
                                     <div className="col-sm-4">
                                         <label>Location</label>
@@ -246,19 +300,27 @@ export class User extends Component {
                                     </div> 
                                 </>
                             : null}
+                            <div className="col-sm-4">
+                                <label>Status</label>
+                                <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
+                                    <option value=''>Select Status</option>
+                                    <option value='1'>Active</option>
+                                    <option value='0'>Not Active</option>
+                                </select>
+                            </div>
                             <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                         </div>
                     </form>
                 </Modal>
                 <Modal isOpen={this.state.editmodalIsOpen} className="adminModal"> 
                     <div className="modal-header">
-                        <h2>Update Basics Here</h2>
+                        <h2>Update Masters Here</h2>
                         <div className="closeModal" onClick={this.resetData}>X</div>
                     </div>
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.updateModal}>
                         <div className="row">
                             <div className="col-sm-4">
-                                <label>Type of Basic</label>
+                                <label>Type of Master</label>
                                 <select className="form-control" required name="type" onChange={this.onChange} value={this.state.type} readOnly>
                                     <option>{this.state.type}</option>
                                 </select>
@@ -270,8 +332,8 @@ export class User extends Component {
                             {this.state.type ==='FCentre'? 
                                 <>
                                     <div className="col-sm-4">
-                                        <label>Fulfillment Centre</label>
-                                        <input className="form-control" placeholder="Add Fulfillment Centre Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                        <label>Production Centre</label>
+                                        <input className="form-control" placeholder="Add Production Centre Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
                                     </div> 
                                     <div className="col-sm-4">
                                         <label>Location</label>
@@ -308,7 +370,14 @@ export class User extends Component {
                                     </div> 
                                 </>
                             : null}
-
+                            <div className="col-sm-4">
+                                <label>Status</label>
+                                <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
+                                    <option value=''>Select Status</option>
+                                    <option value='1'>Active</option>
+                                    <option value='0'>Not Active</option>
+                                </select>
+                            </div>
                             <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                         </div>
                     </form>
@@ -317,4 +386,4 @@ export class User extends Component {
         )
     }
 }
-export default User
+export default Basic

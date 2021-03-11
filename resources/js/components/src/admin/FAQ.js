@@ -12,9 +12,10 @@ export class User extends Component {
         this.state = {
             currentPage:                1,
             itemsPerPage:               100,
+            editmodalIsOpen:            false,
+            addmodalIsOpen:             false,
             data:                      [],
             search:                     '',
-            editmodalIsOpen:            false,
             id:                         '',
             answer:                     '',
             question:                   '',
@@ -36,7 +37,7 @@ export class User extends Component {
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:                       body.data,
-            loading:                    false
+            loading:                    false 
         })
     }
 
@@ -46,9 +47,26 @@ export class User extends Component {
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
     onEditorChange1( evt1 ) { this.setState( { answer: evt1.editor.getData() } ) }
     handleChange1( changeEvent1 ) { this.setState( { answer: changeEvent1.target.value } ) }
+    addModalOn = ()=>{ this.setState({ addmodalIsOpen: true }) }
+
+    addHandler = (e) => {
+        e.preventDefault()
+        const data ={
+            question :          this.state.question,
+            status :            this.state.status,
+            answer :            this.state.answer
+        }
+        const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+        axios.post(api.faqAdd, data)
+        .then( res=> {
+            if(res.data.success){ this.setState({ data: [...this.state.data, res.data.data ] }) }
+            func.callSwal(res.data.message)
+        })
+        .catch(err=>func.printError(err))
+        this.resetData()
+    }
 
     editModalOn = (i)=>{
-        console.log('i', i)
         this.setState({
             editmodalIsOpen:                true,
             id:                             i.id,
@@ -58,7 +76,7 @@ export class User extends Component {
         })
     }
 
-    updateModal = (e) => {
+    updateHandler = (e) => {
         e.preventDefault()
         const data ={
             id :                this.state.id,
@@ -105,8 +123,6 @@ export class User extends Component {
     }
 
     render() {
-        // [pId, Qty,]
-        console.log('JSON.stringify([1,])', JSON.stringify([[1, 5], [2,3], [3.4] ]))
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -117,6 +133,14 @@ export class User extends Component {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
+                    <td>{i.name}<br/>
+                        {
+                            i.role=='Admin'? 'Area Manager'
+                            : i.role=='Manager'? 'Production Center In Charge'
+                            : i.role=='Manager'? 'Production Center In Charge'
+                            : i.role
+                        }
+                    </td>
                     <td>{i.question}</td>
                     <td>{i.answer? 'Answered': 'Not Answered'}</td>
                     <td>
@@ -140,7 +164,7 @@ export class User extends Component {
                             <h1 className="heading"><span>Admin Panel </span>(FAQ)</h1>
                             {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
                                 <div className="btn-pag">
-                                    <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
+                                    <button className="amitBtn" onClick={this.addModalOn}>Add FAQ</button>
                                     <div className="flex-h">
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
@@ -158,6 +182,7 @@ export class User extends Component {
                                         <thead>
                                             <tr>
                                                 <th>Sl No.</th>
+                                                <th>User</th>
                                                 <th>Question</th>
                                                 <th>Answer</th>
                                                 <th>Status</th>
@@ -173,9 +198,33 @@ export class User extends Component {
                         </div>
                     </div>
                 </div>
+                <Modal isOpen={this.state.addmodalIsOpen} className="adminModal">
+                    <div className="modal-header"><h2>Add Question Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
+                    <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.addHandler}>
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <label>Status</label>
+                                <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
+                                    <option value=''>Select Status</option>
+                                    <option value='1'>Active</option>
+                                    <option value='0'>Not Active</option>
+                                </select>
+                            </div>
+                            <div className="col-sm-9">
+                                <label>Question</label>
+                                <input className="form-control" placeholder="Add Question Here" type="text" name="question" value={this.state.question} onChange={this.onChange}/>
+                            </div>
+                            <div className="col-sm-12">
+                                <label>Answer</label>
+                                <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } content= {this.state.answer} data={this.state.answer} onChange={this.onEditorChange1}/>
+                            </div>
+                            <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
+                        </div>
+                    </form>
+                </Modal>
                 <Modal isOpen={this.state.editmodalIsOpen} className="adminModal"> 
                     <div className="modal-header"><h2>Update FAQ Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
-                    <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.updateModal}>
+                    <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.updateHandler}>
                         <div className="row">
                             <div className="col-sm-4">
                                 <label>Status</label>

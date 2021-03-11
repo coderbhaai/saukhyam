@@ -11,20 +11,20 @@ export class Footer extends Component {
                             <h2>Saukhyam Pads is proud to be featured in</h2>
                             <div className="row">
                                 <div className="col-sm-3">
-                                    <img src={func.base+"/images/icons/featured_logo_06.png"}/>
-                                    <img src={func.base+"/images/icons/featured_logo_05.png"}/>
+                                    <img src={func.base+"images/icons/featured_logo_06.png"}/>
+                                    <img src={func.base+"images/icons/featured_logo_05.png"}/>
                                 </div>
                                 <div className="col-sm-3">
-                                    <img src={func.base+"/images/icons/featured_logo_02.png"}/>
-                                    <img src={func.base+"/images/icons/featured_logo_01.png"}/>
+                                    <img src={func.base+"images/icons/featured_logo_02.png"}/>
+                                    <img src={func.base+"images/icons/featured_logo_01.png"}/>
                                 </div>
                                 <div className="col-sm-3">
-                                    <img src={func.base+"/images/icons/featured_logo_07.png"}/>
-                                    <img src={func.base+"/images/icons/featured_logo_03.png"}/>
+                                    <img src={func.base+"images/icons/featured_logo_07.png"}/>
+                                    <img src={func.base+"images/icons/featured_logo_03.png"}/>
                                 </div>
                                 <div className="col-sm-3">
-                                    <img src={func.base+"/images/icons/featured_logo_04.png"}/>
-                                    <img src={func.base+"/images/icons/featured_logo_08.png"}/>
+                                    <img src={func.base+"images/icons/featured_logo_04.png"}/>
+                                    <img src={func.base+"images/icons/featured_logo_08.png"}/>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@ export class Footer extends Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-3 mathLogo">
-                                <img src={func.base+"/images/footer_logo.png"}/>
+                                <img src={func.base+"images/footer_logo.png"}/>
                             </div>
                             <div className="col-sm-3">
                                 <p>Saukhyam began as a research project at Amrita University. Ranked as the 4th best university in India (NIRF 2020), Amrita emphasizes research that benefits society.</p>

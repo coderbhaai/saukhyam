@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use DB;
 use File;
 use Auth;
+use App\Models\Faq;
 use App\Models\User;
 use App\Models\Basic;
-use App\Models\Language;
 use App\Models\Orders;
+use App\Models\Language;
 use App\Models\Products;
 use App\Models\Profiles;
 use App\Models\Tutorials;
-use App\Models\Faq;
+use App\Models\ProductionCentre;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -23,12 +24,11 @@ class AdminController extends Controller
     }
 
     public function adminUsers(){
-        // $user = User::select('id','name','email','phone','role','updated_at')->get();
-        $user       =   DB::table('users')->leftJoin('basics', 'basics.id', '=', 'users.fCentre')
-                        ->select([ 'users.id','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.updated_at', 'basics.name as fCentreName', 'basics.tab1 as fCentreLocation' ])
+        $user       =   DB::table('users')->leftJoin('production_centres', 'production_centres.id', '=', 'users.fCentre')
+                        ->select([ 'users.id','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.updated_at', 'production_centres.name as fCentreName', 'production_centres.city as fCentreLocation' ])
                         ->get();
 
-        $basic = Basic::select('id','name','type','tab1')->where('type', 'FCentre')->get();
+        $basic = ProductionCentre::select('id','name')->get();
         return response()->json([
             'data' => $user,
             'basic' => $basic,
@@ -44,17 +44,16 @@ class AdminController extends Controller
             $dB->fCentre               =   NULL;
         }
         $dB-> save();
-        // $data = User::where('id', $request->id)->select('id','name','email','phone','role','updated_at')->get();
-        $data       =   DB::table('users')->leftJoin('basics', 'basics.id', '=', 'users.fCentre')
+        $data       =   DB::table('users')->leftJoin('production_centres', 'production_centres.id', '=', 'users.fCentre')
                         ->where('users.id', $request->id)
-                        ->select([ 'users.id','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.updated_at', 'basics.name as fCentreName', 'basics.tab1 as fCentreLocation' ])
+                        ->select([ 'users.id','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.updated_at', 'production_centres.name as fCentreName', 'production_centres.city as fCentreLocation' ])
                         ->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "User updated succesfully"];
         return response()->json($response, 201);
     }
 
     public function adminBasics(){
-        $data = Basic::select('id','name','type','tab1','tab2', 'tab3', 'updated_at')->get()->map(function($i) {
+        $data = Basic::select('id','name','type','tab1','tab2', 'tab3', 'status', 'updated_at')->get()->map(function($i) {
             if($i->type=='DimensionValue'){
                 $xx   =   Basic::select('name as bName')->where( 'id', $i->tab1 )->first();
                 $i['bName']  =   $xx->bName;
@@ -71,8 +70,9 @@ class AdminController extends Controller
         $dB->tab1               =   $request->tab1;
         $dB->tab2               =   $request->tab2;
         $dB->tab3               =   $request->tab3;
+        $dB->status             =   $request->status;
         $dB-> save();
-        $data = Basic::limit(1)->orderBy('id', 'desc')->select('id','name','type','tab1','tab2', 'tab3', 'updated_at')->get()->map(function($i) {
+        $data = Basic::limit(1)->orderBy('id', 'desc')->select('id','name','type','tab1','tab2', 'tab3', 'status', 'updated_at')->get()->map(function($i) {
             if($i->type=='DimensionValue'){
                 $xx   =   Basic::select('name as bName')->where( 'id', $i->tab1 )->first();
                 $i['bName']  =   $xx->bName;
@@ -90,8 +90,9 @@ class AdminController extends Controller
         $dB->tab1               =   $request->tab1;
         $dB->tab2               =   $request->tab2;
         $dB->tab3               =   $request->tab3;
+        $dB->status             =   $request->status;
         $dB-> save();
-        $data = Basic::where('id', $request->id)->select('id','name','type','tab1','tab2', 'tab3', 'updated_at')->get()->map(function($i) {
+        $data = Basic::where('id', $request->id)->select('id','name','type','tab1','tab2', 'tab3', 'status', 'updated_at')->get()->map(function($i) {
             if($i->type=='DimensionValue'){
                 $xx   =   Basic::select('name as bName')->where( 'id', $i->tab1 )->first();
                 $i['bName']  =   $xx->bName;
@@ -102,24 +103,45 @@ class AdminController extends Controller
         return response()->json($response, 201);
     }
 
+    public function changeBasicStatus(Request $request){
+        $dB                   =   Basic::find($request->id);
+        $dB->status           =   $request->status;
+        $dB-> save();
+        $data = Basic::where('id', $request->id)->select('id','name','type','tab1','tab2', 'tab3', 'status', 'updated_at')->get()->map(function($i) {
+            if($i->type=='DimensionValue'){
+                $xx   =   Basic::select('name as bName')->where( 'id', $i->tab1 )->first();
+                $i['bName']  =   $xx->bName;
+            }
+            return $i;
+        });
+        $response = ['success'=>true, 'data'=>$data[0], 'message'=>'Status Updated Succesfully'];
+        return response()->json($response, 201);
+    }
+
     public function adminProducts(){
-        $data = Products::select('id','name','type', 'price','images', 'status', 'updated_at')->get();
+        $data = Products::select('id','name','type', 'wprice', 'dprice', 'images', 'status', 'updated_at')->get();
         return response()->json([ 'data' => $data ]); 
     }
 
     public function addProductOptions(){
         $data = Basic::select('id','name','type', 'tab1')->whereIn('type', ['ProductType', 'DimensionValue', 'DimensionType'])->get();
-        return response()->json([ 'data' => $data ]); 
+        $langOptions = Basic::select('id as value','name as text')->where('type', 'Language')->get();
+        return response()->json([ 
+            'data'              => $data,
+            'langOptions'       => $langOptions,
+        ]); 
     }
 
     public function createProduct(Request $request){
         $dB                                 =   new Products;
         $dB->type                           =   $request->type;
         $dB->name                           =   $request->name;
-        $dB->price                          =   $request->price;
+        $dB->wprice                         =   $request->wprice;
+        $dB->dprice                         =   $request->dprice;
         $dB->status                         =   $request->status;
         $dB->distype                        =   $request->distype;
         $dB->discount                       =   $request->discount;
+        $dB->language                       =   $request->language;
         $dB->short_description              =   $request->short_description;
         $dB->long_description               =   $request->long_description;
         $dB->dimension                      =   $request->dimension;
@@ -143,13 +165,16 @@ class AdminController extends Controller
         $dB                                 =   Products::find($request->id);
         $dB->type                           =   $request->type;
         $dB->name                           =   $request->name;
-        $dB->price                          =   $request->price;
+        $dB->wprice                         =   $request->wprice;
+        $dB->dprice                         =   $request->dprice;
         $dB->status                         =   $request->status;
         $dB->distype                        =   $request->distype;
         $dB->discount                       =   $request->discount;
+        $dB->language                       =   $request->language;
         $dB->short_description              =   $request->short_description;
         $dB->long_description               =   $request->long_description;
         $dB->dimension                      =   $request->dimension;
+        $dB->language                      =   $request->language;
         if ($request->hasFile('images')) {
             $count = 0;
             $imageArray = [];
@@ -176,15 +201,24 @@ class AdminController extends Controller
             $dB                   =   Products::find($request->id);
             $dB->status           =   $request->status;
             $dB-> save();
-            $data = Products::where('id', $request->id)->select('id','name','type', 'price','images', 'status', 'updated_at')->first();
+            $data = Products::where('id', $request->id)->select('id','name','type', 'wprice', 'dprice', 'images', 'status', 'updated_at')->first();
             $response = ['success'=>true, 'data'=>$data, 'message'=>'Status Updated Succesfully'];
         return response()->json($response, 201);
     }
 
-    public function getProduct(){
+    public function getProduct($id){
         $data = Basic::select('id','name','type', 'tab1')->whereIn('type', ['ProductType', 'DimensionValue', 'DimensionType'])->get();
-        $product = Products::where('id', 1)->first();
-        $response = ['success'=>true, 'data'=>$data, 'product'=> $product];
+        $langOptions = Basic::select('id as value','name as text')->where('type', 'Language')->get();
+        $product = Products::where('id', $id)->get()->map(function($i) {
+            $oldLang = [];
+            foreach (json_decode($i->language) as $j) {
+                $xx   =   Basic::select('name as text', 'id as value')->where('id', $j)->first();
+                array_push($oldLang, $xx);
+            }
+            $i->langData = json_encode($oldLang);
+            return $i;
+        });
+        $response = ['success' => true, 'data' => $data, 'product' => $product[0], 'langOptions' => $langOptions];
         return response()->json($response, 201);
     }
 
@@ -278,9 +312,27 @@ class AdminController extends Controller
     }
 
     public function adminFaqs(){
-        $data = Faq::select('id','question','status', 'answer')->get();
+        $data       =   DB::table('faqs')->leftJoin('users', 'users.id', '=', 'faqs.userId')
+                        ->select([ 'faqs.*', 'users.name', 'users.email', 'users.phone', 'users.role'])
+                        ->get();
         return response()->json([ 'data' => $data]); 
     }
+
+    public function faqAdd(Request $request){
+        $dB                         =   new Faq;
+        $dB->userId                 =   Auth::user()->id;
+        $dB->question               =   $request->question;
+        $dB->status                 =   $request->status;
+        $dB->answer                 =   $request->answer;
+
+        $dB-> save();
+        $data       =   DB::table('faqs')->leftJoin('users', 'users.id', '=', 'faqs.userId')
+                        ->select([ 'faqs.*', 'users.name', 'users.email', 'users.phone', 'users.role'])
+                        ->limit(1)->orderBy('id', 'desc')
+                        ->get();
+        $response = ['success'=>true, 'data'=>$data[0], 'message' => "FAQ created succesfully"];
+        return response()->json($response, 201);
+    } 
 
     public function faqQuestion(Request $request){        
         $id = Auth::user()->id;
@@ -315,7 +367,7 @@ class AdminController extends Controller
     public function adminOrders(){
         $basic = Basic::select('id','name','type', 'tab1')->whereIn('type', ['FCentre'])->get();
         $data       =   DB::table('orders')->leftJoin('users', 'users.id', '=', 'orders.userId')->leftJoin('basics', 'basics.id', '=', 'orders.centre')
-                        ->select([ 'orders.*', 'users.name', 'users.email', 'users.phone', 'basics.name as centreName', 'basics.tab1 as centreLocation'])
+                        ->select([ 'orders.*', 'users.name', 'users.email', 'users.phone', 'users.role', 'basics.name as centreName', 'basics.tab1 as centreLocation'])
                         ->get()->map(function($i) {
                             $final = [];
                             for ($j=0; $j < count(json_decode($i->order)) ; $j++) {
@@ -377,6 +429,37 @@ class AdminController extends Controller
                             return $i;
                         });
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Order updated succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function adminCentres(){
+        $data = ProductionCentre::select('id','name','state','city','address', 'team', 'updated_at')->get();
+        return response()->json([ 'data' => $data ]); 
+    }
+
+    public function createCentre(Request $request){
+        $dB                     =   new ProductionCentre;
+        $dB->name               =   $request->name;
+        $dB->state              =   $request->state;
+        $dB->city               =   $request->city;
+        $dB->address            =   $request->address;
+        $dB->team               =   $request->team;
+        $dB-> save();
+        $data = ProductionCentre::limit(1)->orderBy('id', 'desc')->select('id','name','state','city','address', 'team', 'updated_at')->get();
+        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Centre created succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function updateCentre(Request $request){
+        $dB                     =  ProductionCentre::find($request->id);
+        $dB->name               =   $request->name;
+        $dB->state              =   $request->state;
+        $dB->city               =   $request->city;
+        $dB->address            =   $request->address;
+        $dB->team               =   $request->team;
+        $dB-> save();
+        $data = ProductionCentre::where('id', $request->id)->select('id','name','state','city','address', 'team', 'updated_at')->get();
+        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Centre updated succesfully"];
         return response()->json($response, 201);
     }
 
