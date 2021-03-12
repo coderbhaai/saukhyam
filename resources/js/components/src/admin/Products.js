@@ -11,7 +11,8 @@ export class User extends Component {
             currentPage:                1,
             itemsPerPage:               100,
             data:                      [],
-            loading:                    true
+            loading:                    true,
+            sortActive:                 'Clear'
         }
     }
 
@@ -34,6 +35,7 @@ export class User extends Component {
     handleClick= (e)=> { this.setState({ currentPage: Number(e.target.id) }) }
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
+    sortActive=(e)=>{ this.setState({ sortActive: e.target.value })}
 
     changeStatus=(i, value)=>{
         if(value == 1){ var status = 0 }else{ var status = 1}
@@ -54,9 +56,13 @@ export class User extends Component {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const data =  this.state.data.filter((i)=>{ 
-            if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
-        })
+        const data =  this.state.data
+            .filter((i)=>{ 
+                if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
+            })
+            .filter((i)=>{ 
+                if(this.state.sortActive == null || this.state.sortActive == 'Clear') return i; else if(i.status == parseInt(this.state.sortActive) ){ return i }
+            })
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
@@ -84,6 +90,14 @@ export class User extends Component {
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Products)</h1>
                             {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sortActive" value={this.state.sortActive} onChange={this.sortActive}>
+                                        <option value="Clear">Sort By Status</option> 
+                                        <option value="0">Not Active</option>
+                                        <option value="1">Active</option>
+                                        <option value="Clear">Clear Sorting</option> 
+                                    </select>
+                                </div>
                                 <div className="btn-pag">
                                     <a className="amitBtn" href={func.base+"addProduct"}>Add Product</a>
                                     <div className="flex-h">

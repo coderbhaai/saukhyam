@@ -22,7 +22,9 @@ export class Basic extends Component {
             tab2:                       '',
             tab3:                       '',
             status:                     '',
-            loading:                    true
+            loading:                    true,
+            sort:                       'Clear',
+            sortActive:                 'Clear'
         }
     }
 
@@ -46,6 +48,8 @@ export class Basic extends Component {
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
     addModalOn = ()=>{ this.setState({ addmodalIsOpen: true }) } 
+    changeSort=(e)=>{ this.setState({ sort: e.target.value }) }
+    sortActive=(e)=>{ this.setState({ sortActive: e.target.value })}
 
     addModal = (e) => {
         e.preventDefault()
@@ -57,11 +61,11 @@ export class Basic extends Component {
                 var allOk= true
             }
         }else
-        if(this.state.type=='DimensionValue'){
-            func.callSwal('Duplicate Entry')
-        }else{
-            var allOk= false
-        }
+        // if(this.state.type=='DimensionValue'){
+        //     func.callSwal('Duplicate Entry')
+        // }else{
+        //     var allOk= false
+        // }
         if(allOk){
             const data = new FormData()
             data.append('type', this.state.type)
@@ -73,7 +77,7 @@ export class Basic extends Component {
             const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
             axios.post(api.createBasic, data)
             .then( res=> {
-                if(res.data.success){ this.setState({ data: [...this.state.data, res.data.data ] }) }
+                if(res.data.success){ this.setState({ data: [ res.data.data, ...this.state.data ] }) }
                 func.callSwal(res.data.message)
                 this.resetData()
             })
@@ -144,8 +148,7 @@ export class Basic extends Component {
         })
         .catch(err=>func.printError(err))
     }
-    
-    changeSort=(e)=>{ this.setState({ sort: e.target.value }) }
+
     render() {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
@@ -157,6 +160,9 @@ export class Basic extends Component {
             .filter((i)=>{ 
                 if(this.state.sort == null || this.state.sort == 'Clear') return i; else if(i.type == this.state.sort ){ return i }
             })
+            .filter((i)=>{ 
+                if(this.state.sortActive == null || this.state.sortActive == 'Clear') return i; else if(i.status == parseInt(this.state.sortActive) ){ return i }
+            })
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
@@ -167,14 +173,14 @@ export class Basic extends Component {
                             : i.type == 'FCentre'? 'Production Centre'
                             : i.type == 'ProductType'? 'Product Type'
                             : i.type == 'DimensionType'? 'Dimension Type'
-                            : i.type == 'DimensionValue'? 'Dimension Value'
+                            // : i.type == 'DimensionValue'? 'Dimension Value'
                             : i.type == 'Screen'? 'App Screen'
                             : i.type == 'Languages'? 'Languages'
                             : i.type
                         }
                     </td> 
                     <td>{i.name}</td>
-                    <td>{ i.type=='DimensionValue' ? i.bName : i.tab1 }</td> 
+                    <td>{i.tab1}</td> 
                     <td>{i.tab2}</td> 
                     <td>{i.tab3}</td>
                     <td>
@@ -201,6 +207,14 @@ export class Basic extends Component {
                                     <select className="form-control" required name="sort" value={this.state.sort} onChange={this.changeSort}>
                                         <option value="Clear">Sort By</option> 
                                         {func.basic.map((i,index)=>(<option value={i.value} key={index}>{i.text}</option> ))}
+                                        <option value="Clear">Clear Sorting</option> 
+                                    </select>
+                                </div>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sortActive" value={this.state.sortActive} onChange={this.sortActive}>
+                                        <option value="Clear">Sort By Status</option> 
+                                        <option value="0">Not Active</option>
+                                        <option value="1">Active</option>
                                         <option value="Clear">Clear Sorting</option> 
                                     </select>
                                 </div>
@@ -285,7 +299,7 @@ export class Basic extends Component {
                                     </div>
                                 </>
                             : null}
-                            {this.state.type ==='DimensionValue'? 
+                            {/* {this.state.type ==='DimensionValue'? 
                                 <>
                                     <div className="col-sm-4">
                                         <label>Dimension Type</label>
@@ -299,7 +313,7 @@ export class Basic extends Component {
                                         <input className="form-control" placeholder="Add Dimension Value Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
                                     </div> 
                                 </>
-                            : null}
+                            : null} */}
                             <div className="col-sm-4">
                                 <label>Status</label>
                                 <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
@@ -355,7 +369,7 @@ export class Basic extends Component {
                                     </div>
                                 </>
                             : null}
-                            {this.state.type ==='DimensionValue'? 
+                            {/* {this.state.type ==='DimensionValue'? 
                                 <>
                                     <div className="col-sm-4">
                                         <label>Dimension Type</label>
@@ -369,7 +383,7 @@ export class Basic extends Component {
                                         <input className="form-control" placeholder="Add Dimension Value Here" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
                                     </div> 
                                 </>
-                            : null}
+                            : null} */}
                             <div className="col-sm-4">
                                 <label>Status</label>
                                 <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>

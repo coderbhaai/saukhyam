@@ -24,6 +24,7 @@ export default {
     adminTutorials : func.base+'api/adminTutorials',
     createTutorial : func.base+'api/createTutorial',
     updateTutorial : func.base+'api/updateTutorial',
+    changeTutorialStatus : func.base+'api/changeTutorialStatus',
 
     adminLanguages : func.base+'api/adminLanguages',
     createLanguage : func.base+'api/createLanguage',
@@ -41,4 +42,8 @@ export default {
     adminCentres : func.base+'api/adminCentres',
     createCentre : func.base+'api/createCentre',
     updateCentre : func.base+'api/updateCentre',
+    
+    adminNetworks : func.base+'api/adminNetworks',
+    updateNetwork : func.base+'api/updateNetwork',
+
 }

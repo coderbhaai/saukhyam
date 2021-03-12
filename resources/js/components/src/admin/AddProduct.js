@@ -106,7 +106,7 @@ export class User extends Component {
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Product Name</label>
-                                        <input className="form-control" placeholder="Product Name" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                        <input className="form-control" placeholder="Product Name" type="text" name="name" required value={this.state.name} onChange={this.onChange}/>
                                     </div> 
                                     <div className="col-sm-4">
                                         <label>Status of Product</label>
@@ -118,11 +118,11 @@ export class User extends Component {
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Wholesale Price</label>
-                                        <input className="form-control" placeholder="Wholesale Price" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="wprice" value={this.state.wprice} onChange={this.onChange}/>
+                                        <input className="form-control" placeholder="Wholesale Price" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="wprice" value={this.state.wprice} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Distributor Price</label>
-                                        <input className="form-control" placeholder="Distributor Price" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="dprice" value={this.state.dprice} onChange={this.onChange}/>
+                                        <input className="form-control" placeholder="Distributor Price" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="dprice" value={this.state.dprice} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Discount Type</label>
@@ -134,7 +134,7 @@ export class User extends Component {
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Discount</label>
-                                        <input className="form-control" placeholder="Product Discount" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="discount" value={this.state.discount} onChange={this.onChange}/>
+                                        <input className="form-control" placeholder="Product Discount" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="discount" value={this.state.discount} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-8">
                                         <label>Images</label>
@@ -152,11 +152,8 @@ export class User extends Component {
                                                     </select>
                                                 </div>
                                                 <div className="col-sm-6">
-                                                    <label>Status of Product</label>
-                                                    <select className="form-control" required onChange={(e)=>this.changeDimensionValue(index, e.target.value)} value={i.value}>
-                                                        <option value=''>Select Dimension Value</option>
-                                                        {this.state.data.filter(i=>i.type=='DimensionValue' && i.tab1 == this.state.dimension[index].text).map((j,index)=>(<option value={j.id} key={index}>{j.name}</option>))}
-                                                    </select>
+                                                    <label>Dimension Value</label>
+                                                    <input className="form-control" placeholder="Product Name" required type="text" onChange={(e)=>this.changeDimensionValue(index, e.target.value)} value={i.value}/>
                                                 </div>
                                             </div>
                                         ))}

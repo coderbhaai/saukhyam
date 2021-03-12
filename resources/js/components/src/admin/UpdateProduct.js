@@ -180,11 +180,8 @@ export class UpdateProduct extends Component {
                                                     </select>
                                                 </div>
                                                 <div className="col-sm-6">
-                                                    <label>Status of Product</label>
-                                                    <select className="form-control" required onChange={(e)=>this.changeDimensionValue(index, e.target.value)} value={i.value}>
-                                                        <option value=''>Select Dimension Value</option>
-                                                        {this.state.data.filter(i=>i.type=='DimensionValue' && i.tab1 == this.state.dimension[index].text).map((j,index)=>(<option value={j.id} key={index}>{j.name}</option>))}
-                                                    </select>
+                                                    <label>Dimension Value</label>
+                                                    <input className="form-control" placeholder="Product Name" required type="text" onChange={(e)=>this.changeDimensionValue(index, e.target.value)} value={i.value}/>
                                                 </div>
                                             </div>
                                         ))}

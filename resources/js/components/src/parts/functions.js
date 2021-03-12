@@ -88,7 +88,7 @@ export const basic =[
     // {'single': false, text: 'Production Centre', value: "FCentre"},
     {'single': false, text: 'Product Type', value: "ProductType"},
     {'single': false, text: 'Dimension Type', value: "DimensionType"},
-    {'single': false, text: 'Dimension Value', value: "DimensionValue"},
+    // {'single': false, text: 'Dimension Value', value: "DimensionValue"},
     {'single': false, text: 'App Screen Name', value: "Screen"},
     {'single': false, text: 'Language', value: "Language"},
 ]

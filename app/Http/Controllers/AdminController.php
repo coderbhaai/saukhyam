@@ -9,6 +9,7 @@ use App\Models\Faq;
 use App\Models\User;
 use App\Models\Basic;
 use App\Models\Orders;
+use App\Models\Network;
 use App\Models\Language;
 use App\Models\Products;
 use App\Models\Profiles;
@@ -223,7 +224,7 @@ class AdminController extends Controller
     }
 
     public function adminTutorials(){
-        $data = Tutorials::select('id','name','type','description','url','updated_at')->get();
+        $data = Tutorials::select('id','name','type','description','url', 'status', 'updated_at')->get();
         return response()->json([ 'data' => $data ]); 
     }
 
@@ -243,7 +244,7 @@ class AdminController extends Controller
             }
         } 
         $dB-> save();
-        $data = Tutorials::limit(1)->orderBy('id', 'desc')->select('id','name','type','description','url','updated_at')->get();
+        $data = Tutorials::limit(1)->orderBy('id', 'desc')->select('id','name','type','description','url', 'status', 'updated_at')->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Tutorial created succesfully"];
         return response()->json($response, 201);
     }
@@ -268,8 +269,17 @@ class AdminController extends Controller
             }
         }
         $dB-> save();
-        $data = Tutorials::where('id', $request->id)->select('id','name','type','description','url','updated_at')->get();
+        $data = Tutorials::where('id', $request->id)->select('id','name','type','description','url', 'status','updated_at')->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Tutorial updated succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function changeTutorialStatus(Request $request){
+        $dB                   =   Tutorials::find($request->id);
+        $dB->status           =   $request->status;
+        $dB-> save();
+        $data = Tutorials::where('id', $request->id)->select('id', 'name', 'type', 'description','url', 'status','updated_at')->first();
+        $response = ['success'=>true, 'data'=>$data, 'message'=>'Tutorial Updated Succesfully'];
         return response()->json($response, 201);
     }
 
@@ -462,5 +472,45 @@ class AdminController extends Controller
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Centre updated succesfully"];
         return response()->json($response, 201);
     }
+
+    public function adminNetworks(){
+        $data       =   DB::table('users')->whereIn('role', ['Amrita', 'Vijaya'])->leftJoin('networks as a', 'a.userId', '=', 'users.id')
+                        ->select([ 'users.id as userId','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.updated_at', 'a.id as networkId', 'a.manager' ])
+                        ->get()->map(function($i) {
+                            if($i->manager){
+                                $xx   =   User::select('name')->where( 'id', $i->manager )->first();
+                                $i->managerName  =   $xx->name;
+                            }
+                            return $i;
+                        });
+        $manager = User::select('id','name')->where('role', 'Manager')->get();
+        return response()->json([ 
+            'data'              => $data, 
+            'manager'           => $manager
+            ]); 
+    }
+
+    public function updateNetwork(Request $request){
+        if($request->id){
+            $dB                     =   Network::find($request->id);
+        }else{
+            $dB                     =   new Network;
+        }
+        $dB->userId                 =   $request->userId;
+        $dB->manager                =   $request->manager;
+        $dB-> save();
+        $data       =   DB::table('users')->where('userId', $request->userId)->leftJoin('networks as a', 'a.userId', '=', 'users.id')
+                    ->select([ 'users.id as userId','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.updated_at', 'a.id as networkId', 'a.manager' ])
+                    ->get()->map(function($i) {
+                        if($i->manager){
+                            $xx   =   User::select('name')->where( 'id', $i->manager )->first();
+                            $i->managerName  =   $xx->name;
+                        }
+                        return $i;
+                    });
+        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Centre updated succesfully"];
+        return response()->json($response, 201);
+    }
+
 
 }

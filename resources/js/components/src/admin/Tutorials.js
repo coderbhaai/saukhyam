@@ -20,9 +20,12 @@ export class Tutorials extends Component {
             name:                       '',
             url:                        '',
             description:                '',
+            status:                     '',
             image:                      null,
             oldImage:                   '',
-            loading:                    true
+            loading:                    true,
+            sort:                       'Clear',
+            sortActive:                 'Clear'
         }
     }
 
@@ -47,6 +50,8 @@ export class Tutorials extends Component {
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
     addModalOn = ()=>{ this.setState({ addmodalIsOpen: true }) } 
     singleImage = (e) =>{ this.setState({ image: e.target.files[0] })}
+    changeSort=(e)=>{ this.setState({ sort: e.target.value }) }
+    sortActive=(e)=>{ this.setState({ sortActive: e.target.value })}
 
     addModal = (e) => {
         e.preventDefault()
@@ -55,11 +60,12 @@ export class Tutorials extends Component {
         data.append('type', this.state.type)
         data.append('name', this.state.name)
         data.append('url', this.state.url)
+        data.append('status', this.state.status)
         data.append('description', this.state.description)
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.createTutorial, data)
         .then( res=> {
-            if(res.data.success){ this.setState({ data: [...this.state.data, res.data.data ] }) }
+            if(res.data.success){ this.setState({ data: [res.data.data, ...this.state.data] }) }
             func.callSwal(res.data.message)
             this.resetData()
         })
@@ -72,7 +78,8 @@ export class Tutorials extends Component {
             id:                             i.id,
             type:                           i.type,
             name:                           i.name,
-            description:                    i.description
+            description:                    i.description,
+            status:                         i.status
         })
         if(i.type=='Doc' || i.type=='Video'){ this.setState({ oldImage: i.url }) }
     }
@@ -85,6 +92,7 @@ export class Tutorials extends Component {
         data.append('type', this.state.type)
         data.append('name', this.state.name)
         data.append('url', this.state.url)
+        data.append('status', this.state.status)
         data.append('description', this.state.description)
         data.append('oldImage', this.state.oldImage)
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
@@ -107,18 +115,41 @@ export class Tutorials extends Component {
             type:                       '',
             name:                       '',
             url:                        '',
+            status:                     '',
             description:                '',
             image:                      null,
             oldImage:                   ''
         })
     }
 
+    changeStatus=(i, value)=>{
+        if(value == 1){ var status = 0 }else{ var status = 1}
+        const data={
+            id:                         i.id,
+            status:                     status
+        }
+        const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+        axios.post(api.changeTutorialStatus, data)
+        .then( res=>{
+            if(res.data.success){ this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) }
+            func.callSwal(res.data.message)
+        })
+        .catch(err=>func.printError(err))
+    }
+
     render() {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const data =  this.state.data.filter((i)=>{ 
+        const data =  this.state.data
+        .filter((i)=>{ 
             if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
+        })
+        .filter((i)=>{ 
+            if(this.state.sort == null || this.state.sort == 'Clear') return i; else if(i.type == this.state.sort ){ return i }
+        })
+        .filter((i)=>{ 
+            if(this.state.sortActive == null || this.state.sortActive == 'Clear') return i; else if(i.status == parseInt(this.state.sortActive) ){ return i }
         })
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
@@ -132,6 +163,12 @@ export class Tutorials extends Component {
                         }
                     </td> 
                     <td>{i.name}</td>
+                    <td>
+                        <div className="onoffswitch">
+                            <input type="checkbox" name="statusSwitch" className="onoffswitch-checkbox" id={'Switch-'+i.id} onChange={(e)=>this.changeStatus(i, e.target.value)} value={i.status} checked={i.status==1? true : false}/>
+                            <label className="onoffswitch-label" htmlFor={'Switch-'+i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
+                        </div>
+                    </td>
                     <td className="editIcon text-center" onClick={()=>this.editModalOn(i)}><img src="/images/icons/edit.svg"/></td>
                 </tr>
         )})
@@ -146,6 +183,23 @@ export class Tutorials extends Component {
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Tutorials)</h1>
                             {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sort" value={this.state.sort} onChange={this.changeSort}>
+                                        <option value="Clear">Sort By</option> 
+                                        <option value="Doc">Document</option>
+                                        <option value="Iframe">Youtube Link</option>
+                                        <option value="Video">Video</option>
+                                        <option value="Clear">Clear Sorting</option>
+                                    </select>
+                                </div>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sortActive" value={this.state.sortActive} onChange={this.sortActive}>
+                                        <option value="Clear">Sort By Status</option> 
+                                        <option value="0">Not Active</option>
+                                        <option value="1">Active</option>
+                                        <option value="Clear">Clear Sorting</option> 
+                                    </select>
+                                </div>
                                 <div className="btn-pag">
                                     <button className="amitBtn" onClick={this.addModalOn}>Add Tutorial</button>
                                     <div className="flex-h">
@@ -167,6 +221,7 @@ export class Tutorials extends Component {
                                                 <th>Sl No.</th>
                                                 <th>Type</th>
                                                 <th>Name</th>
+                                                <th>Status</th>
                                                 <th>Edit </th>
                                             </tr>
                                         </thead>
@@ -194,8 +249,12 @@ export class Tutorials extends Component {
                             </div>
                             {this.state.type?
                                 <div className="col-sm-4">
-                                    <label>Name of Document</label>
-                                    <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                    <label>Status of Product</label>
+                                    <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
+                                        <option value=''>Select Status</option>
+                                        <option value="1">Show</option>
+                                        <option value="0">Hide</option>
+                                    </select>
                                 </div>
                             : null}
                             {this.state.type ==='Doc'? 
@@ -217,7 +276,11 @@ export class Tutorials extends Component {
                                 </div> 
                             : null}   
                             {this.state.type? 
-                            <>                        
+                            <>
+                                <div className="col-sm-12">
+                                    <label>Name of Document</label>
+                                    <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                </div>                    
                                 <div className="col-sm-12">
                                     <label>Description</label>
                                     <textarea className="form-control" placeholder="Add Description Here" name="description" onChange={this.onChange} value={this.state.description}/>
@@ -233,15 +296,19 @@ export class Tutorials extends Component {
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.updateModal}>
                         <div className="row">
                             <div className="col-sm-4">
-                                <label>Type of Basic</label>
+                                <label>Type of Tutorial</label>
                                 <select className="form-control" required name="type" onChange={this.onChange} value={this.state.type} readOnly>
                                     <option>{this.state.type}</option>
                                 </select>
                             </div>
                             {this.state.type?
                                 <div className="col-sm-4">
-                                    <label>Name of Document</label>
-                                    <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                    <label>Status of Tutorial</label>
+                                    <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
+                                        <option value=''>Select Status</option>
+                                        <option value="1">Show</option>
+                                        <option value="0">Hide</option>
+                                    </select>
                                 </div>
                             : null}
                             {this.state.type ==='Doc'? 
@@ -263,12 +330,16 @@ export class Tutorials extends Component {
                                     <input className="form-control" placeholder="Add Location Here" type="file" onChange={this.singleImage}/>
                                 </div> 
                             : null}   
-                            {this.state.type?      
+                            {this.state.type?<>
+                                <div className="col-sm-12">
+                                    <label>Name of Document</label>
+                                    <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                </div>
                                 <div className="col-sm-12">
                                     <label>Description</label>
                                     <textarea className="form-control" placeholder="Add Description Here" name="description" onChange={this.onChange} value={this.state.description}/>
                                 </div>
-                            : null}
+                            </>: null}
                             <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                         </div>
                     </form>

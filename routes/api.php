@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/adminTutorials', [AdminController::class, 'adminTutorials']);
     Route::post('/createTutorial', [AdminController::class, 'createTutorial']);
     Route::post('/updateTutorial', [AdminController::class, 'updateTutorial']);
+    Route::post('/changeTutorialStatus', [AdminController::class, 'changeTutorialStatus']);
 
     Route::get('/adminLanguages', [AdminController::class, 'adminLanguages']);
     Route::post('/createLanguage', [AdminController::class, 'createLanguage']);
@@ -51,6 +52,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/createCentre', [AdminController::class, 'createCentre']);
     Route::post('/updateCentre', [AdminController::class, 'updateCentre']);
     
+    Route::get('/adminNetworks', [AdminController::class, 'adminNetworks']);
+    Route::post('/updateNetwork', [AdminController::class, 'updateNetwork']);
     // Admin
     
     // for APP
