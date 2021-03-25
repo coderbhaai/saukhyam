@@ -233,6 +233,7 @@ class AdminController extends Controller
         $dB->type               =   $request->type;
         $dB->name               =   $request->name;
         $dB->description        =   $request->description;
+        $dB->status             =   $request->status;
         if($request->type=="Iframe"){
             $dB->url            =   $request->url;
         }else 
@@ -253,6 +254,7 @@ class AdminController extends Controller
         $dB                     =  Tutorials::find($request->id);
         $dB->type               =   $request->type;
         $dB->name               =   $request->name;
+        $dB->status             =   $request->status;
         $dB->description        =   $request->description;
         if($request->type=="Iframe"){
             $dB->url            =   $request->url;
