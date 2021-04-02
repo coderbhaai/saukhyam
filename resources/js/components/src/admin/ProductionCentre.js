@@ -13,7 +13,7 @@ export class ProductionCentre extends Component {
             itemsPerPage:               100,
             data:                      [],
             search:                     '',
-            addmodalIsOpen:             true,
+            addmodalIsOpen:             false,
             editmodalIsOpen:            false,
             id:                         '',
             name:                       '',
@@ -225,7 +225,7 @@ export class ProductionCentre extends Component {
                                 <input className="form-control" placeholder="Add Address Here" type="text" name="address" value={this.state.address} onChange={this.onChange}/>
                             </div>
                             <div className="col-sm-12 mt-3">
-                                <p onClick={this.addTeam} className="amitBtn" style={{maxWidth: '200px'}}>Add Support Team Member</p>
+                                <p onClick={this.addTeam} className="amitBtn">Add Support Team Member</p>
                                 {this.state.team.map((i,index)=>(
                                     <div className="row mb-3" key={index}>
                                         <div className="col-sm-6">
@@ -253,7 +253,7 @@ export class ProductionCentre extends Component {
                     </form>
                 </Modal>
                 <Modal isOpen={this.state.editmodalIsOpen} className="adminModal"> 
-                    <div className="modal-header"><h2>Update Masters Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
+                    <div className="modal-header"><h2>Update Production Centre Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.updateModal}>
                         <div className="row">
                             <div className="col-sm-3">
@@ -277,17 +277,23 @@ export class ProductionCentre extends Component {
                                 <input className="form-control" placeholder="Add Address Here" type="text" name="address" value={this.state.address} onChange={this.onChange}/>
                             </div>
                             <div className="col-sm-12 mt-3">
-                                <p onClick={this.addTeam} className="amitBtn" style={{maxWidth: '200px'}}>Add Support Team Member</p>
+                                <p onClick={this.addTeam} className="amitBtn">Add Support Team Member</p>
                                 {this.state.team.map((i,index)=>(
                                     <div className="row mb-3" key={index}>
                                         <div className="col-sm-6">
                                             <label>Name</label>
                                             <input className="form-control" placeholder="Add Name Here" type="text" value={i[0]} onChange={(e)=>this.changeTeamName(index, e.target.value)}/>
                                         </div>
-                                        <div className="col-sm-6">
+                                        <div className="col-sm-4">
                                             <label>Mobile Phone</label>
+                                            <input className="form-control" placeholder="Add Mobile Phone Here" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" value={i[1]} onChange={(e)=>this.changeTeamPhone(index, e.target.value)}/>
+                                        </div>
+                                        <div className="col-sm-2" style={{display: 'flex'}}>
+                                            <div className="onoffswitch">
+                                                <input type="checkbox" name="statusSwitch" className="onoffswitch-checkbox" id={'Switch-'+index} onChange={(e)=>this.changeTeamDisplay(index, e.target.value)} value={i[2]} checked={i[2]==1? true : false}/>
+                                                <label className="onoffswitch-label" htmlFor={'Switch-'+index}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
+                                            </div>
                                             <div className="arrayRemove">
-                                                <input className="form-control" placeholder="Add Mobile Phone Here" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" value={i[1]} onChange={(e)=>this.changeTeamPhone(index, e.target.value)}/>
                                                 <img src="/images/icons/wrong.svg"  onClick={()=>this.arrayTeamRemove(index)}/>
                                             </div>
                                         </div>

@@ -1273,6 +1273,9 @@ a:hover {
   min-width: 200px;
   padding: 10px;
   text-align: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .amitBtn a {
