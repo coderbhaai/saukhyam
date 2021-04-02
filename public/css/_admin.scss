@@ -132,7 +132,8 @@
     margin: 5px 0;
   }
   .onoffswitch {
-      position: relative; width: 56px;
+      // position: relative; 
+      width: 56px;
     //   -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
       display: flex;
       align-items: center;
@@ -148,6 +149,7 @@
       border: 2px solid #FFFFFF; 
       border-radius: 20px;
       margin: 0;
+      position: relative;
   }
   .onoffswitch-inner {
       display: block; width: 200%; margin-left: -100%;
@@ -177,10 +179,11 @@
       width: 12px; margin: 5px;
       background: #FFFFFF;
       position: absolute; 
-      top: 2px;
+      top: 0;
       height: 12px;
       right: 30px;
-      border: 2px solid #FFFFFF; border-radius: 20px;
+      border: 2px solid #FFFFFF; 
+      border-radius: 20px;
       transition: all 0.3s ease-in 0s; 
   }
   .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {

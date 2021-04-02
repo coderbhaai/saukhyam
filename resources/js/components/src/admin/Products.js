@@ -53,12 +53,13 @@ export class User extends Component {
     }
 
     render() {
+        console.log(`this.state.data`, this.state.data)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
         const data =  this.state.data
             .filter((i)=>{ 
-                if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
+                if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.productType.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
             })
             .filter((i)=>{ 
                 if(this.state.sortActive == null || this.state.sortActive == 'Clear') return i; else if(i.status == parseInt(this.state.sortActive) ){ return i }
@@ -67,6 +68,7 @@ export class User extends Component {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
+                    <td>{i.productType}</td>
                     <td>{i.name}</td>
                     <td>{i.price}</td> 
                     <td><img className="previewImg" src={func.imgPath+'product/'+JSON.parse(i.images)[0]}/></td> 
@@ -117,6 +119,7 @@ export class User extends Component {
                                         <thead>
                                             <tr>
                                                 <th>Sl No.</th>
+                                                <th>Type</th>
                                                 <th>Name</th>
                                                 <th>Price</th>
                                                 <th>Image</th>

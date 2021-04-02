@@ -12,7 +12,8 @@ export class Language extends Component {
             currentPage:                1,
             itemsPerPage:               100,
             data:                       [],
-            basic:                      [],
+            screen:                     [],
+            language:                   [],
             search:                     '',
             addmodalIsOpen:             false,
             editmodalIsOpen:            false,
@@ -35,7 +36,8 @@ export class Language extends Component {
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:                       body.data,
-            basic:                      body.basic,
+            screen:                     body.screen,
+            language:                   body.language,
             loading:                    false
         })
     }
@@ -173,7 +175,7 @@ export class Language extends Component {
                                 <label>Select Screen</label>
                                 <select className="form-control" required name="screenId" onChange={this.onChange} value={this.state.screenId}>
                                     <option value=''>Select Screen</option>
-                                    {this.state.basic.filter(i=>i.type=='Screen').map((i,index)=>(<option value={i.id} key={index}>{i.name}</option>))}
+                                    {this.state.screen.map((i,index)=>(<option value={i.id} key={index}>{i.name}</option>))}
                                 </select>
                             </div>
                             <div className="col-sm-6">
@@ -187,7 +189,7 @@ export class Language extends Component {
                                 <div className="col-sm-3">
                                     <select className="form-control" required onChange={(e)=>this.changeOptionLanguage(index, e.target.value)} value={i.lang}>
                                         <option value=''>Select Language</option>
-                                        {this.state.basic.filter(i=>i.type=='Language').map((j,index2)=>(<option value={j.id} key={index2}>{j.name}</option>))}
+                                        {this.state.language.map((j,index2)=>(<option value={j.id} key={index2}>{j.name}</option>))}
                                     </select>
                                 </div>
                                 <div className="col-sm-8">
@@ -209,7 +211,7 @@ export class Language extends Component {
                                 <label>Select Screen</label>
                                 <select className="form-control" required name="screenId" onChange={this.onChange} value={this.state.screenId}>
                                     <option value=''>Select Screen</option>
-                                    {this.state.basic.filter(i=>i.type=='Screen').map((i,index)=>(<option value={i.id} key={index}>{i.name}</option>))}
+                                    {this.state.screen.map((i,index)=>(<option value={i.id} key={index}>{i.name}</option>))}
                                 </select>
                             </div>
                             <div className="col-sm-6">
@@ -223,7 +225,7 @@ export class Language extends Component {
                                 <div className="col-sm-3">
                                     <select className="form-control" required onChange={(e)=>this.changeOptionLanguage(index, e.target.value)} value={i.lang}>
                                         <option value=''>Select Language</option>
-                                        {this.state.basic.filter(i=>i.type=='Language').map((j,index2)=>(<option value={j.id} key={index2}>{j.name}</option>))}
+                                        {this.state.language.map((j,index2)=>(<option value={j.id} key={index2}>{j.name}</option>))}
                                     </select>
                                 </div>
                                 <div className="col-sm-8">

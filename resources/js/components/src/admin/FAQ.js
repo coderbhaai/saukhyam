@@ -123,6 +123,7 @@ export class User extends Component {
     }
 
     render() {
+        console.log(`this.state`, this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -135,7 +136,7 @@ export class User extends Component {
                     <td>{index+1}</td>
                     <td>{i.name}<br/>
                         {
-                            i.role=='Admin'? 'Area Manager'
+                            i.role=='Admin'? 'Admin'
                             : i.role=='Manager'? 'Production Center In Charge'
                             : i.role=='Manager'? 'Production Center In Charge'
                             : i.role

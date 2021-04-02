@@ -1520,7 +1520,6 @@ a:hover {
 }
 
 .onoffswitch {
-  position: relative;
   width: 56px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1544,6 +1543,7 @@ a:hover {
   border: 2px solid #FFFFFF;
   border-radius: 20px;
   margin: 0;
+  position: relative;
 }
 
 .onoffswitch-inner {
@@ -1593,7 +1593,7 @@ a:hover {
   margin: 5px;
   background: #FFFFFF;
   position: absolute;
-  top: 2px;
+  top: 0;
   height: 12px;
   right: 30px;
   border: 2px solid #FFFFFF;

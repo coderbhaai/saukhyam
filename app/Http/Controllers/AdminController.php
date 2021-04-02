@@ -120,7 +120,12 @@ class AdminController extends Controller
     }
 
     public function adminProducts(){
-        $data = Products::select('id','name','type', 'wprice', 'dprice', 'images', 'status', 'updated_at')->get();
+        // $data = Products::select('id','name','type', 'wprice', 'dprice', 'images', 'status', 'updated_at')->get();
+        $data       =   DB::table('products')
+                        ->leftJoin('basics', 'basics.id', '=', 'products.type')
+                        ->select([ 'products.id', 'products.name', 'products.type', 'products.wprice', 'products.dprice', 'products.images', 'products.status', 
+                        'products.updated_at', 'basics.name as productType' ])
+                        ->get();
         return response()->json([ 'data' => $data ]); 
     }
 
@@ -290,9 +295,10 @@ class AdminController extends Controller
                         ->leftJoin('basics', 'basics.id', '=', 'languages.screenId')
                         ->select([ 'languages.id', 'languages.screenId', 'languages.text', 'languages.options', 'languages.updated_at', 'basics.name as screenName' ])
                         ->get();
+        $screen = Basic::select('id','name','type')->where('type', 'Screen')->get();
+        $language = Basic::select('id','name','type')->where('type', 'Language')->where('status', 1)->get();
 
-        $basic = Basic::select('id','name','type')->whereIn('type', ['Language', 'Screen'])->get();
-        return response()->json([ 'data' => $data, 'basic' => $basic ]); 
+        return response()->json([ 'data' => $data, 'screen' => $screen, 'language' => $language]); 
     }
 
     public function createLanguage(Request $request){
@@ -445,7 +451,7 @@ class AdminController extends Controller
     }
 
     public function adminCentres(){
-        $data = ProductionCentre::select('id','name','state','city','address', 'team', 'updated_at')->get();
+        $data = ProductionCentre::select('id','name','state','city','pin','address','team','updated_at')->get();
         return response()->json([ 'data' => $data ]); 
     }
 
@@ -455,9 +461,10 @@ class AdminController extends Controller
         $dB->state              =   $request->state;
         $dB->city               =   $request->city;
         $dB->address            =   $request->address;
+        $dB->pin                =   $request->pin;
         $dB->team               =   $request->team;
         $dB-> save();
-        $data = ProductionCentre::limit(1)->orderBy('id', 'desc')->select('id','name','state','city','address', 'team', 'updated_at')->get();
+        $data = ProductionCentre::limit(1)->orderBy('id', 'desc')->select('id','name','state','city','pin','address','team','updated_at')->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Centre created succesfully"];
         return response()->json($response, 201);
     }
@@ -468,9 +475,10 @@ class AdminController extends Controller
         $dB->state              =   $request->state;
         $dB->city               =   $request->city;
         $dB->address            =   $request->address;
+        $dB->pin                =   $request->pin;
         $dB->team               =   $request->team;
         $dB-> save();
-        $data = ProductionCentre::where('id', $request->id)->select('id','name','state','city','address', 'team', 'updated_at')->get();
+        $data = ProductionCentre::where('id', $request->id)->select('id','name','state','city','pin','address','team','updated_at')->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Centre updated succesfully"];
         return response()->json($response, 201);
     }

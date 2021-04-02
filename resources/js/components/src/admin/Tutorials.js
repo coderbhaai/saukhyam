@@ -138,6 +138,7 @@ export class Tutorials extends Component {
     }
 
     render() {
+        console.log(`this.state`, this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -162,7 +163,7 @@ export class Tutorials extends Component {
                             : i.type
                         }
                     </td> 
-                    <td>{i.name}</td>
+                    <td><a href={func.imgPath+'tutorial/'+i.url} target="_blank">{i.name}</a></td>
                     <td>
                         <div className="onoffswitch">
                             <input type="checkbox" name="statusSwitch" className="onoffswitch-checkbox" id={'Switch-'+i.id} onChange={(e)=>this.changeStatus(i, e.target.value)} value={i.status} checked={i.status==1? true : false}/>
@@ -181,7 +182,7 @@ export class Tutorials extends Component {
                     <div className="row">
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
-                            <h1 className="heading"><span>Admin Panel </span>(Tutorials)</h1>
+                            <h1 className="heading"><span>Admin Panel </span>(Creatives)</h1>
                             {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
                                 <div className="sortBy">
                                     <select className="form-control" required name="sort" value={this.state.sort} onChange={this.changeSort}>
@@ -201,7 +202,7 @@ export class Tutorials extends Component {
                                     </select>
                                 </div>
                                 <div className="btn-pag">
-                                    <button className="amitBtn" onClick={this.addModalOn}>Add Tutorial</button>
+                                    <button className="amitBtn" onClick={this.addModalOn}>Add Creative</button>
                                     <div className="flex-h">
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
@@ -235,7 +236,7 @@ export class Tutorials extends Component {
                     </div>
                 </div>
                 <Modal isOpen={this.state.addmodalIsOpen} className="adminModal">
-                    <div className="modal-header"><h2>Add Tutorial Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
+                    <div className="modal-header"><h2>Add Creative Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.addModal}>
                         <div className="row">
                             <div className={this.state.type? "col-sm-4" : "col-sm-12"}>
@@ -292,7 +293,7 @@ export class Tutorials extends Component {
                     </form>
                 </Modal>
                 <Modal isOpen={this.state.editmodalIsOpen} className="adminModal"> 
-                    <div className="modal-header"><h2>Update Tutorial Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
+                    <div className="modal-header"><h2>Update Creative Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.updateModal}>
                         <div className="row">
                             <div className="col-sm-4">
