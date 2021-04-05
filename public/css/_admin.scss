@@ -231,10 +231,9 @@
   left: 0;
   right: 0;
   margin: 2em auto;
-  padding: 2em;
   border-radius: 5px;
   max-height: 80%;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 .closeModal{
   position: absolute;
@@ -276,6 +275,9 @@ label{
 }
 .delIcon{
   max-width: 20px;
+  &:hover{
+    cursor: pointer;
+  }
 }
 .table-responsive {
   padding: 0 1em;

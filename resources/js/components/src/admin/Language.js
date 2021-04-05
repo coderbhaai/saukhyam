@@ -21,6 +21,7 @@ export class Language extends Component {
             screenId:                   '',
             text:                       '',
             options:                    [],
+            optionList:                 [],
             loading:                    true
         }
     }
@@ -50,6 +51,7 @@ export class Language extends Component {
     addOption=()=>{ this.setState({ options: [ ...this.state.options, {lang: '', value: ''} ] }) }
     changeOptionLanguage=(index, val)=>{ this.state.options[index].lang = val; this.setState({ options: this.state.options }) }
     changeOptionValue=(index, val)=>{ this.state.options[index].value = val; this.setState({ options: this.state.options }) }
+    optionRemove(index){ this.state.options.splice(index, 1); this.setState({options: this.state.options}) }
 
     addModal = (e) => {
         e.preventDefault()
@@ -69,12 +71,17 @@ export class Language extends Component {
     }
 
     editModalOn = (i)=>{
+        const xx = []
+        JSON.parse(i.options).map(j=>(
+            xx.push(parseInt(j.lang))
+        ))
         this.setState({
             editmodalIsOpen:                true,
             id:                             i.id,
             screenId:                       i.screenId,
             text:                           i.text,
-            options:                        JSON.parse(i.options)
+            options:                        JSON.parse(i.options),
+            optionList:                     xx
         })
     }
 
@@ -184,22 +191,24 @@ export class Language extends Component {
                             </div>
                         </div>
                         <button onClick={this.addOption} className="amitBtn my-3">Add Language</button>
-                        {this.state.options.map((i,index)=>(
-                            <div className="row mb-3" key={index}>
-                                <div className="col-sm-3">
-                                    <select className="form-control" required onChange={(e)=>this.changeOptionLanguage(index, e.target.value)} value={i.lang}>
-                                        <option value=''>Select Language</option>
-                                        {this.state.language.map((j,index2)=>(<option value={j.id} key={index2}>{j.name}</option>))}
-                                    </select>
+                        <div>
+                            {this.state.options.map((i,index)=>(
+                                <div className="row mb-3" key={index}>
+                                    <div className="col-sm-3">
+                                        <select className="form-control" required onChange={(e)=>this.changeOptionLanguage(index, e.target.value)} value={i.lang}>
+                                            <option value=''>Select Language</option>
+                                            {this.state.language.map((j,index2)=>(<option value={j.id} key={index2}>{j.name}</option>))}
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-8">
+                                        <input className="form-control" placeholder="Add Language Text" type="text" value={i.value} required onChange={(e)=>this.changeOptionValue(index, e.target.value)}/>
+                                    </div>
+                                    <div className="col-sm-1">
+                                        <img src="/images/icons/wrong-red.svg" className="delIcon" onClick={()=>this.optionRemove(index)}/>
+                                    </div>
                                 </div>
-                                <div className="col-sm-8">
-                                    <input className="form-control" placeholder="Add Language Text" type="text" value={i.value} required onChange={(e)=>this.changeOptionValue(index, e.target.value)}/>
-                                </div>
-                                <div className="col-sm-1">
-                                    <img src="/images/icons/wrong-red.svg" className="delIcon"/>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                         <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                     </form>
                 </Modal>
@@ -220,22 +229,25 @@ export class Language extends Component {
                             </div>
                         </div>
                         <button onClick={this.addOption} className="amitBtn my-3">Add Language</button>
-                        {this.state.options.map((i,index)=>(
-                            <div className="row mb-3" key={index}>
-                                <div className="col-sm-3">
-                                    <select className="form-control" required onChange={(e)=>this.changeOptionLanguage(index, e.target.value)} value={i.lang}>
-                                        <option value=''>Select Language</option>
-                                        {this.state.language.map((j,index2)=>(<option value={j.id} key={index2}>{j.name}</option>))}
-                                    </select>
+                        <div>
+                            {this.state.options.map((i,index)=>(
+                                <div className="row mb-3" key={index}>
+                                    <div className="col-sm-3">
+                                        <select className="form-control" required onChange={(e)=>this.changeOptionLanguage(index, e.target.value)} value={i.lang}>
+                                            <option value=''>Select Language</option>
+                                            {this.state.language.map((j,index2)=>(<option value={j.id} key={index2}>{j.name}</option>))}
+                                            {/* .filter(el=>!this.state.optionList.includes(el.id)) */}
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-8">
+                                        <input className="form-control" placeholder="Add Language Text" type="text" value={i.value} required onChange={(e)=>this.changeOptionValue(index, e.target.value)}/>
+                                    </div>
+                                    <div className="col-sm-1">
+                                        <img src="/images/icons/wrong-red.svg" className="delIcon" onClick={()=>this.optionRemove(index)}/>
+                                    </div>
                                 </div>
-                                <div className="col-sm-8">
-                                    <input className="form-control" placeholder="Add Language Text" type="text" value={i.value} required onChange={(e)=>this.changeOptionValue(index, e.target.value)}/>
-                                </div>
-                                <div className="col-sm-1">
-                                    <img src="/images/icons/wrong-red.svg" className="delIcon"/>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                         <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                     </form>
                 </Modal>

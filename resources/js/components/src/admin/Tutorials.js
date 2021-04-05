@@ -138,7 +138,6 @@ export class Tutorials extends Component {
     }
 
     render() {
-        console.log(`this.state`, this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -163,7 +162,12 @@ export class Tutorials extends Component {
                             : i.type
                         }
                     </td> 
-                    <td><a href={func.imgPath+'tutorial/'+i.url} target="_blank">{i.name}</a></td>
+                    <td>
+                        {i.type == 'Iframe'? 
+                            <a href={i.url} target="_blank">{i.name}</a>
+                            : <a href={func.imgPath+'tutorial/'+i.url} target="_blank">{i.name}</a>
+                        }
+                    </td>
                     <td>
                         <div className="onoffswitch">
                             <input type="checkbox" name="statusSwitch" className="onoffswitch-checkbox" id={'Switch-'+i.id} onChange={(e)=>this.changeStatus(i, e.target.value)} value={i.status} checked={i.status==1? true : false}/>

@@ -53,7 +53,6 @@ export class User extends Component {
     }
 
     render() {
-        console.log(`this.state.data`, this.state.data)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage

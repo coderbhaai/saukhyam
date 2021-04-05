@@ -139,7 +139,6 @@ export class ProductionCentre extends Component {
     }   
 
     render() {
-        console.log(`this.state.team`, this.state.team)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage

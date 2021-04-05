@@ -251,7 +251,7 @@ class AdminController extends Controller
         } 
         $dB-> save();
         $data = Tutorials::limit(1)->orderBy('id', 'desc')->select('id','name','type','description','url', 'status', 'updated_at')->get();
-        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Tutorial created succesfully"];
+        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Creative created succesfully"];
         return response()->json($response, 201);
     }
 
@@ -277,7 +277,7 @@ class AdminController extends Controller
         }
         $dB-> save();
         $data = Tutorials::where('id', $request->id)->select('id','name','type','description','url', 'status','updated_at')->get();
-        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Tutorial updated succesfully"];
+        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Creative updated succesfully"];
         return response()->json($response, 201);
     }
 

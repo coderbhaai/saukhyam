@@ -1,7 +1,6 @@
 export const base = '/'
-export const imgPath = "/storage/"
-// export const base = '/saukhyam/'
-// export const imgPath = "/saukhyam/amit/storage/app/public/"
+// export const imgPath = "/storage/"
+export const imgPath = "/saukhyam/storage/app/public/"
 
 export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
 export function printError(mesg){ console.log('mesg', mesg) }
@@ -69,7 +68,7 @@ export const productimage = [
     {id: 5, img: 'home-2.jpg'},
     {id: 6, img: 'home-3.jpg'},
 ]
-
+ 
 export const adminLinks =[
     {text: 'Users', url: base+"adminUsers", active: base+"adminUsers"},
     {text: 'Masters', url: base+"adminBasics", active: base+"adminBasics"},

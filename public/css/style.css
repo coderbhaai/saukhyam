@@ -1346,6 +1346,17 @@ a:hover {
   height: auto;
 }
 
+.modal-content > form {
+  max-height: 70vh;
+  padding: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  opacity: 0.85;
+}
+
 .admin .heading {
   margin-bottom: 1em;
 }
@@ -1660,10 +1671,9 @@ a:hover {
   left: 0;
   right: 0;
   margin: 2em auto;
-  padding: 2em;
   border-radius: 5px;
   max-height: 80%;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 
 .closeModal {
@@ -1710,6 +1720,10 @@ label {
 
 .delIcon {
   max-width: 20px;
+}
+
+.delIcon:hover {
+  cursor: pointer;
 }
 
 .table-responsive {

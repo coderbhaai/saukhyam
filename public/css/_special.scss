@@ -106,3 +106,16 @@ a{
         height: auto;
     }
 }
+.modal-content{
+    >form{
+        max-height: 70vh;
+        padding: 0;
+        overflow: hidden;
+        overflow-y: scroll;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        opacity: 0.85;
+    }
+}
