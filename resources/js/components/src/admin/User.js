@@ -14,12 +14,17 @@ export class User extends Component {
             basic:                      [],
             data:                       [],
             user:                       [],
+            manager:                    [],
             id:                         '',
             role:                       '',
             search:                     '',
             editmodalIsOpen:            false,
             fCentre:                     '',
-            loading:                    true
+            loading:                    true,
+            sortRole:                   'Clear',
+            sortCentre:                 'Clear',
+            sortActive:                 'Clear',
+            areaManager:                ''
         }
     }
 
@@ -31,10 +36,12 @@ export class User extends Component {
     callApi = async () => {
         const response = await fetch( api.adminUsers, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
+        console.log(`body`, body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:                       body.data,
             basic:                      body.basic,
+            manager:                    body.manager,
             loading:                    false
         })
     }
@@ -43,6 +50,9 @@ export class User extends Component {
     handleClick= (e)=> { this.setState({ currentPage: Number(e.target.id) }) }
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
+    sortByRole=(e)=>{ this.setState({ sortRole: e.target.value }) }
+    sortByCentre=(e)=>{ this.setState({ sortCentre: e.target.value }) }
+
     updateUser=(i)=>{
         // if(data.role=='Amrtiya' || data.role=='Vijaya'){
             this.setState({
@@ -50,7 +60,8 @@ export class User extends Component {
                 user:                       i,
                 id:                         i.id,
                 role:                       i.role,
-                fCentre:                    i.fCentre
+                fCentre:                    i.fCentre,
+                areaManager:                i.manager
             })
         // }
     }
@@ -63,11 +74,6 @@ export class User extends Component {
             role:                       '',
         })
     }
-    changeRole=(e)=>{
-        this.setState({ 
-            role:                       e.target.value
-        })
-    }
 
     submitHandler= (e) => {
         e.preventDefault()
@@ -75,6 +81,7 @@ export class User extends Component {
             id:                         this.state.id,
             role:                       this.state.role,
             fCentre:                    this.state.fCentre,
+            manager:                    this.state.areaManager
         }
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.updateUser, data)
@@ -89,12 +96,15 @@ export class User extends Component {
     }
 
     render() {
+        console.log(`this.state`, this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
         const data =  this.state.data.filter((i)=>{ 
             if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
         })
+        .filter((i)=>{ if(this.state.sortRole == null || this.state.sortRole == 'Clear') return i; else if(i.role == this.state.sortRole ){ return i } })
+        .filter((i)=>{ if(this.state.sortCentre == null || this.state.sortCentre == 'Clear') return i; else if(i.fCentre == this.state.sortCentre ){ return i } })
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
@@ -108,8 +118,9 @@ export class User extends Component {
                             : i.role=='Manager'? 'Production Center In Charge'
                             : i.role
                         }
-                    </td> 
+                    </td>
                     <td>{i.fCentreName? <span>{i.fCentreName} ({i.fCentreLocation})</span>: null}</td>
+                    <td>{i.managerName? <span>{i.managerName}</span>: null}</td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" onClick={()=>this.updateUser(i)}/></td>
                 </tr>
         )})
@@ -124,6 +135,20 @@ export class User extends Component {
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Users)</h1>
                             {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sort" value={this.state.sort} onChange={this.sortByRole}>
+                                        <option value="Clear">Sort By Role</option> 
+                                        {func.roles.map((i,index)=>(<option value={i.value} key={index}>{i.text}</option> ))}
+                                        <option value="Clear">Clear Sorting</option> 
+                                    </select>
+                                </div>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sort" value={this.state.sort} onChange={this.sortByCentre}>
+                                        <option value="Clear">Sort By Centre</option> 
+                                        {this.state.basic.map((i,index)=>(<option value={i.id} key={index}>{i.name}</option> ))}
+                                        <option value="Clear">Clear Sorting</option> 
+                                    </select>
+                                </div>
                                 <div className="btn-pag">
                                     <div className="flex-h">
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px'}}/>
@@ -146,6 +171,7 @@ export class User extends Component {
                                                 <th>Email</th>
                                                 <th>Role</th>
                                                 <th>Centre</th>
+                                                <th>Manager</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -166,21 +192,48 @@ export class User extends Component {
                                 <label>User</label>
                                 <input className="form-control" type="text" value={this.state.user.name} readOnly/>
                             </div>
-                            <div className={this.state.role=='Amrita' || this.state.role=='Vijaya' || this.state.role=='Manager'? "col-sm-4" :"col-sm-8"} >
-                                <label>Change Role</label>
-                                <select className="form-control" required name="role" onChange={this.changeRole} value={this.state.role}>
-                                    <option value=''>Select Role</option>
-                                    {func.roles.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
-                                </select>
-                            </div>
-                            {this.state.role=='Amrita' || this.state.role=='Vijaya' || this.state.role=='Manager'?
-                                <div className="col-sm-4">
-                                    <label>Allot Production Centre</label>
-                                    <select className="form-control" required name="fCentre" onChange={this.onChange} value={this.state.fCentre}>
-                                        <option value=''>Select Production Centre</option>
-                                        {this.state.basic.map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
-                                    </select>
-                                </div>
+                            {this.state.role=='Manager'?
+                                <>
+                                    <div className="col-sm-4">
+                                        <label>Change Role</label>
+                                        <select className="form-control" required name="role" onChange={this.onChange} value={this.state.role}>
+                                            <option value=''>Select Role</option>
+                                            {func.roles.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Allot Production Centre</label>
+                                        <select className="form-control" required name="fCentre" onChange={this.onChange} value={this.state.fCentre}>
+                                            <option value=''>Select Production Centre</option>
+                                            {this.state.basic.map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
+                                        </select>
+                                    </div>
+                                </>
+                            : null}
+                            {this.state.role=='Amrita' || this.state.role=='Vijaya'?
+                                <>
+                                    <div className="col-sm-8">
+                                        <label>Change Role</label>
+                                        <select className="form-control" required name="role" onChange={this.onChange} value={this.state.role}>
+                                            <option value=''>Select Role</option>
+                                            {func.roles.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label>Allot Production Centre</label>
+                                        <select className="form-control" required name="fCentre" onChange={this.onChange} value={this.state.fCentre}>
+                                            <option value=''>Select Production Centre</option>
+                                            {this.state.basic.map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label>Allot Area Manager</label>
+                                        <select className="form-control" required name="areaManager" value={this.state.areaManager} onChange={this.onChange}>
+                                            <option value=''>Select Area Manager</option>
+                                            {this.state.manager.map((i,index)=>( <option value={i.id} key={index}>{i.name}</option> ))}
+                                        </select>
+                                    </div>
+                                </>
                             : null}
                             <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                         </div>

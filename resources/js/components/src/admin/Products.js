@@ -10,9 +10,12 @@ export class User extends Component {
         this.state = {
             currentPage:                1,
             itemsPerPage:               100,
-            data:                      [],
+            data:                       [],
+            type:                       [],
             loading:                    true,
-            sortActive:                 'Clear'
+            sortActive:                 'Clear',
+            sortType:                   'Clear',
+            sortLang:                   'Clear',
         }
     }
 
@@ -24,10 +27,11 @@ export class User extends Component {
     callApi = async () => {
         const response = await fetch( api.adminProducts, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
+        console.log(`body`, body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:                       body.data,
-            basic:                      body.basic,
+            type:                       body.type,
             loading:                    false
         })
     }
@@ -36,6 +40,8 @@ export class User extends Component {
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
     sortActive=(e)=>{ this.setState({ sortActive: e.target.value })}
+    sortType=(e)=>{ this.setState({ sortType: e.target.value })}
+    sortLang=(e)=>{ this.setState({ sortLang: e.target.value })}
 
     changeStatus=(i, value)=>{
         if(value == 1){ var status = 0 }else{ var status = 1}
@@ -53,16 +59,16 @@ export class User extends Component {
     }
 
     render() {
+        console.log(`this.state`, this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
         const data =  this.state.data
-            .filter((i)=>{ 
-                if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.productType.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
-            })
-            .filter((i)=>{ 
-                if(this.state.sortActive == null || this.state.sortActive == 'Clear') return i; else if(i.status == parseInt(this.state.sortActive) ){ return i }
-            })
+            .filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) || i.productType.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i } })
+            .filter((i)=>{ if(this.state.sortActive == null || this.state.sortActive == 'Clear') return i; else if(i.status == parseInt(this.state.sortActive) ){ return i } })
+            .filter((i)=>{ if(this.state.sortType == null || this.state.sortType == 'Clear') return i; else if(i.type == parseInt(this.state.sortType) ){ return i } })
+            .filter((i)=>{ if(this.state.sortLang == null || this.state.sortLang == 'Clear') return i; else if(JSON.parse(i.language).includes(parseInt(this.state.sortLang)) ){ return i } })
+
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
@@ -99,6 +105,21 @@ export class User extends Component {
                                         <option value="Clear">Clear Sorting</option> 
                                     </select>
                                 </div>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sortType" value={this.state.sortType} onChange={this.sortType}>
+                                        <option value="Clear">Sort By Type</option>
+                                        {this.state.type.filter(i=>i.type=='ProductType').map((i,index)=>(<option value={i.id} key={index}>{i.name}</option> ))}
+                                        <option value="Clear">Clear Sorting</option> 
+                                    </select>
+                                </div>
+                                <div className="sortBy">
+                                    <select className="form-control" required name="sortLang" value={this.state.sortLang} onChange={this.sortLang}>
+                                        <option value="Clear">Sort By Language</option>
+                                        {this.state.type.filter(i=>i.type=='Language').map((i,index)=>(<option value={i.id} key={index}>{i.name}</option> ))}
+                                        <option value="Clear">Clear Sorting</option> 
+                                    </select>
+                                </div>
+
                                 <div className="btn-pag">
                                     <a className="amitBtn" href={func.base+"addProduct"}>Add Product</a>
                                     <div className="flex-h">

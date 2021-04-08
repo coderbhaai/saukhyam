@@ -78,16 +78,14 @@ export const adminLinks =[
     {text: 'Orders', url: base+"adminOrders", active: base+"adminOrders"},
     {text: 'FAQ', url: base+"adminFaq", active: base+"adminFaq"},
     {text: 'Production Centre', url: base+"productionCentre", active: base+"productionCentre"},
-    {text: 'Network', url: base+"network", active: base+"network"},
+    // {text: 'Network', url: base+"network", active: base+"network"},
 ]
 
 export const basic =[
     {'single': true, text: 'Minimum Order Quantity', value: "MOQ"},
     {'single': true, text: 'Cash Discount', value: "CashDiscount"},
-    // {'single': false, text: 'Production Centre', value: "FCentre"},
     {'single': false, text: 'Product Type', value: "ProductType"},
     {'single': false, text: 'Dimension Type', value: "DimensionType"},
-    // {'single': false, text: 'Dimension Value', value: "DimensionValue"},
     {'single': false, text: 'App Screen Name', value: "Screen"},
     {'single': false, text: 'Language', value: "Language"},
 ]

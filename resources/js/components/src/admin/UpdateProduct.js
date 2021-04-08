@@ -197,7 +197,7 @@ export class UpdateProduct extends Component {
                                         <CKEditor onInstanceReady={this.ckEditorReady()} onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } data ={this.state.long_description} content= {this.state.long_description} onChange={this.onEditorChange2}/>
                                     </div>
                                     <div className="col-sm-12 compare label-down mb-5">
-                                        <label>Add Languages</label>
+                                        <label>Product visible in languages</label>
                                         <div className="update-treat">
                                             { this.state.langData.length ? 
                                                 <>

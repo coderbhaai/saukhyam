@@ -169,7 +169,7 @@ export class User extends Component {
                                         <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } content= {this.state.long_description} onChange={this.onEditorChange2}/>
                                     </div>
                                     <div className="col-sm-12 compare label-down mb-5">
-                                        <label>Select Languages</label>
+                                        <label>Product visible in languages</label>
                                         <Dropdown placeholder='Select Languages' multiple fluid search selection onChange={this.langSelected} options={this.state.langOptions}/>
                                     </div>
                                     <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>

@@ -25,15 +25,18 @@ class AdminController extends Controller
     }
 
     public function adminUsers(){
-        $user       =   DB::table('users')->leftJoin('production_centres', 'production_centres.id', '=', 'users.fCentre')
-                        ->select([ 'users.id','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.updated_at', 'production_centres.name as fCentreName', 'production_centres.city as fCentreLocation' ])
+        $user       =   DB::table('users')
+                        ->leftJoin('production_centres', 'production_centres.id', '=', 'users.fCentre')
+                        ->leftJoin('users as c', 'c.id', '=', 'users.manager')
+                        ->select([ 'users.id','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.manager', 'users.updated_at', 'production_centres.name as fCentreName', 'production_centres.city as fCentreLocation', 'c.name as managerName' ])
                         ->get();
-
         $basic = ProductionCentre::select('id','name')->get();
+        $manager = User::select('id','name')->where('role', 'Manager')->get();
         return response()->json([
-            'data' => $user,
-            'basic' => $basic,
-        ]); 
+            'data'              => $user,
+            'basic'             => $basic,
+            'manager'           => $manager
+        ]);
     }
 
     public function updateUser(Request $request){
@@ -41,13 +44,16 @@ class AdminController extends Controller
         $dB->role               =   $request->role;
         if($request->role == 'Amrita' || $request->role == 'Vijaya'){
             $dB->fCentre               =   $request->fCentre;
+            $dB->manager               =   $request->manager;
         }else{
             $dB->fCentre               =   NULL;
         }
         $dB-> save();
-        $data       =   DB::table('users')->leftJoin('production_centres', 'production_centres.id', '=', 'users.fCentre')
+        $data       =   DB::table('users')
+                        ->leftJoin('production_centres', 'production_centres.id', '=', 'users.fCentre')
+                        ->leftJoin('users as c', 'c.id', '=', 'users.manager')
                         ->where('users.id', $request->id)
-                        ->select([ 'users.id','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.updated_at', 'production_centres.name as fCentreName', 'production_centres.city as fCentreLocation' ])
+                        ->select([ 'users.id','users.name','users.email','users.phone','users.role', 'users.fCentre', 'users.manager', 'users.updated_at', 'production_centres.name as fCentreName', 'production_centres.city as fCentreLocation', 'c.name as managerName' ])
                         ->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "User updated succesfully"];
         return response()->json($response, 201);
@@ -120,13 +126,13 @@ class AdminController extends Controller
     }
 
     public function adminProducts(){
-        // $data = Products::select('id','name','type', 'wprice', 'dprice', 'images', 'status', 'updated_at')->get();
         $data       =   DB::table('products')
                         ->leftJoin('basics', 'basics.id', '=', 'products.type')
-                        ->select([ 'products.id', 'products.name', 'products.type', 'products.wprice', 'products.dprice', 'products.images', 'products.status', 
+                        ->select([ 'products.id', 'products.name', 'products.type', 'products.wprice', 'products.dprice', 'products.images', 'products.status', 'products.language',
                         'products.updated_at', 'basics.name as productType' ])
                         ->get();
-        return response()->json([ 'data' => $data ]); 
+        $type       = Basic::select('id', 'name', 'type')->where('type', 'ProductType')->orWhere('type', 'Language')->get();
+        return response()->json([ 'data' => $data, 'type'=>$type ]); 
     }
 
     public function addProductOptions(){
@@ -521,6 +527,4 @@ class AdminController extends Controller
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Centre updated succesfully"];
         return response()->json($response, 201);
     }
-
-
 }

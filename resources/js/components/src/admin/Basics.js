@@ -170,10 +170,8 @@ export class Basic extends Component {
                     <td>
                         {
                             i.type == 'MOQ'? 'Minimum Order Quantity'
-                            : i.type == 'FCentre'? 'Production Centre'
                             : i.type == 'ProductType'? 'Product Type'
                             : i.type == 'DimensionType'? 'Dimension Type'
-                            // : i.type == 'DimensionValue'? 'Dimension Value'
                             : i.type == 'Screen'? 'App Screen'
                             : i.type == 'Languages'? 'Languages'
                             : i.type
