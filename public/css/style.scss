@@ -3,6 +3,10 @@
 @import '_semantic.scss';
 @import '_special.scss';
 @import '_admin.scss';
+
+body{
+    font-family: 'bree';
+}
 p{
     line-height: 2em;
     text-align: justify;
