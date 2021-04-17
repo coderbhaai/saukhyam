@@ -41,6 +41,8 @@ class AuthController extends Controller
         //     return response()->json($response, 201);
         // }
 
+        // dd($request->all());
+
         $user = new \App\Models\User($payload);
         if ($user->save())
         {

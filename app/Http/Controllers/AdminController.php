@@ -527,4 +527,13 @@ class AdminController extends Controller
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Centre updated succesfully"];
         return response()->json($response, 201);
     }
+
+    // For App
+    public function faqs(){
+        $data       =   Faq::select(['question', 'answer', 'updated_at'])->where('status', 1)->get();
+        return response()->json([ 'data' => $data]); 
+    }
+    
+    // For App
+
 }

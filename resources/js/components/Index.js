@@ -34,7 +34,6 @@ function Index() {
             <Header/> 
             <Switch>
                 <Route exact path= {func.base} component={Home}/>
-                {/* <Route exact path= {func.base} component={Register}/> */}
                 <Route exact path={func.base+"register"} component={Register}/>
                 <Route exact path={func.base+"login"} component={Login}/>
                 <Route exact path={func.base+"forgotPassword"} component={ForgotPassword} /> 
