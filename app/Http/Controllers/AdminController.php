@@ -534,6 +534,34 @@ class AdminController extends Controller
         return response()->json([ 'data' => $data]); 
     }
     
+    public function shop(){
+        $data       =   DB::table('products')
+                        ->leftJoin('basics', 'basics.id', '=', 'products.type')
+                        ->select([ 'products.id', 'products.name', 'products.type', 'products.wprice', 'products.dprice', 'products.images', 'products.status', 'products.language',
+                        'products.updated_at', 'basics.name as productType' ])
+                        ->get()->map(function($i) {
+                            if($i->images){ $i->imgArray = json_decode($i->images); }
+                            return $i;
+                        });
+        $type       = Basic::select('id', 'name', 'type')->where('type', 'ProductType')->orWhere('type', 'Language')->get();
+        return response()->json([ 'data' => $data, 'type'=>$type ]); 
+    } 
+
+    public function languages(){
+        $data       =   Basic::where('type', 'Language')->where('status', 1)->select(['id', 'name'])->get();
+        return response()->json([ 'data' => $data]); 
+    }
+
+    public function singleProduct($id){
+        $data       =   Products::where('id', $id)->select(['*'])->get()->map(function($i) {
+            if($i->images){ 
+                $i->imgArray = json_decode($i->images);
+                $i->dimArray = json_decode($i->dimension);
+            }
+            return $i;
+        });
+        return response()->json([ 'data' => $data]);
+    }
     // For App
 
 }

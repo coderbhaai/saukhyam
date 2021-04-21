@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 Route::post('/register', 'App\Http\Controllers\AuthController@register');
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
 Route::post('/forgotPassword', 'App\Http\Controllers\AuthController@forgotPassword');
+Route::post('/forgotPasswordApp', 'App\Http\Controllers\AuthController@forgotPasswordApp');
 Route::post('/resetPassword', 'App\Http\Controllers\AuthController@resetPassword');
 Route::get('/admin', 'App\Http\Controllers\AdminController@admin');
 Route::get('/test', 'App\Http\Controllers\AuthController@test');
@@ -61,4 +62,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/faqQuestion', [AdminController::class, 'faqQuestion']);
     Route::post('/createOrder', [AdminController::class, 'createOrder']);
     Route::get('/faqs', [AdminController::class, 'faqs']);
+    Route::get('/shop', [AdminController::class, 'shop']);
+    Route::get('/languages', [AdminController::class, 'languages']);
+    Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);
+
 });

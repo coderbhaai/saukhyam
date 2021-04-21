@@ -7,6 +7,7 @@ use Hash;
 use Mail;
 use App\Models\User;
 use App\Mail\ForgotPassword;
+use App\Mail\ForgotPasswordApp;
 
 use Illuminate\Http\Request;
 
@@ -29,11 +30,11 @@ class AuthController extends Controller
             'image'=>$request->image,
             'password'=>\Hash::make($request->password),
         ];
-        // $existing = User::where('phone', $request->phone )->first();
-        // if (!is_null($existing)) {
-        //     $response = ['success'=>false, 'message'=>'Phone already registered'];
-        //     return response()->json($response, 201);
-        // }
+        $existing = User::where('email', $request->email )->first();
+        if (!is_null($existing)) {
+            $response = ['success'=>false, 'message'=>'Email already registered'];
+            return response()->json($response, 201);
+        }
 
         // if($request->password_confirmation === $request->password){
         // }else{
@@ -46,7 +47,7 @@ class AuthController extends Controller
         $user = new \App\Models\User($payload);
         if ($user->save())
         {
-            $user = \App\Models\User::where('phone', $request->phone)->first();
+            $user = \App\Models\User::where('email', $request->email)->first();
             if($user->role === 'Admin'){ $tokenResult = $user->createToken('authToken', ['Admin'])->plainTextToken; }else
             if($user->role === 'User'){ $tokenResult = $user->createToken('authToken', ['User'])->plainTextToken; }
 
@@ -161,10 +162,27 @@ class AuthController extends Controller
                 $user->token = $token;
                 $user->save();
                 DB::delete('delete from password_resets where token = ?',[$request->token]);
-                $response = ['success'=>true, 'message' => "Password has been Reset. Please Login", 'valid'=>$valid];
+                $response = ['success'=>true, 'message' => "Password has been Reset. Please Login"];
             }
         
         return response()->json($response, 201);
     }
 
+    public function forgotPasswordApp(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if(is_null($user)){
+            $response = ['success'=>false, 'response'=>"No account by this name. Please register"];
+        }else{
+            $token = substr(sha1(rand()), 0, 5);
+            $date = now();
+            DB::table('password_resets')
+                ->updateOrInsert(
+                    ['email' => $request->email],
+                    ['token' => $token, 'created_at' => $date]
+                );
+            Mail::to( $request->email)->cc(['amit.khare588@gmail.com'])->send(new ForgotPasswordApp($token, $user)); 
+            $response = ['success'=>true, 'message' => "Password Reset Email Sent. Please Check"];
+        }
+        return response()->json($response, 201);
+    }
 }

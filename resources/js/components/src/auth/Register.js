@@ -68,6 +68,7 @@ class Register extends Component {
     }
 
     gofbRegisteration(res, type) {
+        console.log(`res`, res)
         if(type=='Google'){
             var data = {
                 name:                   res.profileObj.name,

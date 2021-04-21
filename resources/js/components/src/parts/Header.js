@@ -58,7 +58,7 @@ export class Header extends Component {
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.state.user.name}</a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a className="dropdown-item" href={func.base+"admin"}>Admin Panel</a>
+                                {this.state.user.role =='Admin'? <a className="dropdown-item" href={func.base+"admin"}>Admin Panel</a> : null}
                                     <button className="dropdown-item" onClick={this.logout}>Log Out</button>
                                 </div>
                             </li>
