@@ -30,6 +30,7 @@ export class Header extends Component {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.logout, data)
             .then(res=> {
+                console.log(`res`, res)
                 if(res.data.success){
                     localStorage.clear();
                     this.setState({ user: [] })

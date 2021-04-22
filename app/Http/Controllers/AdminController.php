@@ -562,6 +562,17 @@ class AdminController extends Controller
         });
         return response()->json([ 'data' => $data]);
     }
+
+    public function tutorials(){
+        $data       =   Tutorials::select(['type', 'name', 'description', 'url'])->where('status', 1)->get();
+        return response()->json([ 'data' => $data]); 
+    }
+
+
+
+
+
+
     // For App
 
 }
