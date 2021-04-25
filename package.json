@@ -8,7 +8,7 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "git": "git commit -a -m 'commit' && git push"
+        "git": "git add . && git commit -a -m `commit` && git push"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.0.0",

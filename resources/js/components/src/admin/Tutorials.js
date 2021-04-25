@@ -22,7 +22,9 @@ export class Tutorials extends Component {
             description:                '',
             status:                     '',
             image:                      null,
+            thumbnail:                  null,
             oldImage:                   '',
+            oldThumbnail:               '',
             loading:                    true,
             sort:                       'Clear',
             sortActive:                 'Clear'
@@ -50,6 +52,7 @@ export class Tutorials extends Component {
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
     addModalOn = ()=>{ this.setState({ addmodalIsOpen: true }) } 
     singleImage = (e) =>{ this.setState({ image: e.target.files[0] })}
+    thumbnail = (e) =>{ this.setState({ thumbnail: e.target.files[0] })}
     changeSort=(e)=>{ this.setState({ sort: e.target.value }) }
     sortActive=(e)=>{ this.setState({ sortActive: e.target.value })}
 
@@ -57,6 +60,7 @@ export class Tutorials extends Component {
         e.preventDefault()
         const data = new FormData()
         data.append('file', this.state.image)
+        data.append('thumbnail', this.state.thumbnail)
         data.append('type', this.state.type)
         data.append('name', this.state.name)
         data.append('url', this.state.url)
@@ -77,9 +81,12 @@ export class Tutorials extends Component {
             editmodalIsOpen:                true,
             id:                             i.id,
             type:                           i.type,
+            url:                            i.url,
             name:                           i.name,
             description:                    i.description,
-            status:                         i.status
+            status:                         i.status,
+            thumbnail:                      i.thumbnail,
+            oldThumbnail:                   i.thumbnail
         })
         if(i.type=='Doc' || i.type=='Video'){ this.setState({ oldImage: i.url }) }
     }
@@ -89,6 +96,8 @@ export class Tutorials extends Component {
         const data = new FormData()
         data.append('id', this.state.id)
         data.append('file', this.state.image)
+        data.append('thumbnail', this.state.thumbnail)
+        data.append('oldThumbnail', this.state.oldThumbnail)
         data.append('type', this.state.type)
         data.append('name', this.state.name)
         data.append('url', this.state.url)
@@ -118,7 +127,9 @@ export class Tutorials extends Component {
             status:                     '',
             description:                '',
             image:                      null,
-            oldImage:                   ''
+            thumbnail:                  null,
+            oldImage:                   '',
+            oldThumbnail:               '',
         })
     }
 
@@ -142,15 +153,9 @@ export class Tutorials extends Component {
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
         const data =  this.state.data
-        .filter((i)=>{ 
-            if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
-        })
-        .filter((i)=>{ 
-            if(this.state.sort == null || this.state.sort == 'Clear') return i; else if(i.type == this.state.sort ){ return i }
-        })
-        .filter((i)=>{ 
-            if(this.state.sortActive == null || this.state.sortActive == 'Clear') return i; else if(i.status == parseInt(this.state.sortActive) ){ return i }
-        })
+        .filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i } })
+        .filter((i)=>{ if(this.state.sort == null || this.state.sort == 'Clear') return i; else if(i.type == this.state.sort ){ return i } })
+        .filter((i)=>{ if(this.state.sortActive == null || this.state.sortActive == 'Clear') return i; else if(i.status == parseInt(this.state.sortActive) ){ return i } })
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
@@ -280,12 +285,23 @@ export class Tutorials extends Component {
                                     <input className="form-control" placeholder="Add Location Here" type="file" onChange={this.singleImage}/>
                                 </div> 
                             : null}   
-                            {this.state.type? 
+                            {this.state.type ? 
                             <>
-                                <div className="col-sm-12">
-                                    <label>Name of Document</label>
-                                    <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
-                                </div>                    
+                                { this.state.type == 'Doc' ? 
+                                    <div className="col-sm-12">
+                                        <label>Name of Document</label>
+                                        <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                    </div>
+                                : <>
+                                    <div className="col-sm-8">
+                                        <label>Name of Document</label>
+                                        <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Thumbnail</label>
+                                        <input className="form-control" placeholder="Add thumbnail here" type="file" onChange={this.thumbnail} required/>
+                                    </div>
+                                </>}
                                 <div className="col-sm-12">
                                     <label>Description</label>
                                     <textarea className="form-control" placeholder="Add Description Here" name="description" onChange={this.onChange} value={this.state.description}/>
@@ -336,10 +352,22 @@ export class Tutorials extends Component {
                                 </div> 
                             : null}   
                             {this.state.type?<>
-                                <div className="col-sm-12">
-                                    <label>Name of Document</label>
-                                    <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
-                                </div>
+                                { this.state.type == 'Doc' ? 
+                                    <div className="col-sm-12">
+                                        <label>Name of Document</label>
+                                        <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                    </div>
+                                : <>
+                                    <div className="col-sm-8">
+                                        <label>Name of Document</label>
+                                        <input className="form-control" placeholder="Name of Document" type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Thumbnail</label>
+                                        <input className="form-control" placeholder="Add Location Here" type="file" onChange={this.thumbnail}/>
+                                        <img className="preview" src={func.imgPath+'tutorial/'+this.state.oldThumbnail}/>
+                                    </div>
+                                </>}
                                 <div className="col-sm-12">
                                     <label>Description</label>
                                     <textarea className="form-control" placeholder="Add Description Here" name="description" onChange={this.onChange} value={this.state.description}/>

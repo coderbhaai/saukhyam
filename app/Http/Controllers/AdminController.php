@@ -235,7 +235,7 @@ class AdminController extends Controller
     }
 
     public function adminTutorials(){
-        $data = Tutorials::select('id','name','type','description','url', 'status', 'updated_at')->get();
+        $data = Tutorials::select('id','name','type','description','url','thumbnail', 'status', 'updated_at')->get();
         return response()->json([ 'data' => $data ]); 
     }
 
@@ -255,8 +255,15 @@ class AdminController extends Controller
                 $dB->url = $fileName;
             }
         } 
+        if($request->type=="Video" || $request->type=="Iframe"){
+            if ($request->hasFile('thumbnail')) {
+                $fileName = time() . '-thumb-'.'.' . $request->file('thumbnail')->getClientOriginalExtension();
+                $request->file('thumbnail')->move(storage_path('app/public/tutorial/'), $fileName); 
+                $dB->thumbnail = $fileName;
+            }
+        }
         $dB-> save();
-        $data = Tutorials::limit(1)->orderBy('id', 'desc')->select('id','name','type','description','url', 'status', 'updated_at')->get();
+        $data = Tutorials::limit(1)->orderBy('id', 'desc')->select('id','name','type','description','url', 'status', 'thumbnail', 'updated_at')->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Creative created succesfully"];
         return response()->json($response, 201);
     }
@@ -281,8 +288,19 @@ class AdminController extends Controller
                 $dB->url = $fileName;
             }
         }
+        if($request->type=="Video" || $request->type=="Iframe"){
+            if ($request->hasFile('thumbnail')) {
+                $fileName2 = time() . '-thumb-'.'.' . $request->file('thumbnail')->getClientOriginalExtension();
+                $request->file('thumbnail')->move(storage_path('app/public/tutorial/'), $fileName2);
+                if(!is_null($dB->thumbnail)){
+                    $deleteImage = public_path("storage/tutorial/{$dB->thumbnail}");        
+                    if (isset($deleteImage)) { file::delete($deleteImage); }
+                }
+                $dB->thumbnail = $fileName2;
+            }
+        }
         $dB-> save();
-        $data = Tutorials::where('id', $request->id)->select('id','name','type','description','url', 'status','updated_at')->get();
+        $data = Tutorials::where('id', $request->id)->select('id','name','type','description','url','status','thumbnail','updated_at')->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Creative updated succesfully"];
         return response()->json($response, 201);
     }
@@ -564,7 +582,7 @@ class AdminController extends Controller
     }
 
     public function tutorials(){
-        $data       =   Tutorials::select(['type', 'name', 'description', 'url'])->where('status', 1)->get();
+        $data       =   Tutorials::select(['id','type', 'name', 'description', 'url', 'thumbnail'])->where('status', 1)->get();
         return response()->json([ 'data' => $data]); 
     }
 
