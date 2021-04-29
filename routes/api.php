@@ -66,6 +66,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/languages', [AdminController::class, 'languages']);
     Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);
     Route::get('/tutorials', [AdminController::class, 'tutorials']);
-
+    Route::post('/askQuestion', [AdminController::class, 'askQuestion']);
 
 });

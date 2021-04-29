@@ -250,14 +250,14 @@ class AdminController extends Controller
         }else 
         if($request->type=="Video" || $request->type=="Doc"){
             if ($request->hasFile('file')) {
-                $fileName = time() . '-'.'.' . $request->file('file')->getClientOriginalExtension();
+                $fileName = time() . '-file'.'.' . $request->file('file')->getClientOriginalExtension();
                 $request->file('file')->move(storage_path('app/public/tutorial/'), $fileName); 
                 $dB->url = $fileName;
             }
         } 
         if($request->type=="Video" || $request->type=="Iframe"){
             if ($request->hasFile('thumbnail')) {
-                $fileName = time() . '-thumb-'.'.' . $request->file('thumbnail')->getClientOriginalExtension();
+                $fileName = time() . '-thumb'.'.' . $request->file('thumbnail')->getClientOriginalExtension();
                 $request->file('thumbnail')->move(storage_path('app/public/tutorial/'), $fileName); 
                 $dB->thumbnail = $fileName;
             }
@@ -279,7 +279,7 @@ class AdminController extends Controller
         }else 
         if($request->type=="Video" || $request->type=="Doc"){
             if ($request->hasFile('file')) {
-                $fileName = time() . '-'.'.' . $request->file('file')->getClientOriginalExtension();
+                $fileName = time() . '-file'.'.' . $request->file('file')->getClientOriginalExtension();
                 $request->file('file')->move(storage_path('app/public/tutorial/'), $fileName);
                 if(!is_null($dB->url)){
                     $deleteImage = public_path("storage/tutorial/{$dB->url}");        
@@ -290,7 +290,7 @@ class AdminController extends Controller
         }
         if($request->type=="Video" || $request->type=="Iframe"){
             if ($request->hasFile('thumbnail')) {
-                $fileName2 = time() . '-thumb-'.'.' . $request->file('thumbnail')->getClientOriginalExtension();
+                $fileName2 = time() . '-thumb'.'.' . $request->file('thumbnail')->getClientOriginalExtension();
                 $request->file('thumbnail')->move(storage_path('app/public/tutorial/'), $fileName2);
                 if(!is_null($dB->thumbnail)){
                     $deleteImage = public_path("storage/tutorial/{$dB->thumbnail}");        
@@ -582,9 +582,23 @@ class AdminController extends Controller
     }
 
     public function tutorials(){
-        $data       =   Tutorials::select(['id','type', 'name', 'description', 'url', 'thumbnail'])->where('status', 1)->get();
-        return response()->json([ 'data' => $data]); 
+        $videos     =   Tutorials::select(['id','type', 'name', 'description', 'url', 'thumbnail'])
+                            ->where('status', 1)->where('type', 'Video')->orWhere('type', 'Iframe')->get();
+        $docs       =   Tutorials::select(['id','type', 'name', 'description', 'url', 'thumbnail'])->where('status', 1)->where('type', 'Doc')->get();
+        return response()->json([
+            'videos' => $videos,
+            'docs'=> $docs
+        ]);
     }
+
+    public function askQuestion(Request $request){
+        $dB                         =   new Faq;
+        $dB->userId                 =   Auth::user()->id;
+        $dB->question               =   $request->question;
+        $dB-> save();        
+        $response = ['success'=>true, 'message' => "FAQ created succesfully"];
+        return response()->json($response, 201);
+    } 
 
 
 
