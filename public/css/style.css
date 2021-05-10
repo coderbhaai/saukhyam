@@ -1375,6 +1375,7 @@ a:hover {
 
 .sidebar {
   background: #2f8344;
+  min-height: 100vh;
 }
 
 .sidebar ul {

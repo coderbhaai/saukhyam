@@ -7,6 +7,7 @@
 }
 .sidebar{
   background: $primary;
+  min-height: 100vh;
   ul{
     padding: 2em 0;
     li{

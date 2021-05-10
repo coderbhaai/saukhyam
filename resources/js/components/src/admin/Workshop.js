@@ -63,7 +63,7 @@ export class Workshop extends Component {
                     <div className="row">
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
-                            <h1 className="heading"><span>Admin Panel </span>(Users)</h1>
+                            <h1 className="heading"><span>Admin Panel </span>(Workshop)</h1>
                             {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
                                 <div className="btn-pag">
                                     <div className="flex-h">
