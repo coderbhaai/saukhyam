@@ -56,6 +56,8 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/adminNetworks', [AdminController::class, 'adminNetworks']);
     Route::post('/updateNetwork', [AdminController::class, 'updateNetwork']);
+
+    Route::get('/adminWorkshop', [AdminController::class, 'adminWorkshop']);
     // Admin
     
     // for APP
@@ -67,5 +69,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);
     Route::get('/tutorials', [AdminController::class, 'tutorials']);
     Route::post('/askQuestion', [AdminController::class, 'askQuestion']);
-
+    Route::post('/workshop', [AdminController::class, 'workshop']);
 });

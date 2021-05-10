@@ -8,6 +8,7 @@ import Footer from './src/parts/Footer'
 import Home from './src/pages/Home'
 
 import Register from './src/auth/Register'
+import RegisterTwo from './src/auth/RegisterTwo'
 import Login from './src/auth/Login'
 import ForgotPassword from './src/auth/ForgotPassword'
 import ResetPassword from './src/auth/ResetPassword'
@@ -23,6 +24,7 @@ import AdminOrders from './src/admin/Orders'
 import AdminFAQ from './src/admin/FAQ'
 import ProductionCentre from './src/admin/ProductionCentre'
 import Network from './src/admin/Network'
+import Workshop from './src/admin/Workshop'
 
 import RequireAdmin from './src/parts/RequireAdmin'
 
@@ -31,10 +33,11 @@ const func = require('./src/parts/functions')
 function Index() {
     return (
         <Router>
-            <Header/> 
+            {/* <Header/>  */}
             <Switch>
                 <Route exact path= {func.base} component={Home}/>
-                <Route exact path={func.base+"register"} component={Register}/>
+                {/* <Route exact path={func.base+"register"} component={Register}/> */}
+                <Route exact path= {func.base+"register"} component={RegisterTwo}/>
                 <Route exact path={func.base+"login"} component={Login}/>
                 <Route exact path={func.base+"forgotPassword"} component={ForgotPassword} /> 
                 <Route exact path={func.base+"resetPassword/:token"} component={ResetPassword} />  
@@ -51,8 +54,9 @@ function Index() {
                 <Route exact path={func.base+"adminFaq"} component={RequireAdmin(AdminFAQ)}/>
                 <Route exact path={func.base+"productionCentre"} component={RequireAdmin(ProductionCentre)}/>
                 <Route exact path={func.base+"network"} component={RequireAdmin(Network)}/>
+                <Route exact path={func.base+"workshop"} component={RequireAdmin(Workshop)}/>
             </Switch>
-            <Footer/>
+            {/* <Footer/> */}
         </Router>
     )
 }

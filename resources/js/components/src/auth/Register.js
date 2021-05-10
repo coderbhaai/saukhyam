@@ -3,6 +3,7 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 const func = require('../parts/functions')
 import api from '../parts/api'
+const secret = require('../parts/secret')
 
 class Register extends Component {
     constructor(props) {
@@ -17,8 +18,9 @@ class Register extends Component {
             provider:                   'Email',
             refrence:                   null,
             image:                      '',
-            clientId:                   '915022609455-q7nh558mli08jvgk691gksddalp6gk2k.apps.googleusercontent.com',
-            clientSecret:               'fitq9oKd_98f20gOY9cWwoCe'            
+            clientId:                   secret.clientId,
+            clientSecret:               secret.clientSecret,
+            appId:                      secret.fbAppId          
         }
     }
         
@@ -116,7 +118,7 @@ class Register extends Component {
                             <p>Already have an account <a href={func.base+"login"}>Sign in</a></p>
                             <div className="gofb">
                                 <GoogleLogin clientId={this.state.clientId} buttonText="Register with Google" onSuccess={regGoogle} onFailure={regGoogle} ></GoogleLogin>
-                                <FacebookLogin textButton="Sign up with Facebook" appId="476215263560097" autoLoad={false} fields="name,email,picture" callback={regFB}/>
+                                <FacebookLogin textButton="Sign up with Facebook" appId={this.state.appId} autoLoad={false} fields="name,email,picture" callback={regFB}/>
                             </div>                            
                             <p className="py-3">Or create with</p>
                             <form onSubmit={this.submitHandler}>

@@ -379,3 +379,164 @@ button, button:focus, input, input:focus{
         }
     }
 }
+.amitBtnLight{
+    background-color: $lightGreen;
+    border: 1px solid #000;
+    min-width: 200px;
+    padding: 10px;
+    text-align: center;
+    width: fit-content;
+    font-weight: 700;
+}
+.authTwo{
+    position: relative;
+    padding-bottom: 150px;
+    .mainBody{
+        margin-top: -150px;
+    }
+    .topRow{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding-right: 1em;
+        .banana{
+            max-width: 600px;
+        }
+        .logo{
+            padding: 2em;
+            max-width: 250px;
+        }
+    }
+    .col-sm-6{
+        max-width: 700px;
+        margin: 0 auto;
+        h1{
+            font-size: 20px;
+            color: $primary;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+        p{
+            font-size: 14px;
+            color: $primary;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            span{
+                a{
+                    color: $primary;
+                    text-decoration: underline;
+                    font-weight: 600;
+                }
+            }
+        }
+        form{
+            >div{
+                margin-bottom: 1em;
+                input[type=text], input[type=password] {
+                    border: none;
+                    width: 100%;
+                    background: #fff;
+                    border-bottom: 2px solid $primary;
+                    padding-bottom: 5px;
+                    font-family: 'Roboto', sans-serif;
+                }
+                .amitBtnLight{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 2em;
+                    img{
+                        max-width: 12px;
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+        h3{
+            text-align: center;
+            margin: 1em 0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .check{
+            text-align: center;
+            button{
+                background-color: #fff;
+                padding: 10px 20px;
+                border: 2px solid #000;
+                font-family: 'Roboto', sans-serif;
+                
+            }
+            
+        }
+        .gofb{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1em 0;
+            img{
+                max-width: 40px;
+                margin: 0 5px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .cotton{
+        max-width: 400px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+}
+
+// Responsive CSS
+@media (max-width:1300px) {
+    .authTwo{
+        .topRow .banana {
+           max-width: 400px;
+        }
+        .mainBody {
+            margin-top: -100px;
+        }
+    }
+}
+@media (max-width:991px) {
+    .authTwo{
+        .topRow .banana {
+           max-width: 300px;
+        }
+        .mainBody {
+            margin-top: -30px;
+        }
+        
+    }
+}
+@media (max-width:640px) {
+    .authTwo{
+        .topRow{
+            .banana {
+              max-width: 225px;
+            }
+            .logo {
+                padding: 1em;
+                max-width: 150px;
+            }
+        }
+    }
+}
+@media (max-width:440px) {
+    .authTwo{
+        .topRow{
+            .banana {
+              max-width: 150px;
+            }
+        }
+        .mainBody {
+            margin-top: 0;
+        }
+    }
+}

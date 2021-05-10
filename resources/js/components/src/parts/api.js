@@ -46,4 +46,6 @@ export default {
     adminNetworks : func.base+'api/adminNetworks',
     updateNetwork : func.base+'api/updateNetwork',
 
+    adminWorkshop : func.base+'api/adminWorkshop',
+
 }

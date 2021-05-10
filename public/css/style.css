@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @font-face {
   font-family: 'bree';
   src: url(../fonts/BreeRegular.otf) format(".otf");
@@ -2268,5 +2270,190 @@ button, button:focus, input, input:focus {
   max-height: 50px;
   width: auto;
   margin-bottom: 10px;
+}
+
+.amitBtnLight {
+  background-color: #77c8a1;
+  border: 1px solid #000;
+  min-width: 200px;
+  padding: 10px;
+  text-align: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: 700;
+}
+
+.authTwo {
+  position: relative;
+  padding-bottom: 150px;
+}
+
+.authTwo .mainBody {
+  margin-top: -150px;
+}
+
+.authTwo .topRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-right: 1em;
+}
+
+.authTwo .topRow .banana {
+  max-width: 600px;
+}
+
+.authTwo .topRow .logo {
+  padding: 2em;
+  max-width: 250px;
+}
+
+.authTwo .col-sm-6 {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.authTwo .col-sm-6 h1 {
+  font-size: 20px;
+  color: #2f8344;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.authTwo .col-sm-6 p {
+  font-size: 14px;
+  color: #2f8344;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.authTwo .col-sm-6 p span a {
+  color: #2f8344;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.authTwo .col-sm-6 form > div {
+  margin-bottom: 1em;
+}
+
+.authTwo .col-sm-6 form > div input[type=text], .authTwo .col-sm-6 form > div input[type=password] {
+  border: none;
+  width: 100%;
+  background: #fff;
+  border-bottom: 2px solid #2f8344;
+  padding-bottom: 5px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.authTwo .col-sm-6 form > div .amitBtnLight {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0 auto 2em;
+}
+
+.authTwo .col-sm-6 form > div .amitBtnLight img {
+  max-width: 12px;
+  margin-left: 10px;
+}
+
+.authTwo .col-sm-6 h3 {
+  text-align: center;
+  margin: 1em 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.authTwo .col-sm-6 .check {
+  text-align: center;
+}
+
+.authTwo .col-sm-6 .check button {
+  background-color: #fff;
+  padding: 10px 20px;
+  border: 2px solid #000;
+  font-family: 'Roboto', sans-serif;
+}
+
+.authTwo .col-sm-6 .gofb {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 1em 0;
+}
+
+.authTwo .col-sm-6 .gofb img {
+  max-width: 40px;
+  margin: 0 5px;
+}
+
+.authTwo .col-sm-6 .gofb img:hover {
+  cursor: pointer;
+}
+
+.authTwo .cotton {
+  max-width: 400px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+@media (max-width: 1300px) {
+  .authTwo .topRow .banana {
+    max-width: 400px;
+  }
+  .authTwo .mainBody {
+    margin-top: -100px;
+  }
+}
+
+@media (max-width: 991px) {
+  .authTwo .topRow .banana {
+    max-width: 300px;
+  }
+  .authTwo .mainBody {
+    margin-top: -30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .authTwo .topRow .banana {
+    max-width: 225px;
+  }
+  .authTwo .topRow .logo {
+    padding: 1em;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 440px) {
+  .authTwo .topRow .banana {
+    max-width: 150px;
+  }
+  .authTwo .mainBody {
+    margin-top: 0;
+  }
 }
 /*# sourceMappingURL=style.css.map */

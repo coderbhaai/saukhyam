@@ -192,48 +192,30 @@ export class User extends Component {
                                 <label>User</label>
                                 <input className="form-control" type="text" value={this.state.user.name} readOnly/>
                             </div>
-                            {this.state.role=='Manager'?
-                                <>
-                                    <div className="col-sm-4">
-                                        <label>Change Role</label>
-                                        <select className="form-control" required name="role" onChange={this.onChange} value={this.state.role}>
-                                            <option value=''>Select Role</option>
-                                            {func.roles.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <label>Allot Production Centre</label>
-                                        <select className="form-control" required name="fCentre" onChange={this.onChange} value={this.state.fCentre}>
-                                            <option value=''>Select Production Centre</option>
-                                            {this.state.basic.map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
-                                        </select>
-                                    </div>
-                                </>
+                            <div className="col-sm-4">
+                                <label>Change Role</label>
+                                <select className="form-control" required name="role" onChange={this.onChange} value={this.state.role}>
+                                    <option value=''>Select Role</option>
+                                    {func.roles.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
+                                </select>
+                            </div>
+                            {this.state.role=='Manager' || this.state.role=='Amrita' || this.state.role=='Vijaya'?
+                                <div className="col-sm-4">
+                                    <label>Allot Production Centre</label>
+                                    <select className="form-control" required name="fCentre" onChange={this.onChange} value={this.state.fCentre}>
+                                        <option value=''>Select Production Centre</option>
+                                        {this.state.basic.map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
+                                    </select>
+                                </div>
                             : null}
                             {this.state.role=='Amrita' || this.state.role=='Vijaya'?
-                                <>
-                                    <div className="col-sm-8">
-                                        <label>Change Role</label>
-                                        <select className="form-control" required name="role" onChange={this.onChange} value={this.state.role}>
-                                            <option value=''>Select Role</option>
-                                            {func.roles.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <label>Allot Production Centre</label>
-                                        <select className="form-control" required name="fCentre" onChange={this.onChange} value={this.state.fCentre}>
-                                            <option value=''>Select Production Centre</option>
-                                            {this.state.basic.map((j,index2)=>( <option value={j.id} key={index2}>{j.name}</option> ))}
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <label>Allot Area Manager</label>
-                                        <select className="form-control" required name="areaManager" value={this.state.areaManager} onChange={this.onChange}>
-                                            <option value=''>Select Area Manager</option>
-                                            {this.state.manager.map((i,index)=>( <option value={i.id} key={index}>{i.name}</option> ))}
-                                        </select>
-                                    </div>
-                                </>
+                                <div className="col-sm-6">
+                                    <label>Allot Area Manager</label>
+                                    <select className="form-control" required name="areaManager" value={this.state.areaManager} onChange={this.onChange}>
+                                        <option value=''>Select Area Manager</option>
+                                        {this.state.manager.map((i,index)=>( <option value={i.id} key={index}>{i.name}</option> ))}
+                                    </select>
+                                </div>
                             : null}
                             <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                         </div>

@@ -13,6 +13,7 @@ use App\Models\Network;
 use App\Models\Language;
 use App\Models\Products;
 use App\Models\Profiles;
+use App\Models\Workshop;
 use App\Models\Tutorials;
 use App\Models\ProductionCentre;
 use Illuminate\Http\Request;
@@ -222,12 +223,17 @@ class AdminController extends Controller
         $data = Basic::select('id','name','type', 'tab1')->whereIn('type', ['ProductType', 'DimensionValue', 'DimensionType'])->get();
         $langOptions = Basic::select('id as value','name as text')->where('type', 'Language')->get();
         $product = Products::where('id', $id)->get()->map(function($i) {
+            $picArray = [];
+            foreach (json_decode($i->images) as $j) { array_push($picArray, $j); }
+            $i->picArray = $picArray;
+
             $oldLang = [];
             foreach (json_decode($i->language) as $j) {
                 $xx   =   Basic::select('name as text', 'id as value')->where('id', $j)->first();
                 array_push($oldLang, $xx);
             }
             $i->langData = json_encode($oldLang);
+            $i->langArray = $oldLang;
             return $i;
         });
         $response = ['success' => true, 'data' => $data, 'product' => $product[0], 'langOptions' => $langOptions];
@@ -546,6 +552,13 @@ class AdminController extends Controller
         return response()->json($response, 201);
     }
 
+    public function adminWorkshop(){
+        $data       =   DB::table('workshops as a')->leftJoin('users as b', 'a.userId', '=', 'b.id')
+                        ->select([ 'b.name','b.email','b.phone','b.role', 'a.id', 'a.userId', 'a.village', 'a.date', 'a.attendance', 'a.sets', 'a.pic', 'a.updated_at' ])
+                        ->get();
+        return response()->json([ 'data' => $data ]); 
+    }
+
     // For App
     public function faqs(){
         $data       =   Faq::select(['question', 'answer', 'updated_at'])->where('status', 1)->get();
@@ -600,11 +613,29 @@ class AdminController extends Controller
         return response()->json($response, 201);
     } 
 
-
-
-
-
-
+    public function workshop(Request $request){
+        $dB                         =   new Workshop;
+        $dB->userId                 =   Auth::user()->id;
+        $dB->village                =   $request->village;
+        $dB->date                   =   $request->date;
+        $dB->attendance             =   $request->attendance;
+        $dB->sets                   =   $request->sets;
+        if ($request->hasFile('images')) {
+            $count = 0;
+            $imageArray = [];
+            foreach ($request->file('images') as $file) {
+                $count = $count + 1;
+                $fileName = time() . '-' . $count . '.' . $file->getClientOriginalExtension();
+                $file->move(storage_path('app/public/workshop/'), $fileName);    
+                $imageArray[] = $fileName;
+            }
+            $dB->pic = json_encode($imageArray);
+        }
+        $dB-> save();        
+        $response = ['success'=>true, 'message' => "Form submitted succesfully"];
+        return response()->json($response, 201);
+    }
+    
     // For App
 
 }
