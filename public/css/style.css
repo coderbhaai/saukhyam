@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
 @font-face {
   font-family: 'bree';
   src: url(../fonts/BreeRegular.otf) format(".otf");
@@ -1409,6 +1411,16 @@ a:hover {
   margin-right: 1em;
 }
 
+.sidebar ul li.logOut {
+  color: #fff;
+  padding: 1em;
+  font-weight: 600;
+}
+
+.sidebar ul li.logOut:hover {
+  cursor: pointer;
+}
+
 .btn-pag {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1771,7 +1783,7 @@ label {
 }
 
 body {
-  font-family: 'bree';
+  font-family: 'Roboto', sans-serif;
 }
 
 p {
@@ -2285,13 +2297,28 @@ button, button:focus, input, input:focus {
   font-weight: 700;
 }
 
+.amitBtnRound {
+  background-color: #2f8344;
+  border-radius: 20px;
+  padding: 10px 1em;
+  color: #fff;
+  text-transform: uppercase;
+  min-width: 150px;
+  border: none;
+  margin-bottom: 1em;
+}
+
+.amitBtnRound:hover {
+  color: #fff;
+}
+
 .authTwo {
   position: relative;
   padding-bottom: 150px;
 }
 
 .authTwo .mainBody {
-  margin-top: -150px;
+  margin-top: -50px;
 }
 
 .authTwo .topRow {
@@ -2308,7 +2335,7 @@ button, button:focus, input, input:focus {
 }
 
 .authTwo .topRow .banana {
-  max-width: 600px;
+  max-width: 450px;
 }
 
 .authTwo .topRow .logo {
@@ -2321,40 +2348,23 @@ button, button:focus, input, input:focus {
   margin: 0 auto;
 }
 
-.authTwo .col-sm-6 h1 {
+.authTwo .col-sm-6 p {
   font-size: 20px;
   color: #2f8344;
   text-align: center;
   font-family: 'Roboto', sans-serif;
+  font-weight: 700;
 }
 
-.authTwo .col-sm-6 p {
-  font-size: 14px;
-  color: #2f8344;
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
+.authTwo .col-sm-6 .authBox {
+  background-color: #77c8a1;
+  padding: 1em;
+  padding: 2em;
+  border-radius: 25px;
+  margin-bottom: 2em;
 }
 
-.authTwo .col-sm-6 p span a {
-  color: #2f8344;
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-.authTwo .col-sm-6 form > div {
-  margin-bottom: 1em;
-}
-
-.authTwo .col-sm-6 form > div input[type=text], .authTwo .col-sm-6 form > div input[type=password] {
-  border: none;
-  width: 100%;
-  background: #fff;
-  border-bottom: 2px solid #2f8344;
-  padding-bottom: 5px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.authTwo .col-sm-6 form > div .amitBtnLight {
+.authTwo .col-sm-6 .authBox ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2364,20 +2374,64 @@ button, button:focus, input, input:focus {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 0 auto 2em;
+  margin-bottom: 1.5em;
 }
 
-.authTwo .col-sm-6 form > div .amitBtnLight img {
-  max-width: 12px;
-  margin-left: 10px;
+.authTwo .col-sm-6 .authBox ul li {
+  margin: 0 .5em;
+  padding: .5em;
+  font-size: 22px;
+  color: #fff;
+}
+
+.authTwo .col-sm-6 .authBox ul li:hover {
+  cursor: pointer;
+}
+
+.authTwo .col-sm-6 .authBox ul li.active {
+  border-bottom: 3px solid #fff;
+}
+
+.authTwo .col-sm-6 .authBox p, .authTwo .col-sm-6 .authBox a {
+  color: #fff;
+}
+
+.authTwo .col-sm-6 form label {
+  color: #fff;
+}
+
+.authTwo .col-sm-6 form input {
+  border: none;
+  width: 100%;
+  background: transparent;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  padding-bottom: 5px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 1em;
+  outline: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.authTwo .col-sm-6 form input:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.authTwo .col-sm-6 form a {
+  color: #fff;
 }
 
 .authTwo .col-sm-6 h3 {
   text-align: center;
-  margin: 1em 0;
+  margin: 0;
+  margin-bottom: 2em;
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 30px;
+  font-weight: 900;
 }
 
 .authTwo .col-sm-6 .check {
@@ -2406,11 +2460,35 @@ button, button:focus, input, input:focus {
 
 .authTwo .col-sm-6 .gofb img {
   max-width: 40px;
-  margin: 0 5px;
+  margin: 0 1.5em;
 }
 
 .authTwo .col-sm-6 .gofb img:hover {
   cursor: pointer;
+}
+
+.authTwo .col-sm-6 .gstore p {
+  color: #2f8344;
+  margin: 0;
+  line-height: 1.2em;
+  font-weight: 500;
+}
+
+.authTwo .col-sm-6 .gstore .store {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.authTwo .col-sm-6 .gstore .store a img {
+  max-width: 20px;
+  margin-right: 10px;
 }
 
 .authTwo .cotton {
@@ -2446,6 +2524,24 @@ button, button:focus, input, input:focus {
   .authTwo .topRow .logo {
     padding: 1em;
     max-width: 150px;
+  }
+  .authTwo .mainBody {
+    margin-top: 0;
+  }
+  .authTwo .col-sm-6 p {
+    font-size: 16px;
+    line-height: 1.5em;
+  }
+  .authTwo .col-sm-6 .authBox {
+    padding: 1em;
+  }
+  .authTwo .col-sm-6 .gofb img {
+    max-width: 25px;
+    margin: 0 1.5em;
+  }
+  .authTwo .col-sm-6 h3 {
+    font-size: 25px;
+    margin-bottom: 1em;
   }
 }
 

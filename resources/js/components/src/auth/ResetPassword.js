@@ -44,31 +44,37 @@ class ResetPassword extends Component {
 
     render() {
         return (
-            <section className="auth">
-                <div className="container">
+            <section className="register authTwo">
+                <div className="topRow">
+                    <img src="/images/static/banana.png" className="banana"/>
+                    <a href="/"><img src="/images/logo2.png" className="logo"/></a>
+                </div>
+                <div className="container-fluid mainBody">
                     <div className="row">
-                        <div className="col-sm-5">
-                            <h2>Reset Password</h2>
-                            <form onSubmit={this.submitHandler}>
-                                <div>
+                        <div className="col-sm-6 offset-3">
+                            <p>We are on a mission to make reusables mainstream and disposables known as the old fashioned choice that they really are.</p>
+                            <div className="authBox">
+                                <form onSubmit={this.submitHandler}>
                                     <label>E-Mail Address</label>
-                                    <input id="emailRegister" type="email" className="form-control" name="email" required autoComplete="email" value={this.state.email} onChange={this.onChange} placeholder="Email Please"/>
-                                </div>
-                                <div>
+                                    <input id="emailRegister" type="email" className="form-control" name="email" required autoComplete="email" value={this.state.email} onChange={this.onChange}/>
                                     <label>Password</label>
-                                    <input id="password" type="password" className="form-control" name="password" required autoComplete="new-password" value={this.state.password} onChange={this.onChange} placeholder="Password Please"/>
-                                </div>
-                                <div>
+                                    <input id="password" type="password" className="form-control" name="password" required autoComplete="new-password" value={this.state.password} onChange={this.onChange}/>
                                     <label>Confirm Password</label>
-                                    <input id="password-confirm" type="password" className="form-control" name="confirm_password" required autoComplete="new-password" value={this.state.confirm_password} onChange={this.onChange} placeholder="Confirm Password"/>
-                                </div>
-                                <div className="my-div">
-                                    <button type="submit" className="amitBtn">Reset Password</button>
-                                </div>
-                            </form>
+                                    <input id="password-confirm" type="password" className="form-control" name="confirm_password" required autoComplete="new-password" value={this.state.confirm_password} onChange={this.onChange}/>
+                                    <div className="text-center mt-3"><button type="submit" className="amitBtnRound">Reset Password</button></div>
+                                </form>
+                                <div className="text-center"><a href={func.base}>Login</a></div>
+                            </div>                                   
+                            <p>Inviting enterprising and resourceful women and men to join our</p>
+                            <h3>AFFILIATE VIJAYA PROGRAM</h3>
+                            <div className="gstore">
+                                <p>Get App from Google Play Store</p>
+                                <div className="text-center store"><a href="" className="amitBtnRound"><img src="/images/icons/playstore.svg"/> DOWNLOAD </a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <img src="/images/static/cotton.png" className="cotton"/>
             </section>
         )
     }

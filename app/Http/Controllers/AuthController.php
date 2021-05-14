@@ -59,7 +59,7 @@ class AuthController extends Controller
                 'status_code'       =>  200,
                 'access_token'      =>  $tokenResult,
                 'token_type'        => 'Bearer',
-                'message'           => 'Welcome Aboard',
+                'message'           => 'Registration Successfull',
                 'data'              =>  $user
             ];
             return response()->json($response, 201);

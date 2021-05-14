@@ -6,6 +6,7 @@ import Header from './src/parts/Header'
 import Footer from './src/parts/Footer'
 
 import Home from './src/pages/Home'
+import Auth from './src/auth/Auth'
 
 import Register from './src/auth/Register'
 import RegisterTwo from './src/auth/RegisterTwo'
@@ -35,10 +36,10 @@ function Index() {
         <Router>
             {/* <Header/>  */}
             <Switch>
-                <Route exact path= {func.base} component={Home}/>
+                <Route exact path= {func.base} component={Auth}/>
                 {/* <Route exact path={func.base+"register"} component={Register}/> */}
-                <Route exact path= {func.base+"register"} component={RegisterTwo}/>
-                <Route exact path={func.base+"login"} component={Login}/>
+                {/* <Route exact path= {func.base+"register"} component={RegisterTwo}/>
+                <Route exact path={func.base+"login"} component={Login}/> */}
                 <Route exact path={func.base+"forgotPassword"} component={ForgotPassword} /> 
                 <Route exact path={func.base+"resetPassword/:token"} component={ResetPassword} />  
 

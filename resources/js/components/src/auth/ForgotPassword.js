@@ -8,6 +8,7 @@ export class ForgotPassword extends Component {
         super(props)
         this.state = {
             email:             'amit.khare588@gmail.com',
+            // email:             '',
         }
     }
 
@@ -36,24 +37,34 @@ export class ForgotPassword extends Component {
 
     render() {
         return (
-            <section className="auth">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-5">
-                            <h1 className="heading">Forgot Password?</h1>
-                            <form onSubmit={this.ResetPassword}>
-                                <div className="row">
-                                    <div className="col-sm-12">
+            <section className="register authTwo">
+                    <div className="topRow">
+                        <img src="/images/static/banana.png" className="banana"/>
+                        <a href="/"><img src="/images/logo2.png" className="logo"/></a>
+                    </div>
+                    <div className="container-fluid mainBody">
+                        <div className="row">
+                            <div className="col-sm-6 offset-3">
+                                <p>We are on a mission to make reusables mainstream and disposables known as the old fashioned choice that they really are.</p>
+                                <div className="authBox">
+                                    <form onSubmit={this.ResetPassword}>
                                         <label>E-Mail Address</label>
                                         <input type="email" className="form-control" name="email" required placeholder="Email Please" value={this.state.email} onChange={this.onChange}/>
-                                    </div>
-                                    <button className="amitBtn" type="submit">Reset Password</button>
+                                        <div className="text-center mt-3"><button type="submit" className="amitBtnRound">Reset Password</button></div>
+                                    </form>
+                                    <div className="text-center"><a href={func.base}>Login</a></div>
+                                </div>                                   
+                                <p>Inviting enterprising and resourceful women and men to join our</p>
+                                <h3>AFFILIATE VIJAYA PROGRAM</h3>
+                                <div className="gstore">
+                                    <p>Get App from Google Play Store</p>
+                                    <div className="text-center store"><a href="" className="amitBtnRound"><img src="/images/icons/playstore.svg"/> DOWNLOAD </a></div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                    <img src="/images/static/cotton.png" className="cotton"/>
+                </section>
         )
     }
 }

@@ -5,7 +5,8 @@
 @import '_admin.scss';
 
 body{
-    font-family: 'bree';
+    // font-family: 'bree';
+    font-family: 'Roboto', sans-serif;
 }
 p{
     line-height: 2em;
@@ -388,11 +389,24 @@ button, button:focus, input, input:focus{
     width: fit-content;
     font-weight: 700;
 }
+.amitBtnRound{
+    background-color: $primary;
+    border-radius: 20px;
+    padding: 10px 1em;
+    color: #fff;
+    text-transform: uppercase;
+    min-width: 150px;
+    border: none;
+    margin-bottom: 1em;
+    &:hover{
+        color: #fff;
+    }
+}
 .authTwo{
     position: relative;
     padding-bottom: 150px;
     .mainBody{
-        margin-top: -150px;
+        margin-top: -50px;
     }
     .topRow{
         display: flex;
@@ -400,7 +414,7 @@ button, button:focus, input, input:focus{
         justify-content: space-between;
         padding-right: 1em;
         .banana{
-            max-width: 600px;
+            max-width: 450px;
         }
         .logo{
             padding: 2em;
@@ -410,54 +424,83 @@ button, button:focus, input, input:focus{
     .col-sm-6{
         max-width: 700px;
         margin: 0 auto;
-        h1{
+        p{
             font-size: 20px;
             color: $primary;
             text-align: center;
             font-family: 'Roboto', sans-serif;
+            font-weight: 700;
         }
-        p{
-            font-size: 14px;
-            color: $primary;
-            text-align: center;
-            font-family: 'Roboto', sans-serif;
-            span{
-                a{
-                    color: $primary;
-                    text-decoration: underline;
-                    font-weight: 600;
+        .authBox{
+            background-color: $lightGreen;
+            padding: 1em;
+            padding: 2em;
+            border-radius: 25px;
+            margin-bottom: 2em;
+            ul{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 1.5em;
+                li{
+                    margin: 0 .5em;
+                    padding: .5em;
+                    font-size: 22px;
+                    color: #fff;
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
+                li.active{
+                    border-bottom: 3px solid #fff;
+                }
+            }
+            p, a{
+                color: #fff;
             }
         }
         form{
-            >div{
+            label{
+                color: #fff;
+            }
+            input{
+                border: none;
+                width: 100%;
+                background: transparent;
+                border-bottom: 2px solid #fff;
+                color: #fff;
+                padding-bottom: 5px;
+                font-family: 'Roboto', sans-serif;
                 margin-bottom: 1em;
-                input[type=text], input[type=password] {
-                    border: none;
-                    width: 100%;
-                    background: #fff;
-                    border-bottom: 2px solid $primary;
-                    padding-bottom: 5px;
-                    font-family: 'Roboto', sans-serif;
+                outline: none;
+                border-radius: 0;
+                box-shadow: none;
+                &:focus{
+                    outline: none;
+                    box-shadow: none;
                 }
-                .amitBtnLight{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 auto 2em;
-                    img{
-                        max-width: 12px;
-                        margin-left: 10px;
-                    }
-                }
+            }
+            // .amitBtnLight{
+            //     display: flex;
+            //     align-items: center;
+            //     justify-content: center;
+            //     margin: 0 auto 2em;
+            //     img{
+            //         max-width: 12px;
+            //         margin-left: 10px;
+            //     }
+            // }
+            a{
+                color: #fff;
             }
         }
         h3{
             text-align: center;
-            margin: 1em 0;
+            margin: 0;
+            margin-bottom: 2em;
             font-family: 'Roboto', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 30px;
+            font-weight: 900;
         }
         .check{
             text-align: center;
@@ -477,9 +520,28 @@ button, button:focus, input, input:focus{
             margin: 1em 0;
             img{
                 max-width: 40px;
-                margin: 0 5px;
+                margin: 0 1.5em;
                 &:hover{
                     cursor: pointer;
+                }
+            }
+        }
+        .gstore{
+            p{
+                color: $primary;
+                margin: 0;
+                line-height: 1.2em;
+                font-weight: 500;
+            }
+            .store{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                a{
+                    img{
+                        max-width: 20px;
+                        margin-right: 10px;
+                    }
                 }
             }
         }
@@ -492,7 +554,6 @@ button, button:focus, input, input:focus{
         z-index: -1;
     }
 }
-
 // Responsive CSS
 @media (max-width:1300px) {
     .authTwo{
@@ -526,6 +587,27 @@ button, button:focus, input, input:focus{
                 max-width: 150px;
             }
         }
+        .mainBody {
+            margin-top: 0;
+        }
+        .col-sm-6{
+            p{
+                font-size: 16px;
+                line-height: 1.5em;
+            }
+            .authBox {
+                padding: 1em;
+            }
+            .gofb img {
+                max-width: 25px;
+                margin: 0 1.5em;
+            }
+            h3 {
+                font-size: 25px;
+                margin-bottom: 1em;
+            }
+        }
+        
     }
 }
 @media (max-width:440px) {

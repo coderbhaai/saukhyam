@@ -7,10 +7,10 @@ export default function(ComposedComponent){
             if(typeof(Storage) !== "undefined" && localStorage.getItem('user') ){
                 if( JSON.parse(localStorage.getItem('user')).role === "Admin" ){
                 }else{
-                    this.props.history.push(func.base+"login")
+                    this.props.history.push(func.base)
                 }
             }else{
-                this.props.history.push(func.base+"login") 
+                this.props.history.push(func.base) 
             }
         }
         render() { return ( <ComposedComponent {...this.props}/> ) }
