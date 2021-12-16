@@ -17,7 +17,7 @@ class CreateFaqsTable extends Migration
             $table->id();
             $table->integer('userId');
             $table->mediumText('question');
-            $table->status('status')->nullable();
+            $table->integer('status')->nullable();
             $table->mediumText('answer')->nullable();
             $table->timestamps();
         });
