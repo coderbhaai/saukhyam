@@ -73,6 +73,7 @@ export const adminLinks =[
     {text: 'Users', url: base+"adminUsers", active: base+"adminUsers"},
     {text: 'Masters', url: base+"adminBasics", active: base+"adminBasics"},
     {text: 'Products', url: base+"adminProducts", active: base+"adminProducts"},
+    {text: 'Multilingual Products', url: base+"adminProductLanguage", active: base+"adminProductLanguage"},
     {text: 'Creatives', url: base+"adminTutorials", active: base+"adminTutorials"},
     {text: 'Language', url: base+"adminLanguage", active: base+"adminLanguage"},
     {text: 'Orders', url: base+"adminOrders", active: base+"adminOrders"},

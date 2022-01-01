@@ -27,6 +27,9 @@ import AdminFAQ from './src/admin/FAQ'
 import ProductionCentre from './src/admin/ProductionCentre'
 import Network from './src/admin/Network'
 import Workshop from './src/admin/Workshop'
+import ProductLanguage from './src/admin/ProductLanguage'
+import AddProductLanguage from './src/admin/AddProductLanguage'
+import UpdateProductLanguage from './src/admin/UpdateProductLanguage'
 
 import RequireAdmin from './src/parts/RequireAdmin'
 
@@ -58,6 +61,9 @@ function Index() {
                 <Route exact path={func.base+"productionCentre"} component={RequireAdmin(ProductionCentre)}/>
                 <Route exact path={func.base+"network"} component={RequireAdmin(Network)}/>
                 <Route exact path={func.base+"workshop"} component={RequireAdmin(Workshop)}/>
+                <Route exact path={func.base+"adminProductLanguage"} component={RequireAdmin(ProductLanguage)}/>
+                <Route exact path={func.base+"addProductLanguage"} component={RequireAdmin(AddProductLanguage)}/>
+                <Route exact path={func.base+"updateProductLanguage/:id"} component={RequireAdmin(UpdateProductLanguage)}/>
             </Switch>
             {/* <Footer/> */}
         </Router>

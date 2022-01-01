@@ -27,10 +27,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/adminProducts', [AdminController::class, 'adminProducts']);
     Route::get('/addProductOptions', [AdminController::class, 'addProductOptions']); 
-    Route::post('/createProduct', [AdminController::class, 'createProduct']);
     Route::post('/changeProductStatus', [AdminController::class, 'changeProductStatus']);
+    Route::post('/createProduct', [AdminController::class, 'createProduct']);
     Route::get('/getProduct/{id}', [AdminController::class, 'getProduct']);
     Route::post('/updateProduct', [AdminController::class, 'updateProduct']);
+
+    Route::get('/productLanguages', [AdminController::class, 'productLanguages']);
+    Route::get('/addProductLanguageOptions', [AdminController::class, 'addProductLanguageOptions']); 
+    Route::post('/createProductLanguage', [AdminController::class, 'createProductLanguage']);
+    Route::get('/getProductLanguage/{id}', [AdminController::class, 'getProductLanguage']);
+    Route::get('/getPendingLanguages/{id}', [AdminController::class, 'getPendingLanguages']);
+    Route::post('/updateProductLanguage', [AdminController::class, 'updateProductLanguage']);
+    Route::post('/changeProductLanguageStatus', [AdminController::class, 'changeProductLanguageStatus']);
 
     Route::get('/adminTutorials', [AdminController::class, 'adminTutorials']);
     Route::post('/createTutorial', [AdminController::class, 'createTutorial']);
@@ -44,8 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/adminFaqs', [AdminController::class, 'adminFaqs']);
     Route::post('/faqAdd', [AdminController::class, 'faqAdd']);
     Route::post('/faqAnswer', [AdminController::class, 'faqAnswer']);
-    Route::post('/changeFaqStatus', [AdminController::class, 'changeFaqStatus']);
-    
+    Route::post('/changeFaqStatus', [AdminController::class, 'changeFaqStatus']);    
     
     Route::get('/adminOrders', [AdminController::class, 'adminOrders']);
     Route::post('/updateOrder', [AdminController::class, 'updateOrder']);

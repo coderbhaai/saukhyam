@@ -15,6 +15,7 @@ use App\Models\Products;
 use App\Models\Profiles;
 use App\Models\Workshop;
 use App\Models\Tutorials;
+use App\Models\Productlanguages;
 use App\Models\ProductionCentre;
 use Illuminate\Http\Request;
 
@@ -239,6 +240,73 @@ class AdminController extends Controller
             return $i;
         });
         $response = ['success' => true, 'data' => $data, 'product' => $product[0], 'langOptions' => $langOptions];
+        return response()->json($response, 201);
+    }
+
+    public function productLanguages(){        
+        $data       =   DB::table('productlanguages')->leftJoin('basics', 'basics.id', '=', 'productlanguages.language')
+                        ->leftJoin('products', 'products.id', '=', 'productlanguages.productId')
+                        ->select([ 'productlanguages.id', 'products.name', 'basics.name as langName', 'productlanguages.status' ])
+                        ->get();
+        return response()->json([ 'data' =>$data ]); 
+    }
+
+    public function changeProductLanguageStatus(Request $request){
+        $dB                   =   Productlanguages::find($request->id);
+        $dB->status           =   $request->status;
+        $dB-> save();
+        $data       =   DB::table('productlanguages')->leftJoin('basics', 'basics.id', '=', 'productlanguages.language')
+                        ->leftJoin('products', 'products.id', '=', 'productlanguages.productId')
+                        ->select([ 'productlanguages.id', 'products.name', 'basics.name as langName', 'productlanguages.status' ])
+                        ->where('productlanguages.id', $request->id)->first();
+        $response = ['success'=>true, 'data'=>$data, 'message'=>'Status Updated Succesfully'];
+    return response()->json($response, 201);
+    }
+
+    public function addProductLanguageOptions(){
+        $products = Products::select('id','name')->get();
+        $langOptions = Basic::select('id','name')->where('type', 'Language')->get();
+        return response()->json([ 
+            'products'              => $products,
+            'langOptions'           => $langOptions,
+        ]); 
+    }
+
+    public function createProductLanguage(Request $request){
+        $dB                                 =   new Productlanguages;
+        $dB->productId                      =   $request->productId;
+        $dB->language                       =   $request->language;
+        $dB->short_description              =   $request->short_description;
+        $dB->long_description               =   $request->long_description;
+        $dB->status                         =   $request->status;
+        $dB-> save();      
+        $response = ['success'=>true, 'message' => "Product Language created succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function getProductLanguage($id){
+        $data = Productlanguages::leftJoin('basics', 'basics.id', '=', 'productlanguages.language')
+                ->leftJoin('products', 'products.id', '=', 'productlanguages.productId')
+                ->select([ 'productlanguages.*', 'products.name as productName', 'basics.name as langName' ])
+                ->where('productlanguages.id', $id)->first();
+        $response = ['success' => true, 'data' => $data,];
+        return response()->json($response, 201);
+    }
+
+    public function getPendingLanguages($id){
+        $ids = Productlanguages::select('language')->where('productId', $id)->pluck('language');
+        $langOptions = Basic::select('id','name')->where('type', 'Language')->whereNotIn('id', $ids)->get();
+        $response = ['success' => true, 'ids' =>$ids, 'langOptions' => $langOptions,];
+        return response()->json($response, 201);
+    }
+
+    public function updateProductLanguage(Request $request){
+        $dB                                 =   Productlanguages::find($request->id);
+        $dB->short_description              =   $request->short_description;
+        $dB->long_description               =   $request->long_description;
+        $dB->status                         =   $request->status;
+        $dB-> save();
+        $response = ['success'=>true, 'message' => "Product Language Updated succesfully"];
         return response()->json($response, 201);
     }
 

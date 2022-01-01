@@ -20,6 +20,14 @@ export default {
     createProduct : func.base+'api/createProduct',
     getProduct : func.base+'api/getProduct/',
     updateProduct : func.base+'api/updateProduct',
+    
+    addProductLanguageOptions : func.base+'api/addProductLanguageOptions',
+    productLanguages : func.base+'api/productLanguages',
+    createProductLanguage : func.base+'api/createProductLanguage',
+    getProductLanguage : func.base+'api/getProductLanguage/',
+    getPendingLanguages : func.base+'api/getPendingLanguages/',
+    updateProductLanguage : func.base+'api/updateProductLanguage',
+    changeProductLanguageStatus : func.base+'api/changeProductLanguageStatus',
 
     adminTutorials : func.base+'api/adminTutorials',
     createTutorial : func.base+'api/createTutorial',
