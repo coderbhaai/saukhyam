@@ -18,6 +18,7 @@ class CreateProductionCentresTable extends Migration
             $table->string('name');
             $table->string('state');
             $table->string('city');
+            $table->string('pin');
             $table->mediumText('address');
             $table->mediumText('team');
             $table->timestamps();

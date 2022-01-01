@@ -158,6 +158,7 @@ class AdminController extends Controller
         $dB->short_description              =   $request->short_description;
         $dB->long_description               =   $request->long_description;
         $dB->dimension                      =   $request->dimension;
+        $dB->mov                            =   $request->mov;
         if ($request->hasFile('images')) {
             $count = 0;
             $imageArray = [];
@@ -187,7 +188,8 @@ class AdminController extends Controller
         $dB->short_description              =   $request->short_description;
         $dB->long_description               =   $request->long_description;
         $dB->dimension                      =   $request->dimension;
-        $dB->language                      =   $request->language;
+        $dB->language                       =   $request->language;
+        $dB->mov                            =   $request->mov;
         if ($request->hasFile('images')) {
             $count = 0;
             $imageArray = [];

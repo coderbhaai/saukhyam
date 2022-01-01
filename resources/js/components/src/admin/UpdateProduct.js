@@ -21,6 +21,7 @@ export class UpdateProduct extends Component {
             status:                     '',
             distype:                    '',
             discount:                   '',
+            mov:                        1,
             dimension:                  [],
             images:                     null,
             oldImages:                  [],
@@ -59,6 +60,7 @@ export class UpdateProduct extends Component {
                 status:                     body.product.status,
                 distype:                    body.product.distype,
                 discount:                   body.product.discount,
+                mov:                        body.product.mov,
                 oldImages:                  JSON.parse(body.product.images),
                 short_description:          body.product.short_description,
                 long_description:           body.product.long_description,
@@ -98,6 +100,7 @@ export class UpdateProduct extends Component {
         data.append('status', this.state.status)
         data.append('distype', this.state.distype)
         data.append('discount', this.state.discount)
+        data.append('mov', this.state.mov)
         data.append('short_description', this.state.short_description)
         data.append('long_description', this.state.long_description)
         data.append('dimension', JSON.stringify(this.state.dimension))
@@ -140,8 +143,8 @@ export class UpdateProduct extends Component {
                                         <input className="form-control" placeholder="Wholesale Price" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="wprice" value={this.state.wprice} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-4">
-                                        <label>Distributor Price</label>
-                                        <input className="form-control" placeholder="Distributor Price" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="dprice" value={this.state.dprice} onChange={this.onChange}/>
+                                        <label>MRP</label>
+                                        <input className="form-control" placeholder="MRP" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="dprice" value={this.state.dprice} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Status of Product</label>
@@ -163,10 +166,14 @@ export class UpdateProduct extends Component {
                                         <label>Discount</label>
                                         <input className="form-control" placeholder="Product Discount" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="discount" value={this.state.discount} onChange={this.onChange}/>
                                     </div>
-                                    <div className="col-sm-8">
+                                    <div className="col-sm-4">
                                         <label>Images</label>
                                         <input type="file" className="form-control" multiple onChange={this.multipleImage}/>
                                         {this.state.oldImages.map((i,index)=>(<img key={index} className="previewImg" src={func.imgPath+'product/'+i}/>))}
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>MOV</label>
+                                        <input className="form-control" placeholder="Product Discount" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="1" name="mov" value={this.state.mov} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-12 mt-3">
                                         <button onClick={this.addDimensions} className="amitBtn">Add Dimensions</button>

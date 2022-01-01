@@ -17,7 +17,7 @@ class CreateBasicsTable extends Migration
             $table->id();
             $table->string('type');
             $table->string('name');
-            $table->string('tab1');
+            $table->string('tab1')->nullable();
             $table->string('tab2')->nullable();
             $table->string('tab3')->nullable();
             $table->integer('status');

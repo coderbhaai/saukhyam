@@ -23,6 +23,7 @@ export class User extends Component {
             long_description:           '',
             wprice:                     '',
             dprice:                     '',
+            mov:                     '',
         }
         this.handleChange1 = this.handleChange1.bind( this )
         this.handleChange2 = this.handleChange2.bind( this )
@@ -71,6 +72,7 @@ export class User extends Component {
         data.append('status', this.state.status)
         data.append('distype', this.state.distype)
         data.append('discount', this.state.discount)
+        data.append('mov', this.state.mov)
         data.append('short_description', this.state.short_description)
         data.append('long_description', this.state.long_description)
         data.append('dimension', JSON.stringify(this.state.dimension))
@@ -121,8 +123,8 @@ export class User extends Component {
                                         <input className="form-control" placeholder="Wholesale Price" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="wprice" value={this.state.wprice} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-4">
-                                        <label>Distributor Price</label>
-                                        <input className="form-control" placeholder="Distributor Price" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="dprice" value={this.state.dprice} onChange={this.onChange}/>
+                                        <label>MRP</label>
+                                        <input className="form-control" placeholder="MRP" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="dprice" value={this.state.dprice} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Discount Type</label>
@@ -136,9 +138,13 @@ export class User extends Component {
                                         <label>Discount</label>
                                         <input className="form-control" placeholder="Product Discount" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="discount" value={this.state.discount} onChange={this.onChange}/>
                                     </div>
-                                    <div className="col-sm-8">
+                                    <div className="col-sm-4">
                                         <label>Images</label>
                                         <input type="file" className="form-control" required multiple onChange={this.multipleImage}/>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>MOV</label>
+                                        <input className="form-control" placeholder="Product Discount" type="number" required onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="1" name="mov" value={this.state.mov} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-12 mt-3">
                                         <button onClick={this.addDimensions} className="amitBtn">Add Dimensions</button>

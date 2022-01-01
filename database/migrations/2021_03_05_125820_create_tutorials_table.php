@@ -19,6 +19,7 @@ class CreateTutorialsTable extends Migration
             $table->string('name');
             $table->mediumText('description');
             $table->mediumText('url');
+            $table->string('thumbnail')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

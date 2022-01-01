@@ -56,16 +56,14 @@ export class Basic extends Component {
         var allOk= false
         if(this.state.type=='ProductType' || this.state.type=='DimensionType' || this.state.type=='Screen' || this.state.type=='Language'){
             if(this.state.data.some(i=>i.name==this.state.name)){
+                console.log('1, DUPLICATE');
                 func.callSwal('Duplicate Entry')
+                var allOk = false
             }else{
-                var allOk= true
+                console.log('2, DUPLICATE');
+                var allOk = true
             }
-        }else
-        // if(this.state.type=='DimensionValue'){
-        //     func.callSwal('Duplicate Entry')
-        // }else{
-        //     var allOk= false
-        // }
+        }
         if(allOk){
             const data = new FormData()
             data.append('type', this.state.type)
@@ -82,7 +80,7 @@ export class Basic extends Component {
                 this.resetData()
             })
             .catch(err=>func.printError(err))
-        }
+        }        
     }
 
     editModalOn = (i)=>{
@@ -150,6 +148,7 @@ export class Basic extends Component {
     }
 
     render() {
+        console.log('this.state :>> ', this.state);
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage

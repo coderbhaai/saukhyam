@@ -19,9 +19,9 @@ class CreateOrdersTable extends Migration
             $table->mediumText('order');
             $table->string('status');
             $table->mediumText('shipping')->nullable();
+            $table->integer('centre');
             $table->mediumText('discount')->nullable();
             $table->mediumText('payment')->nullable();
-            $table->integer('centre');
             $table->mediumText('remarks')->nullable();
             $table->timestamps();
         });
