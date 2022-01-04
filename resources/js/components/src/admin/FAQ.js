@@ -162,7 +162,7 @@ export class User extends Component {
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(FAQ)</h1>
-                            {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
+                            {this.state.loading? <div className="loading"><img src={func.base+"images/logo.png"}/></div> :<>
                                 <div className="btn-pag">
                                     <button className="amitBtn" onClick={this.addModalOn}>Add FAQ</button>
                                     <div className="flex-h">

@@ -96,7 +96,7 @@ export class User extends Component {
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Products)</h1>
-                            {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
+                            {this.state.loading? <div className="loading"><img src={func.base+"images/logo.png"}/></div> :<>
                                 <div className="sortBy">
                                     <select className="form-control" required name="sortActive" value={this.state.sortActive} onChange={this.sortActive}>
                                         <option value="Clear">Sort By Status</option> 

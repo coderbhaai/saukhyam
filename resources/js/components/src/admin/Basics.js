@@ -199,7 +199,7 @@ export class Basic extends Component {
                         <AdminSidebar/>
                         <div className="col-sm-10 admin">
                             <h1 className="heading"><span>Admin Panel </span>(Masters)</h1>
-                            {this.state.loading? <div className="loading"><img src={func.base+"/images/logo.png"}/></div> :<>
+                            {this.state.loading? <div className="loading"><img src={func.base+"images/logo.png"}/></div> :<>
                                 <div className="sortBy">
                                     <select className="form-control" required name="sort" value={this.state.sort} onChange={this.changeSort}>
                                         <option value="Clear">Sort By</option> 

@@ -37,7 +37,8 @@ class AdminController extends Controller
         return response()->json([
             'data'              => $user,
             'basic'             => $basic,
-            'manager'           => $manager
+            'manager'           => $manager,
+            'Auth'              => Auth::user()->language
         ]);
     }
 
@@ -171,7 +172,8 @@ class AdminController extends Controller
             }
             $dB->images = json_encode($imageArray);
         }
-        $dB-> save();      
+        $dB-> save();       
+        
         $response = ['success'=>true, 'message' => "Product created succesfully"];
         return response()->json($response, 201);
     }
@@ -260,7 +262,7 @@ class AdminController extends Controller
                         ->select([ 'productlanguages.id', 'products.name', 'basics.name as langName', 'productlanguages.status' ])
                         ->where('productlanguages.id', $request->id)->first();
         $response = ['success'=>true, 'data'=>$data, 'message'=>'Status Updated Succesfully'];
-    return response()->json($response, 201);
+        return response()->json($response, 201);
     }
 
     public function addProductLanguageOptions(){
