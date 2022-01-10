@@ -10,6 +10,7 @@ export class UpdateProductLanguage extends Component {
         this.state = {
             productName:                '',
             langName:                   '',
+            name:                       '',
             short_description:          '',
             long_description:           '',
             status:                     '',
@@ -39,6 +40,7 @@ export class UpdateProductLanguage extends Component {
             this.setState({
                 productName:                body.data.productName,
                 langName:                   body.data.langName,
+                name:                       body.data.name,
                 short_description:          body.data.short_description,
                 long_description:           body.data.long_description,
                 status:                     body.data.status,
@@ -59,6 +61,7 @@ export class UpdateProductLanguage extends Component {
         const data ={
             id:                                 this.state.id,
             status:                             this.state.status,
+            name:                               this.state.name,
             short_description:                  this.state.short_description,
             long_description:                   this.state.long_description,
         }
@@ -101,6 +104,10 @@ export class UpdateProductLanguage extends Component {
                                 </div>
                             </div>
                             <div className="row mt-3">
+                                <div className="col-sm-12">
+                                    <label>Product Name</label>
+                                    <input className="form-control" placeholder="Product Name" type="text" name="name" required value={this.state.name} onChange={this.onChange}/>
+                                </div>
                                 <div className="col-sm-6">
                                     <label>Short Description</label>
                                     <CKEditor onInstanceReady={this.ckEditorReady()} onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } data ={this.state.short_description} content= {this.state.short_description} onChange={this.onEditorChange1}/>

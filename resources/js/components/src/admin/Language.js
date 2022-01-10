@@ -12,13 +12,11 @@ export class Language extends Component {
             currentPage:                1,
             itemsPerPage:               100,
             data:                       [],
-            screen:                     [],
             language:                   [],
             search:                     '',
             addmodalIsOpen:             false,
             editmodalIsOpen:            false,
             id:                         '',
-            screenId:                   '',
             text:                       '',
             options:                    [],
             optionList:                 [],
@@ -37,7 +35,6 @@ export class Language extends Component {
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             data:                       body.data,
-            screen:                     body.screen,
             language:                   body.language,
             loading:                    false
         })
@@ -56,16 +53,17 @@ export class Language extends Component {
     addModal = (e) => {
         e.preventDefault()
         const data ={
-            screenId:           this.state.screenId,
             text:               this.state.text,
             options:            JSON.stringify(this.state.options)
         }
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.createLanguage, data)
         .then( res=> {
-            if(res.data.success){ this.setState({ data: [...this.state.data, res.data.data ] }) }
+            if(res.data.success){ 
+                this.setState({ data: [...this.state.data, res.data.data ] }) 
+                this.resetData()
+            }
             func.callSwal(res.data.message)
-            this.resetData()
         })
         .catch(err=>func.printError(err))
     }
@@ -78,7 +76,6 @@ export class Language extends Component {
         this.setState({
             editmodalIsOpen:                true,
             id:                             i.id,
-            screenId:                       i.screenId,
             text:                           i.text,
             options:                        JSON.parse(i.options),
             optionList:                     xx
@@ -89,7 +86,6 @@ export class Language extends Component {
         e.preventDefault()
         const data ={
             id:                 this.state.id,
-            screenId:           this.state.screenId,
             text:               this.state.text,
             options:            JSON.stringify(this.state.options),
         }
@@ -108,24 +104,21 @@ export class Language extends Component {
             addmodalIsOpen:             false,
             editmodalIsOpen:            false,
             id:                         '',
-            screenId:                   '',
             text:                       '',
             options:                    [],
         })
     }
 
     render() {
+        console.log('this.state :>> ', this.state);
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const data =  this.state.data.filter((i)=>{ 
-            if(this.state.search == null) return i; else if(i.screenName.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
-        })
+        const data =  this.state.data
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
-                    <td>{i.screenName}</td> 
                     <td>{i.text}</td>
                     <td className="editIcon text-center" onClick={()=>this.editModalOn(i)}><img src="/images/icons/edit.svg"/></td>
                 </tr>
@@ -160,7 +153,6 @@ export class Language extends Component {
                                         <thead>
                                             <tr>
                                                 <th>Sl No.</th>
-                                                <th>Screen</th>
                                                 <th>Text</th>
                                                 <th>Edit </th>
                                             </tr>
@@ -178,13 +170,6 @@ export class Language extends Component {
                     <div className="modal-header"><h2>Add Language Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.addModal}>
                         <div className="row">
-                            <div className="col-sm-4">
-                                <label>Select Screen</label>
-                                <select className="form-control" required name="screenId" onChange={this.onChange} value={this.state.screenId}>
-                                    <option value=''>Select Screen</option>
-                                    {this.state.screen.map((i,index)=>(<option value={i.id} key={index}>{i.name}</option>))}
-                                </select>
-                            </div>
                             <div className="col-sm-6">
                                 <label>Basic Text</label>
                                 <input className="form-control" placeholder="Add Basic Text" type="text" name="text" value={this.state.text} onChange={this.onChange}/>
@@ -216,13 +201,6 @@ export class Language extends Component {
                     <div className="modal-header"><h2>Update Language Here</h2><div className="closeModal" onClick={this.resetData}>X</div></div>
                     <form className="modal-form container-fluid" encType="multipart/form-data" onSubmit={this.updateModal}>
                         <div className="row">
-                            <div className="col-sm-4">
-                                <label>Select Screen</label>
-                                <select className="form-control" required name="screenId" onChange={this.onChange} value={this.state.screenId}>
-                                    <option value=''>Select Screen</option>
-                                    {this.state.screen.map((i,index)=>(<option value={i.id} key={index}>{i.name}</option>))}
-                                </select>
-                            </div>
                             <div className="col-sm-6">
                                 <label>Basic Text</label>
                                 <input className="form-control" placeholder="Add Basic Text" type="text" name="text" value={this.state.text} onChange={this.onChange}/>

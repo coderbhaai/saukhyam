@@ -17,6 +17,7 @@ class CreateProductlanguagesTable extends Migration
             $table->id();
             $table->integer('productId');
             $table->integer('language');
+            $table->mediumText('name');
             $table->mediumText('short_description');
             $table->text('long_description');
             $table->integer('status');

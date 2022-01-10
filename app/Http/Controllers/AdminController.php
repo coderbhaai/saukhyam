@@ -278,6 +278,7 @@ class AdminController extends Controller
         $dB                                 =   new Productlanguages;
         $dB->productId                      =   $request->productId;
         $dB->language                       =   $request->language;
+        $dB->name                           =   $request->name;
         $dB->short_description              =   $request->short_description;
         $dB->long_description               =   $request->long_description;
         $dB->status                         =   $request->status;
@@ -304,6 +305,7 @@ class AdminController extends Controller
 
     public function updateProductLanguage(Request $request){
         $dB                                 =   Productlanguages::find($request->id);
+        $dB->name                           =   $request->name;
         $dB->short_description              =   $request->short_description;
         $dB->long_description               =   $request->long_description;
         $dB->status                         =   $request->status;
@@ -394,39 +396,36 @@ class AdminController extends Controller
 
     public function adminLanguages(){
         $data       =   DB::table('languages')
-                        ->leftJoin('basics', 'basics.id', '=', 'languages.screenId')
-                        ->select([ 'languages.id', 'languages.screenId', 'languages.text', 'languages.options', 'languages.updated_at', 'basics.name as screenName' ])
-                        ->get();
-        $screen = Basic::select('id','name','type')->where('type', 'Screen')->get();
+                        ->select([ 'languages.id', 'languages.text', 'languages.options', 'languages.updated_at' ])->get();
         $language = Basic::select('id','name','type')->where('type', 'Language')->where('status', 1)->get();
 
-        return response()->json([ 'data' => $data, 'screen' => $screen, 'language' => $language]); 
+        return response()->json([ 'data' => $data, 'language' => $language]); 
     }
 
     public function createLanguage(Request $request){
-        $dB                     =   new Language;
-        $dB->screenId           =   $request->screenId;
-        $dB->text               =   $request->text;
-        $dB->options            =   $request->options;
-        $dB-> save();
-        $data       =   DB::table('languages')->leftJoin('basics', 'basics.id', '=', 'languages.screenId')
-                        ->limit(1)->orderBy('languages.id', 'desc')
-                        ->select([ 'languages.id', 'languages.screenId', 'languages.text', 'languages.options', 'languages.updated_at', 'basics.name as screenName' ])
-                        ->get();
-        $response = ['success'=>true, 'data'=>$data[0], 'message' => "Language created succesfully"];
+        if( !Language::where('text', $request->text)->exists() ){
+            $dB                     =   new Language;
+            $dB->text               =   $request->text;
+            $dB->options            =   $request->options;
+            $dB-> save();
+            $data       =   DB::table('languages')
+                            ->select([ 'languages.id', 'languages.text', 'languages.options', 'languages.updated_at' ])
+                            ->limit(1)->orderBy('languages.id', 'desc')->get();
+            $response = ['success'=>true, 'data'=>$data[0], 'message' => "Language created succesfully"];
+        }else{
+            $response = ['success'=>false, 'message' => "Duplicate Entry"];
+        }
         return response()->json($response, 201);
     }
 
     public function updateLanguage(Request $request){
         $dB                     =   Language::find($request->id);
-        $dB->screenId           =   $request->screenId;
         $dB->text               =   $request->text;
         $dB->options            =   $request->options;
         $dB-> save();
-        $data       =   DB::table('languages')->leftJoin('basics', 'basics.id', '=', 'languages.screenId')
-                        ->where('languages.id', $request->id)
-                        ->select([ 'languages.id', 'languages.screenId', 'languages.text', 'languages.options', 'languages.updated_at', 'basics.name as screenName' ])
-                        ->get();
+        $data       =   DB::table('languages')
+                        ->select([ 'languages.id', 'languages.text', 'languages.options', 'languages.updated_at' ])
+                        ->where('languages.id', $request->id)->get();
         $response = ['success'=>true, 'data'=>$data[0], 'message' => "Language updated succesfully"];
         return response()->json($response, 201);
     }

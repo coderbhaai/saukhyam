@@ -12,6 +12,7 @@ export class AddProductLanguage extends Component {
             langOptions:                [],
             productId:                  '',
             language:                   '',
+            name:                       '',
             short_description:          '',
             long_description:           '',
             status:                     '',
@@ -64,6 +65,7 @@ export class AddProductLanguage extends Component {
         const data ={
             productId:                          this.state.productId,
             language:                           this.state.language,
+            name:                               this.state.name,
             status:                             this.state.status,
             short_description:                  this.state.short_description,
             long_description:                   this.state.long_description,
@@ -72,7 +74,7 @@ export class AddProductLanguage extends Component {
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.createProductLanguage, data)
         .then( res=> {
-            console.log('res :>> ', res);
+            console.log('res :>> ', res); 
             if(res.data.success){
                 localStorage.setItem('message', res.data.message)
                 window.location.href = func.base+'adminProductLanguage'
@@ -115,6 +117,10 @@ export class AddProductLanguage extends Component {
                                 </div>
                             </div>
                             <div className="row mt-3">
+                                <div className="col-sm-12">
+                                    <label>Product Name</label>
+                                    <input className="form-control" placeholder="Product Name" type="text" name="name" required value={this.state.name} onChange={this.onChange}/>
+                                </div>
                                 <div className="col-sm-6">
                                     <label>Short Description</label>
                                     <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } content= {this.state.short_description} onChange={this.onEditorChange1}/>
