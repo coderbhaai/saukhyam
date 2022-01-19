@@ -636,22 +636,116 @@ class AdminController extends Controller
         return response()->json([ 'data' => $data]); 
     }
     
-    public function shop(){
-        $data       =   DB::table('products')
-                        ->leftJoin('basics', 'basics.id', '=', 'products.type')
-                        ->select([ 'products.id', 'products.name', 'products.type', 'products.wprice', 'products.dprice', 'products.images', 'products.status', 'products.language',
-                        'products.updated_at', 'basics.name as productType' ])
-                        ->get()->map(function($i) {
-                            if($i->images){ $i->imgArray = json_decode($i->images); }
-                            return $i;
-                        });
-        $type       = Basic::select('id', 'name', 'type')->where('type', 'ProductType')->orWhere('type', 'Language')->get();
-        return response()->json([ 'data' => $data, 'type'=>$type ]); 
-    } 
+    public function langShop(){
+        $english = Basic::where('type', 'Language')->where('name', 'English')->first();
+        $lang = User::select('language')->where('id', Auth::user()->id)->first();
+
+        if( $lang->language == 'english' || $lang->language == $english->id ){
+            $checkId = $english->id;
+            $englishDefault = true;
+        }else{
+            $checkId = $lang->language;
+            $englishDefault = false;
+        }
+        $data   =   Products::select([ 'id', 'name', 'type', 'wprice', 'dprice', 'images', 'language'])
+                        ->whereJsonContains('language', (int)$checkId)->where('status', 1)->get()->map(function($i) use($englishDefault, $checkId) {
+                        if($i->images){ 
+                            $i->imgArray = json_decode($i->images); 
+                        }else{
+                            $i->imgArray = [];
+                        }
+                        if(!$englishDefault){
+                            $xx = Productlanguages::where([ ['productId', $i->id], ['language', $checkId] ])->first();
+                            if($xx){ $i->name  =   $xx->name; }
+                        }
+                        return $i;
+                    });
+        return response()->json([ 'data' => $data]); 
+    }
+
+    public function langSingleProduct($id){
+        $english = Basic::where('type', 'Language')->where('name', 'English')->first();
+        $lang = User::select('language')->where('id', Auth::user()->id)->first();
+
+        if( $lang->language == 'english' || $lang->language == $english->id ){
+            $checkId = $english->id;
+            $englishDefault = true;
+        }else{
+            $checkId = $lang->language;
+            $englishDefault = false;
+        }
+        $data   =   Products::where('id', $id)->get()->map(function($i) use($englishDefault, $checkId) {
+                        if($i->images){ 
+                            $i->imgArray = json_decode($i->images); 
+                        }else{
+                            $i->imgArray = [];
+                        }
+                        if($i->dimension){
+                            $dimension = [];
+                            foreach(json_decode($i->dimension) as $j){
+                                $xx = Basic::where('id', (int)$j->text)->first();
+                                array_push($dimension, [ 'text' => (int)$j->text, 'value' => $j->value, 'textField' => $xx->name ] );
+                            }
+                            $i->dimensionArray = $dimension;
+                        }else{
+                            $i->dimensionArray = [];
+                        }
+                        if(!$englishDefault){
+                            $xx = Productlanguages::where([ ['productId', $i->id], ['language', $checkId] ])->first();
+                            if($xx){ 
+                                $i->name                    =   $xx->name; 
+                                $i->short_description       =   $xx->short_description; 
+                                $i->long_description        =   $xx->long_description; 
+                            }
+                        }
+                        return $i;
+                    });
+        return response()->json([ 'data' => $data]); 
+    }
+    
+    public function languageTranslation(){
+        $english = Basic::where('type', 'Language')->where('name', 'English')->first();
+        $lang = User::select('language')->where('id', Auth::user()->id)->first();
+
+        if( $lang->language == 'english' || $lang->language == $english->id ){
+            $checkId = (int)$english->id;
+            $englishDefault = true;
+        }else{
+            $checkId = (int)$lang->language;
+            $englishDefault = false;
+        }
+        $data = Language::select('text', 'options')->get()->map(function($i) use($englishDefault, $checkId) {            
+                    // $check = [];
+                    $xx = null;          
+                    if(!$englishDefault){
+                        foreach(json_decode( $i->options ) as $j){
+                            if ( (int)$j->lang == $checkId ) {
+                                // array_push( $check, [$j->value] );
+                                $xx = $j->value;
+                            }
+                        }
+                        if($xx){
+                            $i['value'] = $xx;
+                        }else{
+                            $i['value'] = '';
+                        }
+                    }
+                    return $i;
+                });
+        return response()->json([ 'data' => $data ]); 
+    }
 
     public function languages(){
         $data       =   Basic::where('type', 'Language')->where('status', 1)->select(['id', 'name'])->get();
         return response()->json([ 'data' => $data]); 
+    }
+
+    public function changeLanguage(Request $request){
+        $dB                     =   User::where('id', Auth::user()->id)->first();
+        $dB->language           =   $request->language;
+        $dB-> save();
+        $response = ['success'=>true, 'language'=> $request->language, 'message' => "Language Changed succesfully"];
+        return response()->json($response, 201);
     }
 
     public function singleProduct($id){
@@ -705,8 +799,74 @@ class AdminController extends Controller
         $dB-> save();        
         $response = ['success'=>true, 'message' => "Form submitted succesfully"];
         return response()->json($response, 201);
+    } 
+    
+    public function myOrders(){
+        $data     =   Orders::where('userId', Auth::user()->id)->get()->map(function($i) {
+            $cart = [];
+            foreach( json_decode($i->order) as $j ){
+                $xx = Products::where('id', $j[0])->select('name', 'wprice', 'dprice', 'images', 'discount')->first();
+                array_push( $cart, 
+                    [ "id" => $j[0], "qty" => $j[1], "name" => $xx->name, "wprice" => $xx->wprice, "dprice" => $xx->dprice, "image" => json_decode( $xx->images )[0], "discount" => $xx->discount, ]
+                );
+            }
+            $i->cart = $cart;
+            return $i;
+        });
+        return response()->json([
+            'data' => $data
+        ]);
     }
+
+    public function createProfile(Request $request){
+        $data = Profiles::updateOrCreate([
+            'userId'   => Auth::user()->id,
+        ],[
+            'userId' => Auth::user()->id,
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'residence' => $request->residence,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'occupation' => $request->occupation,
+            'education' => $request->education,
+            'languages' => $request->languages,
+            'country' => $request->country,
+            'state' => $request->state,
+            'city' => $request->city,
+            'area' => $request->area,
+            'pin' => $request->pin,
+            'image' => $request->image,
+        ]);
+        
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
+
+    public function getProfile(){
+        $data = Profiles::where( 'userId', Auth::user()->id)->first();        
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
     
     // For App
+
+    // Can be deleted
+    public function shop(){
+        $data       =   DB::table('products')
+                        ->leftJoin('basics', 'basics.id', '=', 'products.type')
+                        ->select([ 'products.id', 'products.name', 'products.type', 'products.wprice', 'products.dprice', 'products.images', 'products.status', 'products.language',
+                        'products.updated_at', 'basics.name as productType' ])
+                        ->get()->map(function($i) {
+                            if($i->images){ $i->imgArray = json_decode($i->images); }
+                            return $i;
+                        });
+        $type       = Basic::select('id', 'name', 'type')->where('type', 'ProductType')->orWhere('type', 'Language')->get();
+        return response()->json([ 'data' => $data, 'type'=>$type ]); 
+    } 
 
 }

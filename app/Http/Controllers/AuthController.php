@@ -6,6 +6,7 @@ use Auth;
 use Hash;
 use Mail;
 use App\Models\User;
+use App\Models\Basic;
 use App\Mail\ForgotPassword;
 use App\Mail\ForgotPasswordApp;
 
@@ -35,15 +36,6 @@ class AuthController extends Controller
             $response = ['success'=>false, 'message'=>'Email already registered'];
             return response()->json($response, 201);
         }
-
-        // if($request->password_confirmation === $request->password){
-        // }else{
-        //     $response = ['success'=>false, 'message'=>'Passwords Do Not Match'];   
-        //     return response()->json($response, 201);
-        // }
-
-        // dd($request->all());
-
         $user = new \App\Models\User($payload);
         if ($user->save())
         {
@@ -52,6 +44,14 @@ class AuthController extends Controller
             if($user->role === 'User'){ $tokenResult = $user->createToken('authToken', ['User'])->plainTextToken; }
 
             $user->token = $tokenResult;
+            $lang = Basic::where('type', 'Language')->where('name', 'English')->first();
+            if($lang){
+                $language = $lang->id;
+            }else{
+                $language = 'english';
+            }            
+            $user->language = $language;
+
             $user->save();
             $response = [
                 'success'           =>  true,
@@ -60,7 +60,8 @@ class AuthController extends Controller
                 'access_token'      =>  $tokenResult,
                 'token_type'        => 'Bearer',
                 'message'           => 'Registration Successfull',
-                'data'              =>  $user
+                'data'              =>  $user,
+                'lang'              => $language,
             ];
             return response()->json($response, 201);
         }

@@ -71,10 +71,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/faqQuestion', [AdminController::class, 'faqQuestion']);
     Route::post('/createOrder', [AdminController::class, 'createOrder']);
     Route::get('/faqs', [AdminController::class, 'faqs']);
-    Route::get('/shop', [AdminController::class, 'shop']);
+    Route::get('/langShop', [AdminController::class, 'langShop']);
+    Route::get('/langSingleProduct/{id}', [AdminController::class, 'langSingleProduct']);
     Route::get('/languages', [AdminController::class, 'languages']);
-    Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);
     Route::get('/tutorials', [AdminController::class, 'tutorials']);
     Route::post('/askQuestion', [AdminController::class, 'askQuestion']);
     Route::post('/workshop', [AdminController::class, 'workshop']);
-});
+    Route::post('/changeLanguage', [AdminController::class, 'changeLanguage']);
+    Route::get('/languageTranslation', [AdminController::class, 'languageTranslation']);
+    Route::get('/myOrders', [AdminController::class, 'myOrders']);
+    Route::post('/createProfile', [AdminController::class, 'createProfile']);
+    Route::get('/getProfile', [AdminController::class, 'getProfile']);
+    
+    Route::get('/shop', [AdminController::class, 'shop']);
+    Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);
+}); 
