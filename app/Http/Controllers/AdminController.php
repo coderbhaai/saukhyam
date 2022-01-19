@@ -852,6 +852,21 @@ class AdminController extends Controller
         ]);
     }
 
+    public function homeData(){
+        $videos = [
+            'https://youtu.be/jj9N-15OLd0', 
+            'https://youtu.be/_sHZE1Gl8-8', 
+            'https://youtu.be/S3FWJmTfNFA', 
+            'https://youtu.be/vWmypMXdRYY', 
+            'https://youtu.be/6i_CHEKgbBs', 
+            'https://youtu.be/J5ogvPGkJjo',
+            'https://youtu.be/DZxMu4-PYlk'
+        ];
+        return response()->json([
+            'videos' => $videos
+        ]);
+    }
+
     
     // For App
 

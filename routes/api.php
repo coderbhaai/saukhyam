@@ -68,6 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Admin
     
     // for APP
+    Route::get('/homeData', [AdminController::class, 'homeData']);
     Route::post('/faqQuestion', [AdminController::class, 'faqQuestion']);
     Route::post('/createOrder', [AdminController::class, 'createOrder']);
     Route::get('/faqs', [AdminController::class, 'faqs']);
