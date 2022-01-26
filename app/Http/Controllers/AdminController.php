@@ -512,6 +512,7 @@ class AdminController extends Controller
         $dB->order              =   $request->order;
         $dB->status             =   'Ordered';
         $dB->remarks            =   $request->remarks;
+        $dB->amount             =   $request->amount;
         if($fc){
             $dB->centre         =   $fc;
         }else{
@@ -640,7 +641,7 @@ class AdminController extends Controller
         $english = Basic::where('type', 'Language')->where('name', 'English')->first();
         $lang = User::select('language')->where('id', Auth::user()->id)->first();
 
-        if( $lang->language == 'english' || $lang->language == $english->id ){
+        if( $lang->language == 'english' || $lang->language == $english->id || !$lang->language ){
             $checkId = $english->id;
             $englishDefault = true;
         }else{
