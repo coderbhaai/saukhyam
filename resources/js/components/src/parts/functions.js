@@ -80,6 +80,7 @@ export const adminLinks =[
     {text: 'FAQ', url: base+"adminFaq", active: base+"adminFaq"},
     {text: 'Production Centre', url: base+"productionCentre", active: base+"productionCentre"},
     {text: 'Workshop', url: base+"workshop", active: base+"workshop"},
+    {text: 'Videos', url: base+"videos", active: base+"videos"},
     // {text: 'Network', url: base+"network", active: base+"network"},
 ]
 
@@ -90,6 +91,16 @@ export const basic =[
     {'single': false, text: 'Dimension Type', value: "DimensionType"},
     {'single': false, text: 'App Screen Name', value: "Screen"},
     {'single': false, text: 'Language', value: "Language"},
+]
+
+export const langOptions =[
+    {text: 'English', value: "English"},
+    {text: 'Hindi', value: "Hindi"},
+    {text: 'Marathi', value: "Marathi"},
+    {text: 'Bengali', value: "Bengali"},
+    {text: 'Malyalam', value: "Malyalam"},
+    {text: 'Odiya', value: "Odiya"},
+    {text: 'Tamil', value: "Tamil"},
 ]
 
 export const roles =[

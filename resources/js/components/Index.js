@@ -16,6 +16,7 @@ import ForgotPassword from './src/auth/ForgotPassword'
 import ResetPassword from './src/auth/ResetPassword'
 
 import AdminUser from './src/admin/User'
+import Videos from './src/admin/Videos'
 import AdminBasics from './src/admin/Basics'
 import AdminProducts from './src/admin/Products' 
 import AddProduct from './src/admin/AddProduct' 
@@ -61,6 +62,7 @@ function Index() {
                 <Route exact path={func.base+"productionCentre"} component={RequireAdmin(ProductionCentre)}/>
                 <Route exact path={func.base+"network"} component={RequireAdmin(Network)}/>
                 <Route exact path={func.base+"workshop"} component={RequireAdmin(Workshop)}/>
+                <Route exact path={func.base+"videos"} component={RequireAdmin(Videos)}/>
                 <Route exact path={func.base+"adminProductLanguage"} component={RequireAdmin(ProductLanguage)}/>
                 <Route exact path={func.base+"addProductLanguage"} component={RequireAdmin(AddProductLanguage)}/>
                 <Route exact path={func.base+"updateProductLanguage/:id"} component={RequireAdmin(UpdateProductLanguage)}/>

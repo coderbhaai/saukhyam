@@ -65,25 +65,31 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/updateNetwork', [AdminController::class, 'updateNetwork']);
 
     Route::get('/adminWorkshop', [AdminController::class, 'adminWorkshop']);
+
+    Route::get('/adminVideos', [AdminController::class, 'adminVideos']);
+    Route::post('/createVideo', [AdminController::class, 'createVideo']);
+    Route::post('/updateVideo', [AdminController::class, 'updateVideo']);
     // Admin
     
     // for APP
-    Route::get('/homeData', [AdminController::class, 'homeData']);
     Route::post('/faqQuestion', [AdminController::class, 'faqQuestion']);
     Route::post('/createOrder', [AdminController::class, 'createOrder']);
-    Route::get('/faqs', [AdminController::class, 'faqs']);
-    Route::get('/langShop', [AdminController::class, 'langShop']);
-    Route::get('/langSingleProduct/{id}', [AdminController::class, 'langSingleProduct']);
-    Route::get('/languages', [AdminController::class, 'languages']);
-    Route::get('/tutorials', [AdminController::class, 'tutorials']);
     Route::post('/askQuestion', [AdminController::class, 'askQuestion']);
     Route::post('/workshop', [AdminController::class, 'workshop']);
     Route::post('/changeLanguage', [AdminController::class, 'changeLanguage']);
-    Route::get('/languageTranslation', [AdminController::class, 'languageTranslation']);
-    Route::get('/myOrders', [AdminController::class, 'myOrders']);
     Route::post('/createProfile', [AdminController::class, 'createProfile']);
-    Route::get('/getProfile', [AdminController::class, 'getProfile']);
     
-    Route::get('/shop', [AdminController::class, 'shop']);
-    Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);
 }); 
+
+Route::get('/shop', [AdminController::class, 'shop']);
+Route::get('/videos', [AdminController::class, 'videos']);
+Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);
+Route::get('/homeData', [AdminController::class, 'homeData']);
+Route::get('/faqs', [AdminController::class, 'faqs']);
+Route::get('/langShop', [AdminController::class, 'langShop']);
+Route::get('/langSingleProduct/{id}', [AdminController::class, 'langSingleProduct']);
+Route::get('/languages', [AdminController::class, 'languages']);
+Route::get('/tutorials', [AdminController::class, 'tutorials']);
+Route::get('/languageTranslation', [AdminController::class, 'languageTranslation']);
+Route::get('/myOrders', [AdminController::class, 'myOrders']);
+Route::get('/getProfile', [AdminController::class, 'getProfile']);

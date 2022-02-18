@@ -56,4 +56,7 @@ export default {
 
     adminWorkshop : func.base+'api/adminWorkshop',
 
+    adminVideos : func.base+'api/adminVideos',
+    createVideo : func.base+'api/createVideo',
+    updateVideo : func.base+'api/updateVideo',
 }

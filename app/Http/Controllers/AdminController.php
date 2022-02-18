@@ -8,6 +8,7 @@ use Auth;
 use App\Models\Faq;
 use App\Models\User;
 use App\Models\Basic;
+use App\Models\Video;
 use App\Models\Orders;
 use App\Models\Network;
 use App\Models\Language;
@@ -631,6 +632,47 @@ class AdminController extends Controller
         return response()->json([ 'data' => $data ]); 
     }
 
+    public function adminVideos(){
+        $data = Video::get();
+        return response()->json([ 'data' => $data ]); 
+    }
+
+    public function createVideo(Request $request){
+        $dB                     =   new Video;
+        $dB->language           =   $request->language;
+        $dB->link               =   $request->link;
+        $dB->status             =   $request->status;
+        if ($request->file !== 'null') {
+            $fileName = time().'.'.request()->file->getClientOriginalExtension();
+            request()->file->move(storage_path('app/public/video/'), $fileName);
+            $dB->image = $fileName;
+        }
+        $dB-> save();
+        $data = Video::limit(1)->orderBy('id', 'desc')->first();
+        $response = ['success'=>true, 'data'=>$data, 'message' => "Video created succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function updateVideo(Request $request){
+        $dB                     =  Video::find($request->id);
+        $dB->language           =   $request->language;
+        $dB->link               =   $request->link;
+        $dB->status             =   $request->status;
+        if ($request->file) {
+            $fileName = time().'.'.request()->file->getClientOriginalExtension();
+            request()->file->move(storage_path('app/public/video/'), $fileName);
+            if(!is_null( $dB->image)){
+                $deleteImage = public_path("storage/video/{$dB->image}");        
+                if (isset($deleteImage)) { file::delete($deleteImage); }
+            }
+            $dB->image = $fileName;
+        }
+        $dB-> save();
+        $data = Video::where('id', $request->id)->first();
+        $response = ['success'=>true, 'data'=>$data, 'message' => "Video updated succesfully"];
+        return response()->json($response, 201);
+    }
+
     // For App
     public function faqs(){
         $data       =   Faq::select(['question', 'answer', 'updated_at'])->where('status', 1)->get();
@@ -866,6 +908,11 @@ class AdminController extends Controller
         return response()->json([
             'videos' => $videos
         ]);
+    }
+
+    public function videos(){
+        $data = Video::get();
+        return response()->json([ 'data' => $data ]); 
     }
 
     
