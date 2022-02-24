@@ -19,8 +19,10 @@ export class Videos extends Component {
             language:                   '',
             image:                      '',
             oldImage:                   '',
+            name:                       '',
             link:                       '',
             status:                     '',
+            fixed:                     '',
             langOptions:                [],
             loading:                    true,
         }
@@ -35,10 +37,10 @@ export class Videos extends Component {
         const response = await fetch( api.adminVideos, { headers: { "content-type": "application/json", Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token } } );
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
-
         console.log('body.data', body.data)
         this.setState({
             data:                       body.data,
+            langOptions:                body.lang,
             loading:                    false
         })
     }
@@ -54,8 +56,10 @@ export class Videos extends Component {
         e.preventDefault()
         const data = new FormData()
         data.append('language', this.state.language)
+        data.append('name', this.state.name)
         data.append('link', this.state.link)
         data.append('status', this.state.status)
+        data.append('fixed', this.state.fixed)
         data.append('file', this.state.image)
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         axios.post(api.createVideo, data)
@@ -72,8 +76,10 @@ export class Videos extends Component {
             editmodalIsOpen:                true,
             id:                             i.id,
             language:                       i.language,
+            name:                           i.name,
             link:                           i.link,
             status:                         i.status,
+            fixed:                          i.fixed,
             oldImage:                       i.image,
         })
     }
@@ -83,8 +89,10 @@ export class Videos extends Component {
         const data = new FormData()
         data.append('id', this.state.id)
         data.append('language', this.state.language)
+        data.append('name', this.state.name)
         data.append('link', this.state.link)
         data.append('status', this.state.status)
+        data.append('fixed', this.state.fixed)
         data.append('file', this.state.image)
         data.append('oldImage', this.state.oldImage)
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
@@ -105,10 +113,12 @@ export class Videos extends Component {
             editmodalIsOpen:            false,
             id:                         '',
             language:                   '',
+            name:                       '',
             link:                       '',
             image:                      '',
             oldImage:                   '',
             status:                     '',
+            fixed:                      '',
         })
     }
 
@@ -140,9 +150,11 @@ export class Videos extends Component {
             return (
                 <tr key={index}>
                     <td>{index+1}</td>
-                    <td>{i.language}</td>
+                    <td>{i.name}</td>
+                    <td>{i.langName} - {i.language}</td>
                     <td><img className="previewImg" src={func.imgPath+'video/'+i.image}/></td>
                     <td>{i.link}</td> 
+                    <td>{i.fixed==1? 'Fixed' : null}</td> 
                     <td>
                         <div className="onoffswitch">
                             <input type="checkbox" name="statusSwitch" className="onoffswitch-checkbox" id={'Switch-'+i.id} onChange={(e)=>this.changeStatus(i, e.target.value)} value={i.status} checked={i.status==1? true : false}/>
@@ -182,9 +194,11 @@ export class Videos extends Component {
                                         <thead>
                                             <tr>
                                                 <th>Sl No.</th>
+                                                <th>Name</th>
                                                 <th>Language</th>
                                                 <th>Image</th>
                                                 <th>Link</th>
+                                                <th>Fixed</th>
                                                 <th>Status </th>
                                                 <th>Edit</th>
                                             </tr>
@@ -209,7 +223,7 @@ export class Videos extends Component {
                                 <label>Select Language</label>
                                 <select className="form-control" required name="language" onChange={this.onChange} value={this.state.language}>
                                     <option value=''>Select Language</option>
-                                    {func.langOptions.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
+                                    {this.state.langOptions.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
                                 </select>
                             </div>
                             <div className="col-sm-4">
@@ -222,6 +236,18 @@ export class Videos extends Component {
                                     <option value=''>Select Status</option>
                                     <option value='1'>Active</option>
                                     <option value='0'>Not Active</option>
+                                </select>
+                            </div>
+                            <div className="col-sm-8">
+                                <label>Name</label>
+                                <input className="form-control" placeholder="Add Name Here" type="text" name="name" value={this.state.name} onChange={this.onChange} required/>
+                            </div>
+                            <div className="col-sm-4">
+                                <label>Fixed</label>
+                                <select className="form-control" required name="fixed" onChange={this.onChange} value={this.state.fixed}>
+                                    <option value=''>Select Fixed</option>
+                                    <option value='1'>Fixed</option>
+                                    <option value='0'>Not Fixed</option>
                                 </select>
                             </div>
                             <div className="col-sm-12">
@@ -243,7 +269,7 @@ export class Videos extends Component {
                                 <label>Select Language</label>
                                 <select className="form-control" required name="language" onChange={this.onChange} value={this.state.language}>
                                     <option value=''>Select Language</option>
-                                    {func.langOptions.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
+                                    {this.state.langOptions.map((j,index2)=>( <option value={j.value} key={index2}>{j.text}</option> ))}
                                 </select>
                             </div>
                             <div className="col-sm-4">
@@ -257,6 +283,18 @@ export class Videos extends Component {
                                     <option value=''>Select Status</option>
                                     <option value='1'>Active</option>
                                     <option value='0'>Not Active</option>
+                                </select>
+                            </div>
+                            <div className="col-sm-8">
+                                <label>Name</label>
+                                <input className="form-control" placeholder="Add Name Here" type="text" name="name" value={this.state.name} onChange={this.onChange} required/>
+                            </div>
+                            <div className="col-sm-4">
+                                <label>Fixed</label>
+                                <select className="form-control" required name="fixed" onChange={this.onChange} value={this.state.fixed}>
+                                    <option value=''>Select Fixed</option>
+                                    <option value='1'>Fixed</option>
+                                    <option value='0'>Not Fixed</option>
                                 </select>
                             </div>
                             <div className="col-sm-12">

@@ -93,3 +93,4 @@ Route::get('/tutorials', [AdminController::class, 'tutorials']);
 Route::get('/languageTranslation', [AdminController::class, 'languageTranslation']);
 Route::get('/myOrders', [AdminController::class, 'myOrders']);
 Route::get('/getProfile', [AdminController::class, 'getProfile']);
+Route::get('/videoLang/{id}', [AdminController::class, 'videoLang']);

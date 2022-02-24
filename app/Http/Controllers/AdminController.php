@@ -633,22 +633,27 @@ class AdminController extends Controller
     }
 
     public function adminVideos(){
-        $data = Video::get();
-        return response()->json([ 'data' => $data ]); 
+        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')
+                    ->select('videos.*', 'b.name as langName')->get();
+        $langOptions = Basic::select('id as value','name as text')->where('type', 'Language')->get();
+        return response()->json([ 'data' => $data, "lang"=> $langOptions ]); 
     }
 
     public function createVideo(Request $request){
         $dB                     =   new Video;
         $dB->language           =   $request->language;
+        $dB->name               =   $request->name;
         $dB->link               =   $request->link;
         $dB->status             =   $request->status;
+        $dB->fixed             =   $request->fixed;
         if ($request->file !== 'null') {
             $fileName = time().'.'.request()->file->getClientOriginalExtension();
             request()->file->move(storage_path('app/public/video/'), $fileName);
             $dB->image = $fileName;
         }
         $dB-> save();
-        $data = Video::limit(1)->orderBy('id', 'desc')->first();
+        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
+                ->limit(1)->orderBy('videos.id', 'desc')->first();
         $response = ['success'=>true, 'data'=>$data, 'message' => "Video created succesfully"];
         return response()->json($response, 201);
     }
@@ -656,8 +661,10 @@ class AdminController extends Controller
     public function updateVideo(Request $request){
         $dB                     =  Video::find($request->id);
         $dB->language           =   $request->language;
+        $dB->name               =   $request->name;
         $dB->link               =   $request->link;
         $dB->status             =   $request->status;
+        $dB->fixed             =   $request->fixed;
         if ($request->file) {
             $fileName = time().'.'.request()->file->getClientOriginalExtension();
             request()->file->move(storage_path('app/public/video/'), $fileName);
@@ -668,7 +675,8 @@ class AdminController extends Controller
             $dB->image = $fileName;
         }
         $dB-> save();
-        $data = Video::where('id', $request->id)->first();
+        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
+                    ->where('videos.id', $request->id)->first();
         $response = ['success'=>true, 'data'=>$data, 'message' => "Video updated succesfully"];
         return response()->json($response, 201);
     }
@@ -896,23 +904,33 @@ class AdminController extends Controller
     }
 
     public function homeData(){
-        $videos = [
-            'https://youtu.be/jj9N-15OLd0', 
-            'https://youtu.be/_sHZE1Gl8-8', 
-            'https://youtu.be/S3FWJmTfNFA', 
-            'https://youtu.be/vWmypMXdRYY', 
-            'https://youtu.be/6i_CHEKgbBs', 
-            'https://youtu.be/J5ogvPGkJjo',
-            'https://youtu.be/DZxMu4-PYlk'
-        ];
-        return response()->json([
-            'videos' => $videos
-        ]);
+        $data   =   Products::select([ 'id', 'name', 'type', 'wprice', 'dprice', 'images', 'language'])->where('status', 1)
+            ->whereIn('id', [1,3])
+            ->get()->map(function($i){
+            if($i->images){ 
+                $i->imgArray = json_decode($i->images); 
+            }else{
+                $i->imgArray = [];
+            }
+            return $i;
+        });
+        return response()->json([ 'data' => $data]);
     }
 
     public function videos(){
-        $data = Video::get();
-        return response()->json([ 'data' => $data ]); 
+        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
+                ->where('fixed', '!=', 1)->get();
+        $fixed = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
+                ->where('fixed', 1)->get();
+        return response()->json([ 'data' => $data, "fixed"=> $fixed ]); 
+    }
+
+    public function videoLang($id){
+        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
+                ->where('fixed', '!=', 1)->where('language', $id)->get();
+        $fixed = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
+                ->where('fixed', 1)->where('language', $id)->get();
+        return response()->json([ 'data' => $data, "fixed"=> $fixed ]);
     }
 
     
