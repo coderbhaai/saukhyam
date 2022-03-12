@@ -689,16 +689,15 @@ class AdminController extends Controller
     
     public function langShop(){
         $english = Basic::where('type', 'Language')->where('name', 'English')->first();
-        $lang = User::select('language')->where('id', Auth::user()->id)->first();
-
-        if( $lang->language == 'english' || $lang->language == $english->id || !$lang->language ){
-            $checkId = $english->id;
-            $englishDefault = true;
-        }else{
+        $checkId = $english->id;
+        $englishDefault = true;
+        if(Auth::user()){
+            $lang = User::select('language')->where('id', Auth::user()->id)->first();
             $checkId = $lang->language;
             $englishDefault = false;
         }
-        $data   =   Products::select([ 'id', 'name', 'type', 'wprice', 'dprice', 'images', 'language'])
+
+        $data   =   Products::select([ 'id', 'name', 'type', 'wprice', 'dprice', 'images', 'language', 'mov'])
                         ->whereJsonContains('language', (int)$checkId)->where('status', 1)->get()->map(function($i) use($englishDefault, $checkId) {
                         if($i->images){ 
                             $i->imgArray = json_decode($i->images); 
@@ -716,12 +715,10 @@ class AdminController extends Controller
 
     public function langSingleProduct($id){
         $english = Basic::where('type', 'Language')->where('name', 'English')->first();
-        $lang = User::select('language')->where('id', Auth::user()->id)->first();
-
-        if( $lang->language == 'english' || $lang->language == $english->id ){
-            $checkId = $english->id;
-            $englishDefault = true;
-        }else{
+        $checkId = $english->id;
+        $englishDefault = true;
+        if(Auth::user()){
+            $lang = User::select('language')->where('id', Auth::user()->id)->first();
             $checkId = $lang->language;
             $englishDefault = false;
         }
@@ -756,13 +753,11 @@ class AdminController extends Controller
     
     public function languageTranslation(){
         $english = Basic::where('type', 'Language')->where('name', 'English')->first();
-        $lang = User::select('language')->where('id', Auth::user()->id)->first();
-
-        if( $lang->language == 'english' || $lang->language == $english->id ){
-            $checkId = (int)$english->id;
-            $englishDefault = true;
-        }else{
-            $checkId = (int)$lang->language;
+        $checkId = $english->id;
+        $englishDefault = true;
+        if(Auth::user()){
+            $lang = User::select('language')->where('id', Auth::user()->id)->first();
+            $checkId = $lang->language;
             $englishDefault = false;
         }
         $data = Language::select('text', 'options')->get()->map(function($i) use($englishDefault, $checkId) {            
@@ -856,9 +851,9 @@ class AdminController extends Controller
         $data     =   Orders::where('userId', Auth::user()->id)->get()->map(function($i) {
             $cart = [];
             foreach( json_decode($i->order) as $j ){
-                $xx = Products::where('id', $j[0])->select('name', 'wprice', 'dprice', 'images', 'discount')->first();
+                $xx = Products::where('id', $j->id)->select('name', 'wprice', 'dprice', 'images', 'discount')->first();
                 array_push( $cart, 
-                    [ "id" => $j[0], "qty" => $j[1], "name" => $xx->name, "wprice" => $xx->wprice, "dprice" => $xx->dprice, "image" => json_decode( $xx->images )[0], "discount" => $xx->discount, ]
+                    [ "id" => $j->id, "qty" => $j->qty, "name" => $xx->name, "wprice" => $xx->wprice, "dprice" => $xx->dprice, "image" => json_decode( $xx->images )[0], "discount" => $xx->discount, ]
                 );
             }
             $i->cart = $cart;
@@ -904,7 +899,7 @@ class AdminController extends Controller
     }
 
     public function homeData(){
-        $data   =   Products::select([ 'id', 'name', 'type', 'wprice', 'dprice', 'images', 'language'])->where('status', 1)
+        $data   =   Products::select([ 'id', 'name', 'type', 'wprice', 'dprice', 'images', 'language', 'mov'])->where('status', 1)
             ->whereIn('id', [1,3])
             ->get()->map(function($i){
             if($i->images){ 
