@@ -18,6 +18,9 @@ use App\Models\Workshop;
 use App\Models\Tutorials;
 use App\Models\Productlanguages;
 use App\Models\ProductionCentre;
+use App\Models\Contact;
+use App\Models\Notification;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -681,6 +684,64 @@ class AdminController extends Controller
         return response()->json($response, 201);
     }
 
+    public function adminContact(){
+        $data = Rating::get();
+        return response()->json([ 'data' => $data ]); 
+    }
+
+    public function adminRating(){
+        $data = Rating::leftJoin('users', 'users.id', 'ratings.userId')
+                    ->select('ratings.*', 'users.name')->get();
+        return response()->json([ 'data' => $data ]); 
+    }
+
+    public function adminNotification(){
+        $data = Notification::get();
+        return response()->json([ 'data' => $data ]); 
+    }
+
+    public function createNotification(Request $request){
+        $dB                     =   new Notification;
+        $dB->language           =   $request->language;
+        $dB->name               =   $request->name;
+        $dB->link               =   $request->link;
+        $dB->status             =   $request->status;
+        $dB->fixed             =   $request->fixed;
+        if ($request->file !== 'null') {
+            $fileName = time().'.'.request()->file->getClientOriginalExtension();
+            request()->file->move(storage_path('app/public/video/'), $fileName);
+            $dB->image = $fileName;
+        }
+        $dB-> save();
+        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
+                ->limit(1)->orderBy('videos.id', 'desc')->first();
+        $response = ['success'=>true, 'data'=>$data, 'message' => "Video created succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function updateNotification(Request $request){
+        $dB                     =  Video::find($request->id);
+        $dB->language           =   $request->language;
+        $dB->name               =   $request->name;
+        $dB->link               =   $request->link;
+        $dB->status             =   $request->status;
+        $dB->fixed             =   $request->fixed;
+        if ($request->file) {
+            $fileName = time().'.'.request()->file->getClientOriginalExtension();
+            request()->file->move(storage_path('app/public/video/'), $fileName);
+            if(!is_null( $dB->image)){
+                $deleteImage = public_path("storage/video/{$dB->image}");        
+                if (isset($deleteImage)) { file::delete($deleteImage); }
+            }
+            $dB->image = $fileName;
+        }
+        $dB-> save();
+        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
+                    ->where('videos.id', $request->id)->first();
+        $response = ['success'=>true, 'data'=>$data, 'message' => "Video updated succesfully"];
+        return response()->json($response, 201);
+    }
+
     // For App
     public function faqs(){
         $data       =   Faq::select(['question', 'answer', 'updated_at'])->where('status', 1)->get();
@@ -922,20 +983,43 @@ class AdminController extends Controller
 
     public function videoLang($id){
         $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
-                ->where('fixed', '!=', 1)->where('language', $id)->get();
+                ->where('fixed', '!=', 1)->where('language', $id)->limit(7)->get();
         $fixed = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
-                ->where('fixed', 1)->where('language', $id)->get();
+                ->where('fixed', 1)->where('language', $id)->limit(1)->get();
         return response()->json([ 'data' => $data, "fixed"=> $fixed ]);
     }
 
-    
+    public function createContact(Request $request){
+        $dB                     =   new Contact;
+        $dB->name               =   $request->name;
+        $dB->email              =   $request->email;
+        $dB->message            =   $request->message;
+        $dB-> save();        
+        $response = ['success'=>true,  'message' => "Contact form filled succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function createRating(Request $request){
+        if(Auth::user()){
+            $dB                     =   new Rating;
+            $dB->userId             =   Auth::user()->id;
+            $dB->rate               =   $request->rate;
+            $dB->review             =   $request->review;
+            $dB-> save();        
+            $response = ['success'=>true,  'message' => "Rating submitted succesfully"];
+        }else{
+            $response = ['success'=>false,  'message' => "Please login to rate us"];
+
+        }
+        return response()->json($response, 201);
+    }
     // For App
 
     // Can be deleted
     public function shop(){
         $data       =   DB::table('products')
                         ->leftJoin('basics', 'basics.id', '=', 'products.type')
-                        ->select([ 'products.id', 'products.name', 'products.type', 'products.wprice', 'products.dprice', 'products.images', 'products.status', 'products.language',
+                        ->select([ 'products.id', 'products.name', 'products.type', 'products.wprice', 'products.dprice', 'products.images', 'products.status', 'products.language', 'products.mov',
                         'products.updated_at', 'basics.name as productType' ])
                         ->get()->map(function($i) {
                             if($i->images){ $i->imgArray = json_decode($i->images); }

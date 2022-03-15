@@ -69,6 +69,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/adminVideos', [AdminController::class, 'adminVideos']);
     Route::post('/createVideo', [AdminController::class, 'createVideo']);
     Route::post('/updateVideo', [AdminController::class, 'updateVideo']);
+    
+    Route::get('/adminContact', [AdminController::class, 'adminContact']);
+    Route::get('/adminRating', [AdminController::class, 'adminRating']);
+
+    Route::get('/adminNotification', [AdminController::class, 'adminNotification']);
+    Route::post('/createNotification', [AdminController::class, 'createNotification']);
+    Route::post('/updateNotification', [AdminController::class, 'updateNotification']);
     // Admin
     
     // for APP
@@ -80,6 +87,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/createProfile', [AdminController::class, 'createProfile']);
     Route::get('/myOrders', [AdminController::class, 'myOrders']);
     Route::get('/getProfile', [AdminController::class, 'getProfile']);    
+    Route::post('/createRating', [AdminController::class, 'createRating']);
 }); 
 
 Route::get('/shop', [AdminController::class, 'shop']);
@@ -93,3 +101,5 @@ Route::get('/languages', [AdminController::class, 'languages']);
 Route::get('/tutorials', [AdminController::class, 'tutorials']);
 Route::get('/languageTranslation', [AdminController::class, 'languageTranslation']);
 Route::get('/videoLang/{id}', [AdminController::class, 'videoLang']);
+Route::post('/createContact', [AdminController::class, 'createContact']);
+Route::get('/notifications', [AdminController::class, 'notifications']);

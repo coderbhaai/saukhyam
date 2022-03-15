@@ -59,4 +59,11 @@ export default {
     adminVideos : func.base+'api/adminVideos',
     createVideo : func.base+'api/createVideo',
     updateVideo : func.base+'api/updateVideo',
+
+    adminNotification : func.base+'api/adminNotification',
+    createNotification : func.base+'api/createNotification',
+    updateNotification : func.base+'api/updateNotification',
+    
+    adminContact : func.base+'api/adminContact',
+    adminRating : func.base+'api/adminRating',
 }

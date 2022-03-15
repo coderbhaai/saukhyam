@@ -81,6 +81,9 @@ export const adminLinks =[
     {text: 'Production Centre', url: base+"productionCentre", active: base+"productionCentre"},
     {text: 'Workshop', url: base+"workshop", active: base+"workshop"},
     {text: 'Videos', url: base+"videos", active: base+"videos"},
+    {text: 'Contact', url: base+"admincontact", active: base+"admincontact"},
+    {text: 'Notification', url: base+"adminnotification", active: base+"adminnotification"},
+    {text: 'Ratings', url: base+"adminrating", active: base+"adminrating"},
     // {text: 'Network', url: base+"network", active: base+"network"},
 ]
 
