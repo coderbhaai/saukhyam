@@ -63,6 +63,7 @@ export default {
     adminNotification : func.base+'api/adminNotification',
     createNotification : func.base+'api/createNotification',
     updateNotification : func.base+'api/updateNotification',
+    changeNotificationStatus : func.base+'api/changeNotificationStatus',
     
     adminContact : func.base+'api/adminContact',
     adminRating : func.base+'api/adminRating',

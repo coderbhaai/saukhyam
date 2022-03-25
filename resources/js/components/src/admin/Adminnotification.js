@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AdminSidebar from '../parts/AdminSidebar'
 import { Modal } from 'reactstrap'
+import moment from "moment"
 import api from '../parts/api'
 const func = require('../parts/functions')
 import { ExportReactCSV } from '../parts/ExportReactCSV'
@@ -45,61 +46,36 @@ export class Adminnotification extends Component {
 
     addModal = (e) => {
         e.preventDefault()
-        var allOk= false
-        if(this.state.type=='ProductType' || this.state.type=='DimensionType' || this.state.type=='Screen' || this.state.type=='Language'){
-            if(this.state.data.some(i=>i.name==this.state.name)){
-                console.log('1, DUPLICATE');
-                func.callSwal('Duplicate Entry')
-                var allOk = false
-            }else{
-                console.log('2, DUPLICATE');
-                var allOk = true
-            }
-        }
-        if(allOk){
-            const data = new FormData()
-            data.append('type', this.state.type)
-            data.append('name', this.state.name)
-            data.append('tab1', this.state.tab1)
-            data.append('tab2', this.state.tab2)
-            data.append('tab3', this.state.tab3)
-            data.append('status', this.state.status)
-            const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-            axios.post(api.createBasic, data)
-            .then( res=> {
-                if(res.data.success){ this.setState({ data: [ res.data.data, ...this.state.data ] }) }
-                func.callSwal(res.data.message)
-                this.resetData()
-            })
-            .catch(err=>func.printError(err))
-        }        
+        const data = new FormData()
+        data.append('message', this.state.message)
+        data.append('status', this.state.status)
+        const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+        axios.post(api.createNotification, data)
+        .then( res=> {
+            if(res.data.success){ this.setState({ data: [ res.data.data, ...this.state.data ] }) }
+            func.callSwal(res.data.message)
+            this.resetData()
+        })
+        .catch(err=>func.printError(err))
     }
 
     editModalOn = (i)=>{
         this.setState({
             editmodalIsOpen:                true,
             id:                             i.id,
-            name:                           i.name,
-            type:                           i.type,
+            message:                        i.message,
             status:                         i.status
         })
-        if(i.tab1){ this.setState({ tab1: i.tab1 }) }
-        if(i.tab2){ this.setState({ tab2: i.tab2 }) }
-        if(i.tab3){ this.setState({ tab3: i.tab3 }) }
     }
 
     updateModal = (e) => {
         e.preventDefault()
         const data = new FormData()
         data.append('id', this.state.id)
-        data.append('type', this.state.type)
-        data.append('name', this.state.name)
-        data.append('tab1', this.state.tab1)
-        data.append('tab2', this.state.tab2)
-        data.append('tab3', this.state.tab3) 
+        data.append('message', this.state.message) 
         data.append('status', this.state.status)       
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        axios.post(api.updateBasic, data)
+        axios.post(api.updateNotification, data)
         .then( res=> {
             if(res.data.success){ 
                 this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })
@@ -127,7 +103,7 @@ export class Adminnotification extends Component {
             status:                     status
         }
         const token = JSON.parse(localStorage.getItem('user')).token; axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        axios.post(api.changeBasicStatus, data)
+        axios.post(api.changeNotificationStatus, data)
         .then( res=>{
             if(res.data.success){ this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) }
             func.callSwal(res.data.message)
@@ -155,6 +131,7 @@ export class Adminnotification extends Component {
                             <label className="onoffswitch-label" htmlFor={'Switch-'+i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
                         </div>
                     </td>
+                    <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
                     <td className="editIcon text-center" onClick={()=>this.editModalOn(i)}><img src="/images/icons/edit.svg"/></td>
                 </tr>
         )})

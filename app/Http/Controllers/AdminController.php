@@ -685,7 +685,7 @@ class AdminController extends Controller
     }
 
     public function adminContact(){
-        $data = Rating::get();
+        $data = Contact::get();
         return response()->json([ 'data' => $data ]); 
     }
 
@@ -702,43 +702,30 @@ class AdminController extends Controller
 
     public function createNotification(Request $request){
         $dB                     =   new Notification;
-        $dB->language           =   $request->language;
-        $dB->name               =   $request->name;
-        $dB->link               =   $request->link;
+        $dB->message           =   $request->message;
         $dB->status             =   $request->status;
-        $dB->fixed             =   $request->fixed;
-        if ($request->file !== 'null') {
-            $fileName = time().'.'.request()->file->getClientOriginalExtension();
-            request()->file->move(storage_path('app/public/video/'), $fileName);
-            $dB->image = $fileName;
-        }
         $dB-> save();
-        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
-                ->limit(1)->orderBy('videos.id', 'desc')->first();
-        $response = ['success'=>true, 'data'=>$data, 'message' => "Video created succesfully"];
+        $data = Notification::limit(1)->orderBy('id', 'desc')->first();
+        $response = ['success'=>true, 'data'=>$data, 'message' => "Notification created succesfully"];
         return response()->json($response, 201);
     }
 
     public function updateNotification(Request $request){
-        $dB                     =  Video::find($request->id);
-        $dB->language           =   $request->language;
-        $dB->name               =   $request->name;
-        $dB->link               =   $request->link;
+        $dB                     =  Notification::find($request->id);
+        $dB->message           =   $request->message;
         $dB->status             =   $request->status;
-        $dB->fixed             =   $request->fixed;
-        if ($request->file) {
-            $fileName = time().'.'.request()->file->getClientOriginalExtension();
-            request()->file->move(storage_path('app/public/video/'), $fileName);
-            if(!is_null( $dB->image)){
-                $deleteImage = public_path("storage/video/{$dB->image}");        
-                if (isset($deleteImage)) { file::delete($deleteImage); }
-            }
-            $dB->image = $fileName;
-        }
         $dB-> save();
-        $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
-                    ->where('videos.id', $request->id)->first();
-        $response = ['success'=>true, 'data'=>$data, 'message' => "Video updated succesfully"];
+        $data = Notification::where('id', $request->id)->first();
+        $response = ['success'=>true, 'data'=>$data, 'message' => "Notification updated succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function changeNotificationStatus(Request $request){
+        $dB                   =   Notification::find($request->id);
+        $dB->status           =   $request->status;
+        $dB-> save();
+        $data = Notification::where('id', $request->id)->first();
+        $response = ['success'=>true, 'data'=>$data, 'message'=>'Notification Updated Succesfully'];
         return response()->json($response, 201);
     }
 
@@ -1000,19 +987,36 @@ class AdminController extends Controller
     }
 
     public function createRating(Request $request){
-        if(Auth::user()){
-            $dB                     =   new Rating;
-            $dB->userId             =   Auth::user()->id;
-            $dB->rate               =   $request->rate;
-            $dB->review             =   $request->review;
-            $dB-> save();        
-            $response = ['success'=>true,  'message' => "Rating submitted succesfully"];
-        }else{
-            $response = ['success'=>false,  'message' => "Please login to rate us"];
-
-        }
+        if(Auth::user()){ $id = Auth::user()->id; }else{ $id = "Guest"; }
+        $dB                     =   new Rating;
+        $dB->userId             =   $id;
+        $dB->rate               =   $request->rate;
+        $dB->review             =   $request->review;
+        $dB-> save();        
+        $response = ['success'=>true,  'message' => "Rating submitted succesfully"];
         return response()->json($response, 201);
     }
+
+    public function notifications(){
+        $data = Notification::get();
+        return response()->json([ 'data' => $data ]); 
+    }
+
+    public function singleOrder($id){
+        $data     =   Orders::where('id', $id)->get()->map(function($i) {
+            $cart = [];
+            foreach( json_decode($i->order) as $j ){
+                $xx = Products::where('id', $j->id)->select('name', 'wprice', 'dprice', 'images', 'discount')->first();
+                array_push( $cart, 
+                    [ "id" => $j->id, "qty" => $j->qty, "name" => $xx->name, "wprice" => $xx->wprice, "dprice" => $xx->dprice, "image" => json_decode( $xx->images )[0], "discount" => $xx->discount, ]
+                );
+            }
+            $i->cart = $cart;
+            return $i;
+        });
+        return response()->json([ 'data' => $data ]);
+    }
+
     // For App
 
     // Can be deleted

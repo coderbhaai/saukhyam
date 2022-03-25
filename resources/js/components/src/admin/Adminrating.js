@@ -56,7 +56,7 @@ export class Adminrating extends Component {
           <div className="row">
               <AdminSidebar/>
               <div className="col-sm-10 admin">
-                  <h1 className="heading"><span>Admin Panel </span>(Orders)</h1>
+                  <h1 className="heading"><span>Admin Panel </span>(Ratings)</h1>
                   {this.state.loading? <div className="loading"><img src={func.base+"images/logo.png"}/></div> :<>
                       <div className="btn-pag">
                           <div className="flex-h">
@@ -84,7 +84,7 @@ export class Adminrating extends Component {
                               </thead>
                               <tbody>{renderItems}</tbody>
                           </table>
-                          <ExportReactCSV csvData={data} fileName={'Contact -'+func.time+'.xls'}/>
+                          <ExportReactCSV csvData={data} fileName={'Ratings -'+func.time+'.xls'}/>
                       </div>
                       <ul className="page-numbers">{renderPagination}</ul>
                   </>}

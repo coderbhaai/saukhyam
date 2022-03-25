@@ -76,6 +76,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/adminNotification', [AdminController::class, 'adminNotification']);
     Route::post('/createNotification', [AdminController::class, 'createNotification']);
     Route::post('/updateNotification', [AdminController::class, 'updateNotification']);
+    Route::post('/changeNotificationStatus', [AdminController::class, 'changeNotificationStatus']);
     // Admin
     
     // for APP
@@ -87,9 +88,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/createProfile', [AdminController::class, 'createProfile']);
     Route::get('/myOrders', [AdminController::class, 'myOrders']);
     Route::get('/getProfile', [AdminController::class, 'getProfile']);    
-    Route::post('/createRating', [AdminController::class, 'createRating']);
 }); 
+Route::get('/order/{id}', [AdminController::class, 'singleOrder']);
 
+Route::post('/createRating', [AdminController::class, 'createRating']);
 Route::get('/shop', [AdminController::class, 'shop']);
 Route::get('/videos', [AdminController::class, 'videos']);
 Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);

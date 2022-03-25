@@ -32,11 +32,12 @@ export class Admincontact extends Component {
   }
 
   render() {
+      console.log('this.state.data', this.state.data)
     const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
         const data =  this.state.data.filter((i)=>{ 
-            if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
+            if(this.state.search == null) return i; else if(i.email.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }
         })
         const renderItems =  data.slice(indexOfFirstItem, indexOfLastItem).map((i, index) => {
             return (
