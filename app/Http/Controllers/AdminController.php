@@ -969,10 +969,21 @@ class AdminController extends Controller
     }
 
     public function videoLang($id){
+        if($id == "eng"){
+            $data       =   Basic::where('type', 'Language')->where('name', 'English')->select(['id', 'name'])->first();
+            if($data){
+                $langId = $data->id;
+            }else{
+                $xx       =   Basic::where('type', 'Language')->select(['id', 'name'])->first();
+                $langId = $xx->id;
+            }
+        }else{
+            $langId = $id;
+        }
         $data = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
-                ->where('fixed', '!=', 1)->where('language', $id)->limit(7)->get();
+                ->where('fixed', '!=', 1)->where('language', $langId)->limit(7)->get();
         $fixed = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
-                ->where('fixed', 1)->where('language', $id)->limit(1)->get();
+                ->where('fixed', 1)->where('language', $langId)->limit(1)->get();
         return response()->json([ 'data' => $data, "fixed"=> $fixed ]);
     }
 
