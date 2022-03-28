@@ -808,22 +808,29 @@ class AdminController extends Controller
             $checkId = $lang->language;
             $englishDefault = false;
         }
-        $data = Language::select('text', 'options')->get()->map(function($i) use($englishDefault, $checkId) {            
+        $data = Language::select('text', 'options')->get()->map(function($i) use($englishDefault, $checkId) {   
+                    $i['value'] = json_decode( $i->options, true);
                     // $check = [];
-                    $xx = null;          
-                    if(!$englishDefault){
-                        foreach(json_decode( $i->options ) as $j){
-                            if ( (int)$j->lang == $checkId ) {
-                                // array_push( $check, [$j->value] );
-                                $xx = $j->value;
-                            }
-                        }
-                        if($xx){
-                            $i['value'] = $xx;
-                        }else{
-                            $i['value'] = '';
-                        }
-                    }
+                    // $xx = null;          
+                    // if(!$englishDefault){
+                    //     // foreach(json_decode( $i->options ) as $j){
+                    //     //     if ( (int)$j->lang == $checkId ) {
+                    //     //         // array_push( $check, [$j->value] );
+                    //     //         $xx = json_decode( $j->value, true);
+                    //     //     }
+                    //     // }
+                    //     // foreach(json_decode( $i->options ) as $j){
+                    //     //     if ( (int)$j->lang == $checkId ) {
+                    //     //         // array_push( $check, [$j->value] );
+                    //     //         $xx = json_decode( $j->value, true);
+                    //     //     }
+                    //     // }
+                    //     // if($xx){
+                    //     //     $i['value'] = $xx;
+                    //     // }else{
+                    //     //     $i['value'] = '';
+                    //     // }
+                    // }
                     return $i;
                 });
         return response()->json([ 'data' => $data ]); 

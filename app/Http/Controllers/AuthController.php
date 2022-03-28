@@ -186,4 +186,215 @@ class AuthController extends Controller
         }
         return response()->json($response, 201);
     }
+
+    public function socialregister(Request $request){
+        $payload = [
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'socialId'=>$request->socialId,
+            'phone'=>$request->phone,
+            'role'=>"User",
+            'provider'=>$request->provider,
+            'refrence'=> NULL,
+            'referral_code'=>time(),
+            'image'=>NULL,
+            'password'=>\Hash::make($request->socialId),
+        ];
+        $existing = User::where('socialId', $request->socialId )->where('provider',$request->provider)->first();
+        if (!is_null($existing)) {
+            $response = ['success'=>false, 'message'=>'Account already registered'];
+            return response()->json($response, 201);
+        }
+        $user = new \App\Models\User($payload);
+        if ($user->save())
+        {
+            $user = \App\Models\User::where('socialId', $request->socialId )->where('provider', $request->provider)->first();
+            if($user->role == 'User'){ $tokenResult = $user->createToken('authToken', ['User'])->plainTextToken; }
+
+            $user->token = $tokenResult;
+            $lang = Basic::where('type', 'Language')->where('name', 'English')->first();
+            if($lang){
+                $language = $lang->id;
+            }else{
+                $language = 'english';
+            }            
+            $user->language = $language;
+
+            $user->save();
+            $response = [
+                'success'           =>  true,
+                'message'           =>  'Registration succesful',
+                'status_code'       =>  200,
+                'access_token'      =>  $tokenResult,
+                'token_type'        => 'Bearer',
+                'message'           => 'Registration Successfull',
+                'data'              =>  $user,
+                'lang'              =>  $language,
+            ];
+            return response()->json($response, 201);
+        }
+    }
+
+    public function sociallogin(Request $request){
+        try {
+                $request->validate([
+                    'socialId'          => 'required',
+                    'provider'          => 'required'
+                ]);
+
+                if(!(User::where('socialId', $request->socialId )->where('provider',$request->provider)->exists())){
+                    return response()->json([
+                        'success'       =>  false, 
+                        'message'       =>  "No account by this name. Please register",
+                        'access_token'  =>  null
+                    ]);
+                }
+                $user = User::where('socialId', $request->socialId )->where('provider',$request->provider)->first();
+                if ( ! Hash::check($request->socialId, $user->password, [])) {
+                    throw new \Exception('Error in Login');
+                }
+                
+                if($user->role === 'User'){ $tokenResult = $user->createToken('authToken', ['User'])->plainTextToken; }
+
+                $user->token = $tokenResult;
+                return response()->json([
+                    'success'           => true,
+                    'status_code'       => 200,
+                    'access_token'      => $tokenResult,
+                    'token_type'        => 'Bearer',
+                    'message'           => 'Welcome Aboard',
+                    'data'              =>  $user
+                ]);
+            } 
+        catch (Exception $error) {
+            return response()->json([
+                'status_code' => 500,
+                'message' => 'Error in Login',
+                'error' => $error,
+            ]);
+        }
+    }
+
+    public function socialaccess(Request $request){
+        try {
+            if( User::where('socialId', $request->socialId )->where('provider',$request->provider)->exists() ){
+                $user = User::where('socialId', $request->socialId )->where('provider',$request->provider)->first();
+                if ( ! Hash::check($request->socialId, $user->password, [])) {
+                    throw new \Exception('Error in Login');
+                }
+                if($user->role === 'User'){ $tokenResult = $user->createToken('authToken', ['User'])->plainTextToken; }
+                $user->token = $tokenResult;
+                return response()->json([
+                    'success'           => true,
+                    'status_code'       => 200,
+                    'access_token'      => $tokenResult,
+                    'token_type'        => 'Bearer',
+                    'message'           => 'Welcome Aboard',
+                    'data'              =>  $user
+                ]);
+            }else{
+                $payload = [
+                    'name'=>$request->name,
+                    'email'=>$request->email,
+                    'socialId'=>$request->socialId,
+                    'phone'=>$request->phone,
+                    'role'=>"User",
+                    'provider'=>$request->provider,
+                    'refrence'=> NULL,
+                    'referral_code'=>time(),
+                    'image'=>NULL,
+                    'password'=>\Hash::make($request->socialId),
+                ];
+                $user = new \App\Models\User($payload);
+
+                if ($user->save()){
+                    $user = \App\Models\User::where('socialId', $request->socialId )->where('provider', $request->provider)->first();
+                    if($user->role == 'User'){ $tokenResult = $user->createToken('authToken', ['User'])->plainTextToken; }
+
+                    $user->token = $tokenResult;
+                    $lang = Basic::where('type', 'Language')->where('name', 'English')->first();
+                    if($lang){
+                        $language = $lang->id;
+                    }else{
+                        $language = 'english';
+                    }            
+                    $user->language = $language;
+
+                    $user->save();
+                    $response = [
+                        'success'           =>  true,
+                        'message'           =>  'Registration succesful',
+                        'status_code'       =>  200,
+                        'access_token'      =>  $tokenResult,
+                        'token_type'        => 'Bearer',
+                        'message'           => 'Registration Successfull',
+                        'data'              =>  $user,
+                        'lang'              =>  $language,
+                    ];
+                    return response()->json($response, 201);
+                }
+            }
+        }catch (Exception $error) {
+            return response()->json([
+                'status_code' => 500,
+                'message' => 'Error in Login',
+                'error' => $error,
+            ]);
+        }
+
+
+
+
+
+
+
+
+
+
+        $payload = [
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'socialId'=>$request->socialId,
+            'phone'=>$request->phone,
+            'role'=>"User",
+            'provider'=>$request->provider,
+            'refrence'=> NULL,
+            'referral_code'=>time(),
+            'image'=>NULL,
+            'password'=>\Hash::make($request->socialId),
+        ];
+        $existing = User::where('socialId', $request->socialId )->where('provider',$request->provider)->first();
+        if (!is_null($existing)) {
+            $response = ['success'=>false, 'message'=>'Account already registered'];
+            return response()->json($response, 201);
+        }
+        $user = new \App\Models\User($payload);
+        if ($user->save())
+        {
+            $user = \App\Models\User::where('socialId', $request->socialId )->where('provider', $request->provider)->first();
+            if($user->role == 'User'){ $tokenResult = $user->createToken('authToken', ['User'])->plainTextToken; }
+
+            $user->token = $tokenResult;
+            $lang = Basic::where('type', 'Language')->where('name', 'English')->first();
+            if($lang){
+                $language = $lang->id;
+            }else{
+                $language = 'english';
+            }            
+            $user->language = $language;
+
+            $user->save();
+            $response = [
+                'success'           =>  true,
+                'message'           =>  'Registration succesful',
+                'status_code'       =>  200,
+                'access_token'      =>  $tokenResult,
+                'token_type'        => 'Bearer',
+                'message'           => 'Registration Successfull',
+                'data'              =>  $user,
+                'lang'              =>  $language,
+            ];
+            return response()->json($response, 201);
+        }
+    }
 }

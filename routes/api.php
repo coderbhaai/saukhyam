@@ -7,6 +7,9 @@ use App\Http\Controllers\AdminController;
 
 Route::post('/register', 'App\Http\Controllers\AuthController@register');
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
+Route::post('/socialregister', 'App\Http\Controllers\AuthController@socialregister');
+Route::post('/sociallogin', 'App\Http\Controllers\AuthController@sociallogin');
+Route::post('/socialaccess', 'App\Http\Controllers\AuthController@socialaccess');
 Route::post('/forgotPassword', 'App\Http\Controllers\AuthController@forgotPassword');
 Route::post('/forgotPasswordApp', 'App\Http\Controllers\AuthController@forgotPasswordApp'); 
 Route::post('/resetPassword', 'App\Http\Controllers\AuthController@resetPassword');
