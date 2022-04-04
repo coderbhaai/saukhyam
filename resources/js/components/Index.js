@@ -7,6 +7,7 @@ import Footer from './src/parts/Footer'
 
 import Home from './src/pages/Home'
 import Privacy from './src/pages/Privacy'
+import Tnc from './src/pages/Tnc'
 import Auth from './src/auth/Auth'
 
 import Register from './src/auth/Register'
@@ -51,6 +52,7 @@ function Index() {
                 <Route exact path={func.base+"forgotPassword"} component={ForgotPassword} /> 
                 <Route exact path={func.base+"resetPassword/:token"} component={ResetPassword} />  
                 <Route exact path={func.base+"privacy-policy"} component={Privacy} /> 
+                <Route exact path={func.base+"terms-and-conditions"} component={Tnc} /> 
 
                 <Route exact path={func.base+"admin"} component={RequireAdmin(AdminUser)}/>
                 <Route exact path={func.base+"adminUsers"} component={RequireAdmin(AdminUser)}/>
