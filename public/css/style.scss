@@ -554,6 +554,17 @@ button, button:focus, input, input:focus{
         z-index: -1;
     }
 }
+ul.implinks{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    li{
+        padding: 0 1em;
+        a{
+            color: #000;
+        }
+    }
+}
 // Responsive CSS
 @media (max-width:1300px) {
     .authTwo{

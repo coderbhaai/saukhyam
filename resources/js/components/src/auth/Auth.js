@@ -286,6 +286,14 @@ export class Auth extends Component {
                                 {/* <div className="check"><button>CHECK NOW</button></div> */}
                             </div>
                         </div>
+                        <div className="row">
+                            <div className="col-sm-12">
+                                <ul className='implinks'>
+                                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                                    <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <img src="/images/static/cotton.png" className="cotton"/>
                 </section>

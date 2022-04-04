@@ -2499,6 +2499,26 @@ button, button:focus, input, input:focus {
   z-index: -1;
 }
 
+ul.implinks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+ul.implinks li {
+  padding: 0 1em;
+}
+
+ul.implinks li a {
+  color: #000;
+}
+
 @media (max-width: 1300px) {
   .authTwo .topRow .banana {
     max-width: 400px;
