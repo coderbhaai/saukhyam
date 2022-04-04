@@ -108,3 +108,6 @@ Route::get('/languageTranslation', [AdminController::class, 'languageTranslation
 Route::get('/videoLang/{id}', [AdminController::class, 'videoLang']);
 Route::post('/createContact', [AdminController::class, 'createContact']);
 Route::get('/notifications', [AdminController::class, 'notifications']);
+Route::post('/createCart', [AdminController::class, 'createCart']);
+Route::get('/getCartByToken/{id}', [AdminController::class, 'getCartByToken']);
+Route::get('/getCartById/{id}', [AdminController::class, 'getCartById']);

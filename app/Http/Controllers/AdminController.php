@@ -21,6 +21,7 @@ use App\Models\ProductionCentre;
 use App\Models\Contact;
 use App\Models\Notification;
 use App\Models\Rating;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -920,6 +921,12 @@ class AdminController extends Controller
     }
 
     public function createProfile(Request $request){
+        if($request->image){ 
+            $pic = $this->updatePhoto($request->image, Auth::user()->id); 
+        }else{
+            $pic = $request->oldImage;
+        }
+
         $data = Profiles::updateOrCreate([
             'userId'   => Auth::user()->id,
         ],[
@@ -937,7 +944,7 @@ class AdminController extends Controller
             'city' => $request->city,
             'area' => $request->area,
             'pin' => $request->pin,
-            'image' => $request->image,
+            'image' => $pic,
         ]);
         
         return response()->json([
@@ -945,6 +952,19 @@ class AdminController extends Controller
             'data' => $data
         ]);
     }
+
+    private function updatePhoto($image, $userId){
+        $realImage              =   base64_decode($image);
+        $imageName              =   time().'.'.'png';
+        $success = file_put_contents(storage_path('app/public/user/').$imageName, $realImage);
+
+        $dB                     =   Profiles::select('image')->where('userId', $userId)->first();
+        if($dB){
+            $deleteImage = public_path("storage/user/{$dB->image}");
+            file::delete($deleteImage);
+        }
+        return $imageName;
+    } 
 
     public function getProfile(){
         $data = Profiles::where( 'userId', Auth::user()->id)->first();        
@@ -992,6 +1012,38 @@ class AdminController extends Controller
         $fixed = Video::leftJoin('basics as b', 'b.id', 'videos.language')->select('videos.*', 'b.name as langName')
                 ->where('fixed', 1)->where('language', $langId)->limit(1)->get();
         return response()->json([ 'data' => $data, "fixed"=> $fixed ]);
+    }
+
+    public function createCart(Request $request){
+        Cart::updateOrCreate(['tokenId' => $request->tokenId], [
+            'tokenId' => $request->tokenId,
+            'userId' => $request->userId,
+            'items' => $request->items,
+            'total' => $request->total,
+            'cart' => json_encode( $request->cart )
+        ]);      
+        $response = ['success'=>true,  'message' => "Cart created succesfully"];
+        return response()->json($response, 201);
+    }
+
+    public function getCartByToken($id){
+        $data = Cart::where('tokenId', $id)->first();
+        if($data && $data->cart){
+            $cart = json_decode($data->cart, true);
+        }else{
+            $cart = [];
+        }
+        return response()->json([ 'data' => $data, 'cart' => $cart ]);
+    }
+
+    public function getCartById($id){
+        $data = Cart::where('userId', $id)->first();
+        if($data && $data->cart){
+            $cart = json_decode($data->cart, true);
+        }else{
+            $cart = [];
+        }
+        return response()->json([ 'data' => $data, 'cart' => $cart ]);
     }
 
     public function createContact(Request $request){
