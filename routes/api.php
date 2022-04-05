@@ -91,6 +91,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/createProfile', [AdminController::class, 'createProfile']);
     Route::get('/myOrders', [AdminController::class, 'myOrders']);
     Route::get('/getProfile', [AdminController::class, 'getProfile']);    
+    Route::get('/langShop', [AdminController::class, 'langShop']);
 }); 
 Route::get('/order/{id}', [AdminController::class, 'singleOrder']);
 
@@ -100,7 +101,6 @@ Route::get('/videos', [AdminController::class, 'videos']);
 Route::get('/singleProduct/{id}', [AdminController::class, 'singleProduct']);
 Route::get('/homeData', [AdminController::class, 'homeData']);
 Route::get('/faqs', [AdminController::class, 'faqs']);
-Route::get('/langShop', [AdminController::class, 'langShop']);
 Route::get('/langSingleProduct/{id}', [AdminController::class, 'langSingleProduct']);
 Route::get('/languages', [AdminController::class, 'languages']);
 Route::get('/tutorials', [AdminController::class, 'tutorials']);

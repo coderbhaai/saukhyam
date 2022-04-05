@@ -738,28 +738,48 @@ class AdminController extends Controller
     
     public function langShop(){
         $english = Basic::where('type', 'Language')->where('name', 'English')->first();
-        $checkId = $english->id;
-        $englishDefault = true;
-        if(Auth::user()){
-            $lang = User::select('language')->where('id', Auth::user()->id)->first();
-            $checkId = $lang->language;
-            $englishDefault = false;
-        }
-
+        // $checkId = $english->id;
+        // // $englishDefault = true;
+        // if(Auth::user()){
+        //     $lang = User::select('language')->where('id', Auth::user()->id)->first();
+        //     $checkId = $lang->language;
+        //     // $englishDefault = false;
+        // }
+        $langId = $this->getLangId();
         $data   =   Products::select([ 'id', 'name', 'type', 'wprice', 'dprice', 'images', 'language', 'mov'])
-                        ->whereJsonContains('language', (int)$checkId)->where('status', 1)->get()->map(function($i) use($englishDefault, $checkId) {
+                        ->whereJsonContains('language', (int)$langId)
+                        ->where('status', 1)
+                        ->get()->map(function($i) use($langId, $english) {
                         if($i->images){ 
                             $i->imgArray = json_decode($i->images); 
                         }else{
                             $i->imgArray = [];
                         }
-                        if(!$englishDefault){
-                            $xx = Productlanguages::where([ ['productId', $i->id], ['language', $checkId] ])->first();
+                        if($english->id != $langId){
+                            $xx = Productlanguages::where([ ['productId', $i->id], ['language', $langId] ])->first();
                             if($xx){ $i->name  =   $xx->name; }
                         }
                         return $i;
                     });
-        return response()->json([ 'data' => $data]); 
+            return response()->json([ 'data' => $data, 
+            // 'langId'=> Auth::user()
+        ]); 
+    }
+
+    private function getLangId(){
+        if(Auth::user()){
+            $checkId = Auth::user()->language;
+        }else{
+            $english = Basic::where('type', 'Language')->where('name', 'English')->first();
+            if($english){
+                $checkId = $english->id;
+            }else{
+                $lang = Basic::where('type', 'Language')->first();
+                $checkId = $lang->id;
+            }
+        }
+
+        return $checkId;
     }
 
     public function langSingleProduct($id){
